@@ -36,5 +36,9 @@
     "rollup-plugin-coffee-script": "1.1.0",
     "rollup-plugin-commonjs": "7.0.0",
     "rollup-plugin-node-resolve": "2.0.0"
+  },
+  "devDependencies": {
+    "coffee-script": "1.12.4",
+    "shortcake": "1.2.4"
   }
 }

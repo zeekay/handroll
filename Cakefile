@@ -8,6 +8,8 @@ task 'clean', 'clean project', ->
   exec 'rm -rf dist'
 
 task 'build', 'build project', ->
+  handroll = require './'
+
   bundle = yield handroll.bundle
     entry: src/index.coffee
 
