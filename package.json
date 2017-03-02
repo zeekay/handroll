@@ -18,7 +18,7 @@
   },
   "scripts": {
     "prepublish": "cake build",
-    "test": "cake build && cake test"
+    "test": "cake test"
   },
   "licenses": [
     {
@@ -45,6 +45,7 @@
     "rollup-plugin-strip": "1.1.1"
   },
   "devDependencies": {
+    "cake-test": "0.1.0",
     "coffee-script": "1.12.4",
     "shortcake": "1.2.4"
   }
