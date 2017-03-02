@@ -2,7 +2,6 @@ import {merge, moduleName} from './utils'
 
 class Bundle
   constructor: (@bundle, @opts = {}) ->
-    console.log 'opts.pkg.name', @opts.pkg.name
 
   write: (opts = {}) ->
     opts = merge @opts, opts
