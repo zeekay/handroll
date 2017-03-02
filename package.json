@@ -32,10 +32,15 @@
     "url": "http://github.com/zeekay/handroll"
   },
   "dependencies": {
+    "broken": "0.1.9",
     "rollup": "0.41.4",
     "rollup-plugin-coffee-script": "1.1.0",
     "rollup-plugin-commonjs": "7.0.0",
-    "rollup-plugin-node-resolve": "2.0.0"
+    "rollup-plugin-filesize": "1.0.1",
+    "rollup-plugin-node-builtins": "2.1.0",
+    "rollup-plugin-node-globals": "1.1.0",
+    "rollup-plugin-node-resolve": "2.0.0",
+    "rollup-plugin-strip": "1.1.1"
   },
   "devDependencies": {
     "coffee-script": "1.12.4",
