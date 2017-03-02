@@ -21,17 +21,17 @@ plugins = [
 ]
 
 # Browser (single file)
-bundle = yield rollup.rollup
+bundle = await rollup.rollup
   entry:   'src/index.coffee'
   plugins:  plugins
 
-yield bundle.write
+await bundle.write
   format:     'iife'
   dest:       pkg.name + '.js'
   moduleName: pkg.name.charAt(0).toUpperCase() + pkg.name.slice 1
 
 # CommonJS && ES Module
-bundle = yield rollup.rollup
+bundle = await rollup.rollup
   entry:    'src/index.coffee'
   external: Object.keys pkg.dependencies
   plugins:  plugins
@@ -57,7 +57,7 @@ $ npm install handroll --save-dev
 ```coffee
 handroll = require 'handroll'
 
-bundle = yield handroll.bundle
+bundle = await handroll.bundle
   entry: src/index.coffee
 
 Promise.all [
