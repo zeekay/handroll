@@ -10,7 +10,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import rollup      from 'rollup'
 
 import Bundle from './bundle'
-import {merge, moduleName} from './utils'
+import {merge} from './utils'
 
 cache     = null
 SOURCEMAP = process.env.SOURCEMAP ? false
@@ -24,9 +24,7 @@ class Handroll
     opts.pkg        ?= require path.join process.cwd(), 'package.json'
     @opts = opts
 
-  plugins: (opts = {}) ->
-    opts = merge @opts, opts
-
+  plugins: merge (opts) ->
     plugins = [
       builtins()
       globals()
@@ -56,9 +54,7 @@ class Handroll
     devDeps = Object.keys pkg.devDependencies
     deps.concat devDeps
 
-  bundle: (opts = {}) ->
-    opts = merge @opts, opts
-
+  bundle: merge (opts) ->
     if opts.external == true
       opts.external = @getExternal opts.pkg
 
@@ -77,8 +73,7 @@ class Handroll
         resolve new Bundle bundle, opts
       .catch reject
 
-  bundleExternal: (opts = {}) ->
-    opts = merge @opts, opts
+  bundleExternal: merge (opts) ->
     opts.external = true
     @bundle opts
 

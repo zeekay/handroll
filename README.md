@@ -1,33 +1,79 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
-A delicious hand roll of [Rollup](rollup) plugins.
+#### An expertly rolled JavaScript app.
+
+Today many of our apps are JavaScript-only, with both HTML and CSS generated at
+runtime. Handroll bundles your app from a single entry file, importing CSS, HTML
+and JavaScript along the way and generating the necessarily opinionated
+scaffolding for you.
+
+You're welcome.
 
 ### Motivating example
 ```coffee
-coffee      = require 'rollup-plugin-coffee-script'
-nodeResolve = require 'rollup-plugin-node-resolve'
-rollup      = require 'rollup'
+autoTransform = require 'rollup-plugin-auto-transform'
+builtins      = require 'rollup-plugin-node-builtins'
+coffee        = require 'rollup-plugin-coffee-script'
+commonjs      = require 'rollup-plugin-commonjs'
+filesize      = require 'rollup-plugin-filesize'
+globals       = require 'rollup-plugin-node-globals'
+json          = require 'rollup-plugin-json'
+nodeResolve   = require 'rollup-plugin-node-resolve'
+pug           = require 'rollup-plugin-pug'
+rollup        = require 'rollup'
+stylup        = require 'rollup-plugin-stylup'
 
-pkg = require './package.json'
+postcss      = require 'poststylus'
+autoprefixer = require 'autoprefixer'
+comments     = require 'postcss-discard-comments'
+lost         = require 'lost-stylus'
+
+pkg         = require './package.json'
 
 plugins = [
+  autoTransform()
+  globals()
+  builtins()
   coffee()
+  pug
+    pretty:                 true
+    compileDebug:           true
+    sourceMap:              false
+    inlineRuntimeFunctions: false
+    staticPattern:          /\S/
+  stylup
+    sourceMap: false
+    plugins: [
+      lost()
+      postcss [
+        autoprefixer browsers: '> 1%'
+        'lost'
+        'css-mqpacker'
+        comments removeAll: true
+      ]
+    ]
+  json()
   nodeResolve
+    browser: true
+    extensions: ['.js', '.coffee', '.pug', '.styl']
+    module: true
+    jsnext: true
+  commonjs
     extensions: ['.js', '.coffee']
-    module:  true
+    sourceMap: false
+  filesize()
 ]
 
-# CommonJS bootstrap lib
 bundle = yield rollup.rollup
-  entry:      'src/index.coffee'
-  external:   Object.keys pkg.dependencies
-  plugins:    plugins
-  sourceMap:  true
+  entry:    'src/app.coffee'
+  plugins:  plugins
 
+# App bundle for browser
 bundle.write
-  dest:       './dist/bootstrap.js'
-  format:     'cjs'
-  sourceMap:  true
+  dest:      'public/js/app.js'
+  format:    'iife'
 ```
+
+..and that's with all the necessary scaffolding omitted.
 
 ## Install
 ```bash
@@ -38,14 +84,11 @@ $ npm install handroll --save-dev
 ```coffee
 handroll = require 'handroll'
 
-bundle = await handroll.bundle
+app = await handroll.bundle
   entry: src/index.coffee
 
-Promise.all [
-  bundle.write()
-  bundle.write format: browser
-  bundle.write format: node
-]
+app.write
+  dest: 'public'
 ```
 
 [travis-img]:     https://img.shields.io/travis/zeekay/handroll.svg

@@ -1,3 +1,5 @@
+import 'enable-async'
+
 import Bundle   from './bundle'
 import Handroll from './handroll'
 
