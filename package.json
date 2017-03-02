@@ -45,7 +45,9 @@
     "rollup-plugin-strip": "1.1.1"
   },
   "devDependencies": {
+    "cake-publish": "0.1.5",
     "cake-test": "0.1.0",
+    "cake-version": "0.1.9",
     "coffee-script": "1.12.4",
     "shortcake": "1.2.4"
   }
