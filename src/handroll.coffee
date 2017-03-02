@@ -65,8 +65,6 @@ class Handroll
     opts.plugins = opts.plugins ? @plugins opts
     opts.acorn  ?= allowReserved: true
 
-    console.log 'opts.pkg.name', opts.pkg.name
-
     new Promise (resolve, reject) ->
       rollup.rollup
         acorn:      opts.acorn
