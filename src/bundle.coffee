@@ -7,33 +7,32 @@ class Bundle
     opts = merge @opts, opts
 
     # Default to es module format
-    opts.format ?= 'es'
+    opts.format ?= 'app'
 
     switch opts.format
-      when 'es'
+      when 'esmodule', 'es'
         @writeModule opts
       when 'browser', 'iife'
         @writeBrowser opts
       when 'node',    'cjs'
         @writeCommonJS opts
 
-  writeModule: (opts = {}) ->
-    opts = merge @opts, opts
+  writeApp: merge (opts) ->
+
+  writeModule: merge (opts) ->
     @bundle.write
       dest:      opts.pkg.module
       format:    'es'
       sourceMap: opts.sourceMap
 
-  writeBrowser: (opts = {}) ->
-    opts = merge @opts, opts
+  writeBrowser: merge (opts) ->
     @bundle.write
       dest:       (moduleName opts.pkg.name) + '.js'
       format:     'iife'
       moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
 
-  writeCommonJS: (opts = {}) ->
-    opts = merge @opts, opts
+  writeCommonJS: merge (opts) ->
     @bundle.write
       dest:       opts.pkg.main
       format:     'cjs'
