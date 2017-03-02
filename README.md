@@ -3,49 +3,30 @@ A delicious hand roll of [Rollup](rollup) plugins.
 
 ### Motivating example
 ```coffee
-
 coffee      = require 'rollup-plugin-coffee-script'
-commonjs    = require 'rollup-plugin-commonjs'
 nodeResolve = require 'rollup-plugin-node-resolve'
 rollup      = require 'rollup'
+
+pkg = require './package.json'
 
 plugins = [
   coffee()
   nodeResolve
-    browser: true
     extensions: ['.js', '.coffee']
     module:  true
-  commonjs
-    extensions: ['.js', '.coffee']
-    sourceMap: true
 ]
 
-# Browser (single file)
-bundle = await rollup.rollup
-  entry:   'src/index.coffee'
-  plugins:  plugins
-
-await bundle.write
-  format:     'iife'
-  dest:       pkg.name + '.js'
-  moduleName: pkg.name.charAt(0).toUpperCase() + pkg.name.slice 1
-
-# CommonJS && ES Module
-bundle = await rollup.rollup
-  entry:    'src/index.coffee'
-  external: Object.keys pkg.dependencies
-  plugins:  plugins
+# CommonJS bootstrap lib
+bundle = yield rollup.rollup
+  entry:      'src/index.coffee'
+  external:   Object.keys pkg.dependencies
+  plugins:    plugins
+  sourceMap:  true
 
 bundle.write
+  dest:       './dist/bootstrap.js'
   format:     'cjs'
-  moduleName: pkg.name
-  dest:       pkg.main
-  sourceMap:  'inline'
-
-bundle.write
-  format:    'es'
-  dest:      pkg.module
-  sourceMap: 'inline'
+  sourceMap:  true
 ```
 
 ## Install
@@ -61,9 +42,9 @@ bundle = await handroll.bundle
   entry: src/index.coffee
 
 Promise.all [
-  bundle.writeBrowser()
-  bundle.writeCommonJS()
   bundle.write()
+  bundle.write format: browser
+  bundle.write format: node
 ]
 ```
 
