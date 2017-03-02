@@ -1,6 +1,6 @@
 # Create a merged copy of a set of objects
 export merge = (fn) ->
-  (opts = {}) =>
+  (opts = {}) ->
     fn.call @, (Object.assign {}, @opts, opts)
 
 # Try to guess moduleName (used in export for browser bundles)
