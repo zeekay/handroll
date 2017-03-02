@@ -34,6 +34,7 @@
   "dependencies": {
     "broken": "0.1.9",
     "enable-async": "1.0.1",
+    "mz": "2.6.0",
     "rollup": "0.41.4",
     "rollup-plugin-coffee-script": "1.1.0",
     "rollup-plugin-commonjs": "7.0.0",
