@@ -1,0 +1,40 @@
+{
+  "name": "handroll",
+  "version": "0.1.0",
+  "description": "A delicious hand roll of Rollup plugins.",
+  "homepage": "http://github.com/zeekay/handroll",
+  "bugs": "http://github.com/zeekay/handroll/issues",
+  "keywords": [
+    "rollup"
+  ],
+  "main": "dist/handroll.js",
+  "module": "dist/handroll.mjs",
+  "jsnext:main": "dist/handroll.mjs",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "prepublish": "cake build",
+    "test": "cake build && cake test"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/zeekay/handroll/blob/master/LICENSE"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/zeekay/handroll"
+  },
+  "dependencies": {
+    "rollup": "0.41.4",
+    "rollup-plugin-coffee-script": "1.1.0",
+    "rollup-plugin-commonjs": "7.0.0",
+    "rollup-plugin-node-resolve": "2.0.0"
+  }
+}
