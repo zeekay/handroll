@@ -7,7 +7,7 @@ language: node_js
 node_js:
   - 7
 script:
-  - node_modules/.bin/shortcake test:ci
+  - node_modules/.bin/shortcake test
 cache:
   directories:
   - node_modules

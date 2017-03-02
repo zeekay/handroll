@@ -42,3 +42,5 @@ task 'bootstrap', 'bootstrap handroll', ->
     dest:       './dist/bootstrap.js'
     format:     'cjs'
     sourceMap:  true
+
+task 'test', 'test handroll', ['build']
