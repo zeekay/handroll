@@ -6,12 +6,16 @@ class Bundle
 
   write: (opts = {}) ->
     opts = merge @opts, opts
+
+    # Default to es module format
+    opts.format ?= 'es'
+
     switch opts.format
       when 'es'
         @writeModule opts
-      when 'iife'
+      when 'browser', 'iife'
         @writeBrowser opts
-      when 'cjs'
+      when 'node',    'cjs'
         @writeCommonJS opts
 
   writeModule: (opts = {}) ->
