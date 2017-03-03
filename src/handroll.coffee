@@ -43,8 +43,23 @@ class Handroll
     plugins = [
       sourcemaps()
       coffee()
-      pug()
-      stylus()
+      pug
+        pretty:                 true
+        compileDebug:           true
+        sourceMap:              false
+        inlineRuntimeFunctions: false
+        staticPattern:          /\S/
+      stylus
+        sourceMap: opts.sourceMap
+        plugins: [
+          lost()
+          postcss [
+            'css-mqpacker'
+            'lost'
+            autoprefixer browsers: '> 1%'
+            comments removeAll: true
+          ]
+        ]
     ]
 
     if opts.commonjs
