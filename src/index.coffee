@@ -1,4 +1,6 @@
-import 'enable-async'
+import {enableAsync} from './utils'
+
+enableAsync()
 
 import Bundle   from './bundle'
 import Handroll from './handroll'
