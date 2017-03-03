@@ -1,13 +1,13 @@
 import path    from 'path'
-import Promise from 'broken'
 
+import rollup      from 'rollup'
 import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
 import commonjs    from 'rollup-plugin-commonjs'
 import filesize    from 'rollup-plugin-filesize'
 import globals     from 'rollup-plugin-node-globals'
 import nodeResolve from 'rollup-plugin-node-resolve'
-import rollup      from 'rollup'
+import sourcemaps  from 'rollup-plugin-sourcemaps'
 
 import Bundle from './bundle'
 import {merge} from './utils'
