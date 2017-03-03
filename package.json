@@ -32,7 +32,6 @@
     "url": "http://github.com/zeekay/handroll"
   },
   "dependencies": {
-    "broken": "0.1.9",
     "enable-async": "1.0.1",
     "mz": "2.6.0",
     "rollup": "0.41.4",
@@ -49,6 +48,6 @@
     "cake-test": "0.1.0",
     "cake-version": "0.1.9",
     "coffee-script": "1.12.4",
-    "shortcake": "1.2.4"
+    "shortcake": "1.2.5"
   }
 }
