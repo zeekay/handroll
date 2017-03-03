@@ -3,6 +3,8 @@ import path from 'path'
 import rollup      from 'rollup'
 import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
+import stylus      from 'rollup-plugin-stylup'
+import pug         from 'rollup-plugin-pug'
 import commonjs    from 'rollup-plugin-commonjs'
 import filesize    from 'rollup-plugin-filesize'
 import globals     from 'rollup-plugin-node-globals'
@@ -26,21 +28,23 @@ class Handroll
     opts.extensions ?= ['.js', '.coffee']
     opts.sourceMap  ?= (SOURCEMAP ? false)
     opts.pkg        ?= require path.join process.cwd(), 'package.json'
+    opts.use        ?= []
 
     if opts.external
       opts.external = @getExternal opts.pkg
       console.log 'found external packages', opts.external
-    else
-      console.log 'fuck you'
 
     opts.plugins = opts.plugins ? @plugins opts
     opts.acorn  ?= allowReserved: true
+
     @opts = opts
 
   plugins: merge (opts) ->
     plugins = [
       sourcemaps()
       coffee()
+      pug()
+      stylus()
     ]
 
     if opts.commonjs
@@ -56,15 +60,6 @@ class Handroll
       module:     true
       jsnext:     true
 
-    if opts.strip
-      plugins.push strip
-        debugger:  true
-        functions: ['console.log', 'assert.*', 'debug', 'alert']
-        sourceMap: opts.sourceMap
-
-    unless opts.quiet
-      plugins.push filesize()
-
     plugins
 
   getExternal: (pkg) ->
@@ -75,14 +70,28 @@ class Handroll
   bundle: (opts) ->
     @init opts if opts?
 
+    plugins = opts.plugins
+
+    for plugin in opts.use
+      plugins.push plugin
+
+    if opts.strip
+      plugins.push strip
+        debugger:  true
+        functions: ['console.log', 'assert.*', 'debug', 'alert']
+        sourceMap: opts.sourceMap
+
+    unless opts.quiet
+      plugins.push filesize()
+
     new Promise (resolve, reject) ->
       rollup.rollup
         acorn:      opts.acorn
+        cache:      cache
         entry:      opts.entry
         external:   opts.external
-        plugins:    opts.plugins
+        plugins:    plugins
         sourceMap:  opts.sourceMap
-        cache:      cache
       .then (bundle) ->
         console.log 'bundled', opts.entry
         resolve new Bundle bundle, opts
@@ -94,6 +103,16 @@ class Handroll
   bundleExternal: merge (opts) ->
     opts.external = true
     @bundle opts
+
+  use: (plugin) ->
+    if Array.isArray plugin
+      plugins = plugin
+    else
+      plugins = [plugin]
+
+    for plugin in plugins
+      @opts.use.push plugin
+    @
 
 
 export default Handroll
