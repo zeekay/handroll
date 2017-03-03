@@ -7,16 +7,6 @@ use 'cake-version'
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
 
-task 'build', 'build project', ['bootstrap'], ->
-  handroll = require './dist/bootstrap.js'
-
-  bundle = yield handroll.bundle
-    entry:    'src/index.coffee'
-    external: true
-
-  yield bundle.write format: 'cjs'
-  yield bundle.write format: 'es'
-
 task 'bootstrap', 'bootstrap handroll', ->
   coffee      = require 'rollup-plugin-coffee-script'
   nodeResolve = require 'rollup-plugin-node-resolve'
@@ -33,6 +23,8 @@ task 'bootstrap', 'bootstrap handroll', ->
 
   # CommonJS bootstrap lib
   bundle = yield rollup.rollup
+    acorn:
+      allowReserved: true
     entry:      'src/index.coffee'
     external:   Object.keys pkg.dependencies
     plugins:    plugins
@@ -42,5 +34,16 @@ task 'bootstrap', 'bootstrap handroll', ->
     dest:       './dist/bootstrap.js'
     format:     'cjs'
     sourceMap:  true
+
+task 'build', 'build project', ['bootstrap'], ->
+  handroll = require './dist/bootstrap.js'
+
+  bundle = yield handroll.bundle
+    entry:    'src/index.coffee'
+    external: true
+    sourceMap: true
+
+  yield bundle.write format: 'cjs'
+  yield bundle.write format: 'es'
 
 task 'test', 'test handroll', ['build']

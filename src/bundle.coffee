@@ -1,26 +1,29 @@
-import fs   from 'mz/fs'
 import path from 'path'
 
 import {merge, moduleName} from './utils'
+import fs from './fs'
+
 
 class Bundle
   constructor: (@bundle, @opts = {}) ->
 
-  write: (opts = {}) ->
-    opts = merge @opts, opts
+  write: merge (opts) ->
+    console.log opts
 
-    # Default to es module format
+    # Default to app format
     opts.format ?= 'app'
 
     switch opts.format
       when 'app'
         @writeApp opts
-      when 'esmodule', 'es'
-        @writeModule opts
-      when 'browser', 'iife'
-        @writeBrowser opts
-      when 'node',    'cjs'
-        @writeCommonJS opts
+      when 'lib',  'library'
+        @writeLib opts
+      when 'es',   'esmodule'
+        @writeMod opts
+      when 'iife', 'browser'
+        @writeWeb opts
+      when 'cjs',  'node'
+        @writeCjs opts
 
   writeApp: merge (opts) ->
     dest = opts.dest ? opts.pkg.app ? opts.pkg.main
@@ -29,7 +32,7 @@ class Bundle
 
     if stat.isDirectory()
       basedir = dest
-      dest = path.join dest, 'app.js'
+      dest    = path.join dest, 'app.js'
     else
       basedir = path.dirname dest
 
@@ -47,24 +50,30 @@ class Bundle
       </html>
       """
 
-  writeModule: merge (opts) ->
+  writeMod: merge (opts) ->
     @bundle.write
       dest:      opts.pkg.module
       format:    'es'
       sourceMap: opts.sourceMap
 
-  writeBrowser: merge (opts) ->
+  writeWeb: merge (opts) ->
     @bundle.write
-      dest:       (moduleName opts.pkg.name) + '.js'
+      'dest':       (moduleName opts.pkg.name) + '.js'
       format:     'iife'
       moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
 
-  writeCommonJS: merge (opts) ->
+  writeCjs: merge (opts) ->
     @bundle.write
       dest:       opts.pkg.main
       format:     'cjs'
       moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
+
+  writeLib: merge (opts) ->
+    Promise.all [
+      @writeCjs()
+      @writeMod()
+    ]
 
 export default Bundle
