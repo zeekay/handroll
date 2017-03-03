@@ -3,7 +3,7 @@ import path from 'path'
 import rollup      from 'rollup'
 import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
-import stylus      from 'rollup-plugin-stylup'
+import stylup      from 'rollup-plugin-stylup'
 import pug         from 'rollup-plugin-pug'
 import commonjs    from 'rollup-plugin-commonjs'
 import filesize    from 'rollup-plugin-filesize'
@@ -24,43 +24,46 @@ class Handroll
     @init opts if opts?
 
   init: (opts = {}) ->
-    opts.browser    ?= false
-    opts.extensions ?= ['.js', '.coffee']
-    opts.sourceMap  ?= (SOURCEMAP ? false)
-    opts.pkg        ?= require path.join process.cwd(), 'package.json'
-    opts.use        ?= []
+    opts.acorn            ?= allowReserved: true
+    opts.browser          ?= false
+    opts.extensions       ?= ['.js', '.coffee']
+    opts.pkg              ?= require path.join process.cwd(), 'package.json'
+    opts.sourceMap        ?= (SOURCEMAP ? false)
+    opts.use              ?= []
+
+    opts.compilers        ?= {}
+    opts.compilers.coffee ?= coffee()
+    opts.compilers.pug    ?= pug
+      pretty:                 true
+      compileDebug:           true
+      sourceMap:              false
+      inlineRuntimeFunctions: false
+      staticPattern:          /\S/
+    opts.compilers.stylus ?= stylup
+      sourceMap: opts.sourceMap
+      plugins: [
+        lost()
+        postcss [
+          'css-mqpacker'
+          'lost'
+          autoprefixer browsers: '> 1%'
+          comments removeAll: true
+        ]
+      ]
+
+    opts.plugins = opts.plugins ? @plugins opts
 
     if opts.external
       opts.external = @getExternal opts.pkg
       console.log 'found external packages', opts.external
 
-    opts.plugins = opts.plugins ? @plugins opts
-    opts.acorn  ?= allowReserved: true
-
     @opts = opts
 
   plugins: merge (opts) ->
-    plugins = [
-      sourcemaps()
-      coffee()
-      pug
-        pretty:                 true
-        compileDebug:           true
-        sourceMap:              false
-        inlineRuntimeFunctions: false
-        staticPattern:          /\S/
-      stylus
-        sourceMap: opts.sourceMap
-        plugins: [
-          lost()
-          postcss [
-            'css-mqpacker'
-            'lost'
-            autoprefixer browsers: '> 1%'
-            comments removeAll: true
-          ]
-        ]
-    ]
+    plugins = [sourcemaps()]
+
+    for k,v of opts.compilers
+      plugins.push v
 
     if opts.commonjs
       plugins.push builtins()
