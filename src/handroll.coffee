@@ -11,6 +11,11 @@ import globals     from 'rollup-plugin-node-globals'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 
+import autoprefixer from 'autoprefixer'
+import comments     from 'postcss-discard-comments'
+import lost         from 'lost-stylus'
+import postcss      from 'poststylus'
+
 import Bundle from './bundle'
 import {merge} from './utils'
 
