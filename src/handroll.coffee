@@ -5,6 +5,7 @@ import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
 import stylup      from 'rollup-plugin-stylup'
 import pug         from 'rollup-plugin-pug'
+import json        from 'rollup-plugin-json'
 import commonjs    from 'rollup-plugin-commonjs'
 import filesize    from 'rollup-plugin-filesize'
 import globals     from 'rollup-plugin-node-globals'
@@ -31,13 +32,14 @@ class Handroll
   init: (opts = {}) ->
     opts.acorn            ?= allowReserved: true
     opts.browser          ?= false
-    opts.extensions       ?= ['.js', '.coffee']
+    opts.extensions       ?= ['.js', '.coffee', '.pug', '.styl']
     opts.pkg              ?= require path.join process.cwd(), 'package.json'
     opts.sourceMap        ?= (SOURCEMAP ? false)
     opts.use              ?= []
 
     opts.compilers        ?= {}
     opts.compilers.coffee ?= coffee()
+    opts.compilers.json   ?= json()
     opts.compilers.pug    ?= pug
       pretty:                 true
       compileDebug:           true
@@ -119,6 +121,8 @@ class Handroll
         console.log 'bundled', opts.entry
         resolve new Bundle bundle, opts
       .catch (err) ->
+        unless err.plugin?
+          console.error "Failed to parse module #{err.id}"
         if err.plugin? and err.id?
           console.error "Plugin '#{err.plugin}' failed on module #{err.id}"
         reject err
