@@ -8,8 +8,6 @@ class Bundle
   constructor: (@bundle, @opts = {}) ->
 
   write: merge (opts) ->
-    console.log opts
-
     # Default to app format
     opts.format ?= 'app'
 
