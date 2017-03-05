@@ -46,4 +46,11 @@ task 'build', 'build project', ['bootstrap'], ->
   yield bundle.write format: 'cjs'
   yield bundle.write format: 'es'
 
+task 'watch', 'watch project and build on changes', ->
+  build = (filename) ->
+    console.log filename, 'modified, rebuilding'
+    invoke 'build' if not running 'build'
+  watch 'src/*.coffee',  build
+  watch 'node_modules/', build, watchSymlink: true
+
 task 'test', 'test handroll', ['build']
