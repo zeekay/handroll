@@ -18,10 +18,12 @@ class Bundle
         @writeLib opts
       when 'es',   'esmodule'
         @writeMod opts
-      when 'iife', 'bundle'
-        @writeBundle opts
+      when 'iife', 'web'
+        @writeWeb opts
       when 'cjs',  'node'
         @writeCjs opts
+      else
+        throw new Error 'Unsupported export format'
 
   writeApp: merge (opts) ->
     dest = opts.dest ? opts.pkg.app ? opts.pkg.main
@@ -62,8 +64,8 @@ class Bundle
       format:     'cjs'
       sourceMap:  opts.sourceMap
 
-  writeBundle: merge (opts) ->
-    dest = opts.dest ? opts.pkg.bundle ? (moduleName opts.pkg.name) + 'js'
+  writeWeb: merge (opts) ->
+    dest = opts.dest ? (moduleName opts.pkg.name) + 'js'
     @bundle.write
       dest:       dest
       format:     'iife'
