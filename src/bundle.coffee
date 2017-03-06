@@ -51,14 +51,14 @@ class Bundle
       """
 
   writeMod: merge (opts) ->
-    dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next']
+    dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next'] ? 'index.mjs'
     @bundle.write
       dest:      opts.pkg.module
       format:    'es'
       sourceMap: opts.sourceMap
 
   writeCjs: merge (opts) ->
-    dest = opts.dest ? opts.pkg.main
+    dest = opts.dest ? opts.pkg.main ? 'index.js'
     @bundle.write
       dest:       opts.pkg.main
       format:     'cjs'
