@@ -9,7 +9,7 @@ class Bundle
 
   write: merge (opts) ->
     # Default to app format
-    opts.format ?= 'app'
+    opts.format ?= 'es'
 
     switch opts.format
       when 'app'
@@ -18,8 +18,8 @@ class Bundle
         @writeLib opts
       when 'es',   'esmodule'
         @writeMod opts
-      when 'iife', 'browser'
-        @writeWeb opts
+      when 'iife', 'bundle'
+        @writeBundle opts
       when 'cjs',  'node'
         @writeCjs opts
 
@@ -60,12 +60,12 @@ class Bundle
     @bundle.write
       dest:       opts.pkg.main
       format:     'cjs'
-      moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
 
-  writeWeb: merge (opts) ->
+  writeBundle: merge (opts) ->
+    dest = opts.dest ? opts.pkg.bundle ? (moduleName opts.pkg.name) + 'js'
     @bundle.write
-      'dest':       (moduleName opts.pkg.name) + '.js'
+      dest:       dest
       format:     'iife'
       moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
