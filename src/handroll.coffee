@@ -114,7 +114,7 @@ class Handroll
     new Promise (resolve, reject) ->
       rollup.rollup
         acorn:      opts.acorn
-        cache:      opts.cache ? cache[opts.entry] ? cache[opts.entry]= {}
+        cache:      opts.cache ? cache[opts.entry] ? cache[opts.entry] = null
         entry:      opts.entry
         external:   opts.external
         plugins:    plugins
