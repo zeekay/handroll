@@ -21,7 +21,7 @@ import rupture      from 'rupture'
 import Bundle from './bundle'
 import {merge} from './utils'
 
-cache     = null
+cache     = {}
 SOURCEMAP = process.env.SOURCEMAP ? false
 
 
@@ -114,7 +114,7 @@ class Handroll
     new Promise (resolve, reject) ->
       rollup.rollup
         acorn:      opts.acorn
-        cache:      cache
+        cache:      opts.cache ? cache[opts.entry] ? cache[opts.entry]= {}
         entry:      opts.entry
         external:   opts.external
         plugins:    plugins
