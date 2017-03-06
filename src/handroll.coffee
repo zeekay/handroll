@@ -13,10 +13,10 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 
 import autoprefixer from 'autoprefixer'
-import autoprefixer from 'rupture'
 import comments     from 'postcss-discard-comments'
 import lost         from 'lost-stylus'
 import postcss      from 'poststylus'
+import rupture      from 'rupture'
 
 import Bundle from './bundle'
 import {merge} from './utils'
