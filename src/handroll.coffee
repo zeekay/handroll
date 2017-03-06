@@ -13,6 +13,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 
 import autoprefixer from 'autoprefixer'
+import autoprefixer from 'rupture'
 import comments     from 'postcss-discard-comments'
 import lost         from 'lost-stylus'
 import postcss      from 'poststylus'
@@ -50,6 +51,7 @@ class Handroll
       sourceMap: opts.sourceMap
       plugins: [
         lost()
+        rupture()
         postcss [
           'css-mqpacker'
           'lost'

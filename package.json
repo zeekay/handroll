@@ -49,7 +49,8 @@
     "rollup-plugin-pug": "0.1.2",
     "rollup-plugin-sourcemaps": "0.4.1",
     "rollup-plugin-strip": "1.1.1",
-    "rollup-plugin-stylup": "1.2.5"
+    "rollup-plugin-stylup": "1.2.5",
+    "rupture": "0.6.2"
   },
   "devDependencies": {
     "cake-publish": "0.1.5",
