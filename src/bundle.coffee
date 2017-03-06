@@ -49,22 +49,24 @@ class Bundle
       """
 
   writeMod: merge (opts) ->
+    dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next']
     @bundle.write
       dest:      opts.pkg.module
       format:    'es'
       sourceMap: opts.sourceMap
 
+  writeCjs: merge (opts) ->
+    dest = opts.dest ? opts.pkg.main
+    @bundle.write
+      dest:       opts.pkg.main
+      format:     'cjs'
+      moduleName: moduleName opts.pkg.name
+      sourceMap:  opts.sourceMap
+
   writeWeb: merge (opts) ->
     @bundle.write
       'dest':       (moduleName opts.pkg.name) + '.js'
       format:     'iife'
-      moduleName: moduleName opts.pkg.name
-      sourceMap:  opts.sourceMap
-
-  writeCjs: merge (opts) ->
-    @bundle.write
-      dest:       opts.pkg.main
-      format:     'cjs'
       moduleName: moduleName opts.pkg.name
       sourceMap:  opts.sourceMap
 
