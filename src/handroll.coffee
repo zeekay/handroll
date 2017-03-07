@@ -136,7 +136,8 @@ class Handroll
           #{wb opts.entry} - #{gb size} (#{gb gzip} compressed)
           """
 
-      plugins.push sizes details: opts.details ? true
+      if opts.details
+        plugins.push sizes details: true
 
     new Promise (resolve, reject) ->
       rollup.rollup
