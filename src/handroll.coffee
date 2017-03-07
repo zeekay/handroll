@@ -1,18 +1,26 @@
 import path from 'path'
 
-import rollup      from 'rollup'
+# monkey-patch rollup
+import rollup from 'rollup'
+import time   from 'rollup-timer'
+time(rollup)
+
+# import buble       from 'rollup-plugin-buble'
 import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
-import stylup      from 'rollup-plugin-stylup'
-import pug         from 'rollup-plugin-pug'
-import json        from 'rollup-plugin-json'
 import commonjs    from 'rollup-plugin-commonjs'
+import es3         from 'rollup-plugin-es3'
 import filesize    from 'rollup-plugin-filesize'
 import globals     from 'rollup-plugin-node-globals'
+import json        from 'rollup-plugin-json'
 import nodeResolve from 'rollup-plugin-node-resolve'
+import pug         from 'rollup-plugin-pug'
+import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
+import stylup      from 'rollup-plugin-stylup'
 
 import autoprefixer from 'autoprefixer'
+import chalk        from 'chalk';
 import comments     from 'postcss-discard-comments'
 import lost         from 'lost-stylus'
 import postcss      from 'poststylus'
@@ -37,6 +45,7 @@ class Handroll
   init: (opts = {}) ->
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false
+    opts.es3        ?= false
     opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
     opts.pkg        ?= require path.join process.cwd(), 'package.json'
     opts.sourceMap  ?= sourceMapOverride() ? true
@@ -48,6 +57,7 @@ class Handroll
 
     opts.compilers  ?= {}
     opts.compilers.coffee ?= coffee()
+    # opts.compilers.js     ?= buble
     opts.compilers.json   ?= json()
     opts.compilers.pug    ?= pug
       compileDebug:           true
@@ -106,6 +116,9 @@ class Handroll
     for plugin in opts.use
       plugins.push plugin
 
+    if opts.es3
+      plugins.push es3()
+
     if opts.strip
       plugins.push strip
         debugger:  true
@@ -113,7 +126,17 @@ class Handroll
         sourceMap: opts.sourceMap
 
     unless opts.quiet
-      plugins.push filesize()
+      plugins.push filesize
+        # format:
+        #   unix: true
+        render: (_, size, gzip) ->
+          gb = chalk.green.bold
+          wb = chalk.white.bold
+          """
+          #{wb opts.entry} - #{gb size} (#{gb gzip} compressed)
+          """
+
+      plugins.push sizes details: opts.details ? true
 
     new Promise (resolve, reject) ->
       rollup.rollup
