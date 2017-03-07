@@ -35,7 +35,7 @@ class Handroll
     opts.browser          ?= false
     opts.extensions       ?= ['.js', '.coffee', '.pug', '.styl']
     opts.pkg              ?= require path.join process.cwd(), 'package.json'
-    opts.sourceMap        ?= (SOURCEMAP ? false)
+    opts.sourceMap        ?= (SOURCEMAP ? true)
     opts.use              ?= []
 
     opts.compilers        ?= {}
