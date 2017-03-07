@@ -21,9 +21,13 @@ import rupture      from 'rupture'
 import Bundle from './bundle'
 import {merge} from './utils'
 
-cache     = {}
-SOURCEMAP = process.env.SOURCEMAP ? false
+cache = null
 
+sourceMapOverride = ->
+ return false if process.env.DISABLE_SOURCEMAP
+ return false if process.env.NO_SOURCEMAP
+ return true  if process.env.SOURCEMAP
+ null
 
 class Handroll
   constructor: (opts) ->
@@ -31,21 +35,25 @@ class Handroll
     @init opts if opts?
 
   init: (opts = {}) ->
-    opts.acorn            ?= allowReserved: true
-    opts.browser          ?= false
-    opts.extensions       ?= ['.js', '.coffee', '.pug', '.styl']
-    opts.pkg              ?= require path.join process.cwd(), 'package.json'
-    opts.sourceMap        ?= (SOURCEMAP ? true)
-    opts.use              ?= []
+    opts.acorn      ?= allowReserved: true
+    opts.browser    ?= false
+    opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
+    opts.pkg        ?= require path.join process.cwd(), 'package.json'
+    opts.sourceMap  ?= sourceMapOverride() ? true
+    opts.use        ?= []
 
-    opts.compilers        ?= {}
+    if opts.external
+      opts.external = @getExternal opts.pkg
+      console.log 'found external packages', opts.external
+
+    opts.compilers  ?= {}
     opts.compilers.coffee ?= coffee()
     opts.compilers.json   ?= json()
     opts.compilers.pug    ?= pug
-      pretty:                 true
       compileDebug:           true
-      sourceMap:              false
       inlineRuntimeFunctions: false
+      pretty:                 true
+      sourceMap:              opts.sourceMap
       staticPattern:          /\S/
     opts.compilers.stylus ?= stylup
       sourceMap: opts.sourceMap
@@ -61,10 +69,6 @@ class Handroll
       ]
 
     opts.plugins = opts.plugins ? @plugins opts
-
-    if opts.external
-      opts.external = @getExternal opts.pkg
-      console.log 'found external packages', opts.external
 
     @opts = opts
 
@@ -114,7 +118,7 @@ class Handroll
     new Promise (resolve, reject) ->
       rollup.rollup
         acorn:      opts.acorn
-        cache:      opts.cache ? cache[opts.entry] ? cache[opts.entry] = null
+        cache:      opts.cache ? cache
         entry:      opts.entry
         external:   opts.external
         plugins:    plugins
