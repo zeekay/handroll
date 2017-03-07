@@ -7,6 +7,7 @@ export merge = (fn) ->
 export moduleName = (name) ->
   first = name.charAt(0).toUpperCase()
   name  = name.replace /\.js$|\.coffee$|-js$/, ''
+  name  = name.replace /-([a-z])/g, (g) -> g[1].toUpperCase()
   first + name.slice 1
 
 export enableAsync = ->

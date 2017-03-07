@@ -39,8 +39,8 @@ task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap.js'
 
   bundle = yield handroll.bundle
-    entry:    'src/index.coffee'
-    external: true
+    entry:     'src/index.coffee'
+    external:  true
     sourceMap: true
 
   yield bundle.write format: 'cjs'
