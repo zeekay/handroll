@@ -1,10 +1,6 @@
 import path from 'path'
 
-# monkey-patch rollup
 import rollup from 'rollup'
-import time   from 'rollup-timer'
-time(rollup)
-
 # import buble       from 'rollup-plugin-buble'
 import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
