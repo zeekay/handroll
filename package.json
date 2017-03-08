@@ -1,7 +1,7 @@
 {
   "name": "handroll",
   "version": "0.3.0",
-  "description": "A delicious hand roll of Rollup plugins.",
+  "description": "Expertly rolled JavaScript. API + CLI for for bundling opinionated JavaScript with Rollup.js",
   "homepage": "http://github.com/zeekay/handroll",
   "bugs": "http://github.com/zeekay/handroll/issues",
   "keywords": [
@@ -12,7 +12,8 @@
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",
   "files": [
-    "dist"
+    "bin/",
+    "dist/"
   ],
   "engines": {
     "node": ">=7.0.0"
