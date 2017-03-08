@@ -78,9 +78,25 @@ $ npm install handroll --save-dev
 ```coffee
 handroll = require 'handroll'
 
+# write bundled es module
 await handroll.write
-  entry: 'src/index.coffee'
-  dest:  'public'
+  entry:  'src/index.coffee'
+  format: 'es'
+
+# write bundled commonjs module
+await handroll.write
+  entry:  'src/index.coffee'
+  format: 'cjs'
+
+# write bundled web library
+await handroll.write
+  entry:  'src/index.coffee'
+  format: 'web'
+
+# bundle cli executable
+await handroll.write
+  entry:  'src/cli.coffee'
+  format: 'cli'
 ```
 
 ### License
