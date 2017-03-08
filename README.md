@@ -1,7 +1,8 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
 ## Expertly rolled JavaScript
 JavaScript API and CLI for for bundling opinionated JavaScript with
-[Rollup](https://github.com/rollup/rollup).
+[Rollup](https://github.com/rollup/rollup). Tastes great with
+[shortcake](https://github.com/zeekay/shortcake).
 
 ### Install
 ```bash
@@ -14,20 +15,34 @@ $ handroll src/index.coffee --format web > index.js
 ```
 
 ### JavaScript API
+Destination for write is automatically infered from format if set in `package.json`.
+
 ```coffee
 import handroll from 'handroll'
 
 bundle = handroll.bundle
   entry: 'src/index.coffee'
 
-await bundle.write format: 'es'  # write es module for use by bundlers
-await bundle.write format: 'cjs' # write commonjs module for use by Node.js
-await bundle.write format: 'web' # write bundle + deps for use on the web
+# write es module for use by bundlers
+await bundle.write
+  format: 'es'
+  # dest: pkg.module
 
-# write executable for cli
+# write commonjs module for use by Node.js
+await bundle.write
+  format: 'cjs'
+  # dest: pkg.main
+
+# write bundle + deps for use on the web
+await bundle.write
+  format: 'web'
+  # dest: pkg.name + '.js'
+
+# write executable for cli, using top-level write method
 await handroll.write
   entry:  'src/cli.coffee'
   format: 'cli'
+  # dest: pkg.bin
 ```
 
 ### Motivating example
