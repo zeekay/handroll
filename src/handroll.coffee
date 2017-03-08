@@ -103,8 +103,8 @@ class Handroll
     plugins
 
   getExternal: (pkg) ->
-    deps    = Object.keys pkg.dependencies
-    devDeps = Object.keys pkg.devDependencies
+    deps    = Object.keys pkg.dependencies    ? {}
+    devDeps = Object.keys pkg.devDependencies ? {}
     deps.concat devDeps
 
   bundle: (opts) ->
