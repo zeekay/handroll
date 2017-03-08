@@ -7,7 +7,12 @@ JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js.
 $ npm install handroll --save-dev
 ```
 
-### Usage
+### CLI
+```bash
+$ handroll src/index.coffee --format web > index.js
+```
+
+### JavaScript API
 ```coffee
 import handroll from 'handroll'
 
