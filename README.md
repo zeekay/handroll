@@ -1,6 +1,7 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
 ## Expertly rolled JavaScript
-JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js.
+JavaScript API and CLI for for bundling opinionated JavaScript with
+[Rollup](https://github.com/rollup/rollup).
 
 ### Install
 ```bash
@@ -16,22 +17,14 @@ $ handroll src/index.coffee --format web > index.js
 ```coffee
 import handroll from 'handroll'
 
-# write bundled es module
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'es'
+bundle = handroll.bundle
+  entry: 'src/index.coffee'
 
-# write bundled commonjs module
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'cjs'
+await bundle.write format: 'es'  # write es module for use by bundlers
+await bundle.write format: 'cjs' # write commonjs module for use by Node.js
+await bundle.write format: 'web' # write bundle + deps for use on the web
 
-# write bundled web library
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'web'
-
-# bundle cli executable
+# write executable for cli
 await handroll.write
   entry:  'src/cli.coffee'
   format: 'cli'
