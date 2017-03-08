@@ -1,5 +1,5 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
-#### Expertly rolled JavaScript
+## Expertly rolled JavaScript
 JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js.
 
 ### Motivating example
