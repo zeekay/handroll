@@ -7,6 +7,7 @@
   "keywords": [
     "rollup"
   ],
+  "bin": "bin/handroll",
   "main": "dist/handroll.js",
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",

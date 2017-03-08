@@ -18,22 +18,22 @@ task 'bootstrap', 'bootstrap handroll', ->
     coffee()
     nodeResolve
       extensions: ['.js', '.coffee']
-      module:  true
+      module: true
   ]
 
   # CommonJS bootstrap lib
   bundle = yield rollup.rollup
     acorn:
       allowReserved: true
-    entry:      'src/index.coffee'
-    external:   Object.keys pkg.dependencies
-    plugins:    plugins
-    sourceMap:  true
+    entry:     'src/index.coffee'
+    external:  Object.keys pkg.dependencies
+    plugins:   plugins
+    sourceMap: true
 
   bundle.write
-    dest:       './dist/bootstrap.js'
-    format:     'cjs'
-    sourceMap:  true
+    dest:      './dist/bootstrap.js'
+    format:    'cjs'
+    sourceMap: true
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap.js'
@@ -45,6 +45,15 @@ task 'build', 'build project', ['bootstrap'], ->
 
   yield bundle.write format: 'cjs'
   yield bundle.write format: 'es'
+
+  bundle = yield handroll.bundle
+    entry:     'src/cli.coffee'
+    external:  true
+    sourceMap: false
+
+  yield bundle.write
+    dest:   'bin/handroll'
+    format: 'cjs'
 
 task 'watch', 'watch project and build on changes', ->
   build = (filename) ->
