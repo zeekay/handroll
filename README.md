@@ -1,12 +1,6 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
-#### An expertly rolled JavaScript app.
-
-Today many of our apps are JavaScript-only, with both HTML and CSS generated at
-runtime. Handroll bundles your app from a single entry file, importing CSS, HTML
-and JavaScript along the way and generating the necessarily opinionated
-scaffolding for you.
-
-You're welcome.
+#### Expertly rolled JavaScript
+JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js
 
 ### Motivating example
 ```coffee
@@ -63,12 +57,12 @@ plugins = [
   filesize()
 ]
 
-bundle = yield rollup.rollup
+bundle = await rollup.rollup
   entry:    'src/app.coffee'
   plugins:  plugins
 
 # App bundle for browser
-bundle.write
+await bundle.write
   dest:      'public/js/app.js'
   format:    'iife'
 ```
@@ -84,12 +78,12 @@ $ npm install handroll --save-dev
 ```coffee
 handroll = require 'handroll'
 
-app = await handroll.bundle
-  entry: src/index.coffee
-
-app.write
-  dest: 'public'
+await handroll.write
+  entry: 'src/index.coffee'
+  dest:  'public'
 ```
+
+
 
 [travis-img]:     https://img.shields.io/travis/zeekay/handroll.svg
 [travis-url]:     https://travis-ci.org/zeekay/handroll
