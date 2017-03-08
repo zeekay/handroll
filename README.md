@@ -15,31 +15,46 @@ $ handroll src/index.coffee --format web > index.js
 ```
 
 ### JavaScript API
-Destination for write is automatically infered from format if set in `package.json`.
+As magical as possible. Built-in support for CoffeeScript, Stylus and Pug.
+Rollup.js options, plugins and write destination are automatically derived for
+you from format option in most instances. Defaults can of course be easily
+over-written.
 
 ```coffee
 import handroll from 'handroll'
 
 bundle = handroll.bundle
+  # Path to entry module
   entry: 'src/index.coffee'
 
-# write es module for use by bundlers
-await bundle.write
+  # The following options may configured:
+
+  # cache:      true,  Enable automatic caching
+  # es3:        false, Emit slightly more ES3-compliant output
+  # sourceMap:  true,  Collect and save source maps
+  # strip:      false, Remove debugging and console log statements
+  # executable: false, Include shebang and chmod+x output
+  # quiet:      false, Suppress default output
+  # verbose:    false, Print extra details about bundle
+
+# Save ES module for use by bundlers
+await bundle.save
   format: 'es'
   # dest: pkg.module
+  # external: true
 
-# write commonjs module for use by Node.js
-await bundle.write
+# Save CommonJS module for use by Node.js
+await bundle.save
   format: 'cjs'
   # dest: pkg.main
 
-# write bundle + deps for use on the web
-await bundle.write
+# Save bundle + deps for use on the web
+await bundle.save
   format: 'web'
   # dest: pkg.name + '.js'
 
-# write executable for cli, using top-level write method
-await handroll.write
+# Save binary with shebang for quick cli, using top-level save method
+await handroll.save
   entry:  'src/cli.coffee'
   format: 'cli'
   # dest: pkg.bin
