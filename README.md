@@ -9,7 +9,7 @@ $ npm install handroll --save-dev
 
 ### Usage
 ```coffee
-handroll = require 'handroll'
+import handroll from 'handroll'
 
 # write bundled es module
 await handroll.write
