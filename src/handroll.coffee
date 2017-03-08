@@ -7,6 +7,7 @@ import coffee      from 'rollup-plugin-coffee-script'
 import commonjs    from 'rollup-plugin-commonjs'
 import es3         from 'rollup-plugin-es3'
 import filesize    from 'rollup-plugin-filesize'
+import executable  from 'rollup-plugin-executable'
 import globals     from 'rollup-plugin-node-globals'
 import json        from 'rollup-plugin-json'
 import nodeResolve from 'rollup-plugin-node-resolve'
@@ -14,6 +15,7 @@ import pug         from 'rollup-plugin-pug'
 import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 import stylup      from 'rollup-plugin-stylup'
+import shebang     from 'rollup-plugin-shebang'
 
 import autoprefixer from 'autoprefixer'
 import chalk        from 'chalk';
@@ -42,6 +44,7 @@ class Handroll
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false
     opts.es3        ?= false
+    opts.executable ?= false
     opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
     opts.pkg        ?= require path.join process.cwd(), 'package.json'
     opts.sourceMap  ?= sourceMapOverride() ? true
@@ -120,6 +123,10 @@ class Handroll
         debugger:  true
         functions: ['console.log', 'assert.*', 'debug', 'alert']
         sourceMap: opts.sourceMap
+
+    if opts.executable
+      plugins.push shebang()
+      plugins.push executable()
 
     unless opts.quiet
       plugins.push filesize

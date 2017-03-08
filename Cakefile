@@ -7,7 +7,28 @@ use 'cake-version'
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
 
-task 'bootstrap', 'bootstrap handroll', ->
+task 'build', 'build project', ['bootstrap'], ->
+  handroll = require './dist/bootstrap.js'
+
+  bundle = yield handroll.bundle
+    entry:     'src/index.coffee'
+    external:  true
+    sourceMap: true
+
+  yield bundle.write format: 'cjs'
+  yield bundle.write format: 'es'
+
+  bundle = yield handroll.bundle
+    entry:     'src/cli.coffee'
+    external:   true
+    sourceMap:  false
+    executable: true
+
+  yield bundle.write
+    dest:   'bin/handroll'
+    format: 'bin'
+
+task 'bootstrap', 'Build bootstrapped version of handroll', ->
   coffee      = require 'rollup-plugin-coffee-script'
   nodeResolve = require 'rollup-plugin-node-resolve'
   rollup      = require 'rollup'
@@ -35,25 +56,6 @@ task 'bootstrap', 'bootstrap handroll', ->
     format:    'cjs'
     sourceMap: true
 
-task 'build', 'build project', ['bootstrap'], ->
-  handroll = require './dist/bootstrap.js'
-
-  bundle = yield handroll.bundle
-    entry:     'src/index.coffee'
-    external:  true
-    sourceMap: true
-
-  yield bundle.write format: 'cjs'
-  yield bundle.write format: 'es'
-
-  bundle = yield handroll.bundle
-    entry:     'src/cli.coffee'
-    external:  true
-    sourceMap: false
-
-  yield bundle.write
-    dest:   'bin/handroll'
-    format: 'cjs'
 
 task 'watch', 'watch project and build on changes', ->
   build = (filename) ->

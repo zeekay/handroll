@@ -1,7 +1,7 @@
 fs = require 'fs'
 os = require 'os'
 
-handroll = require './'
+handroll = require '../'
 
 error = (message) ->
   log.error message
