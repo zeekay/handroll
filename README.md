@@ -52,8 +52,8 @@ await bundle.save
 await bundle.save
   format:       'web'
   # dest:       pkg.name + '.js'
+  # es3:        true
   # moduleName: camelCase pkg.name
-  # external:   false
 
 # Save binary with shebang for quick cli, using top-level save method and new
 # entry module...
