@@ -2,6 +2,36 @@
 ## Expertly rolled JavaScript
 JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js.
 
+### Install
+```bash
+$ npm install handroll --save-dev
+```
+
+### Usage
+```coffee
+handroll = require 'handroll'
+
+# write bundled es module
+await handroll.write
+  entry:  'src/index.coffee'
+  format: 'es'
+
+# write bundled commonjs module
+await handroll.write
+  entry:  'src/index.coffee'
+  format: 'cjs'
+
+# write bundled web library
+await handroll.write
+  entry:  'src/index.coffee'
+  format: 'web'
+
+# bundle cli executable
+await handroll.write
+  entry:  'src/cli.coffee'
+  format: 'cli'
+```
+
 ### Motivating example
 ```coffee
 autoTransform = require 'rollup-plugin-auto-transform'
@@ -69,35 +99,6 @@ await bundle.write
 
 ..and that's with all the necessary scaffolding omitted.
 
-### Install
-```bash
-$ npm install handroll --save-dev
-```
-
-### Usage
-```coffee
-handroll = require 'handroll'
-
-# write bundled es module
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'es'
-
-# write bundled commonjs module
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'cjs'
-
-# write bundled web library
-await handroll.write
-  entry:  'src/index.coffee'
-  format: 'web'
-
-# bundle cli executable
-await handroll.write
-  entry:  'src/cli.coffee'
-  format: 'cli'
-```
 
 ### License
 [MIT](https://github.com/zeekay/handroll/blob/master/LICENSE)
