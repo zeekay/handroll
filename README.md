@@ -1,6 +1,6 @@
 # handroll [![NPM version][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] [![Coverage Status][coveralls-img]][coveralls-url] [![Dependency Status][dependency-img]][dependency-url] [![Gitter chat][gitter-img]][gitter-url]
 #### Expertly rolled JavaScript
-JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js
+JavaScript API and CLI for for bundling opinionated JavaScript with Rollup.js.
 
 ### Motivating example
 ```coffee
@@ -69,12 +69,12 @@ await bundle.write
 
 ..and that's with all the necessary scaffolding omitted.
 
-## Install
+### Install
 ```bash
 $ npm install handroll --save-dev
 ```
 
-## Usage
+### Usage
 ```coffee
 handroll = require 'handroll'
 
@@ -83,7 +83,8 @@ await handroll.write
   dest:  'public'
 ```
 
-
+### License
+[MIT](https://github.com/zeekay/handroll/blob/master/LICENSE)
 
 [travis-img]:     https://img.shields.io/travis/zeekay/handroll.svg
 [travis-url]:     https://travis-ci.org/zeekay/handroll
