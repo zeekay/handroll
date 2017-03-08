@@ -26,38 +26,42 @@ import handroll from 'handroll'
 bundle = handroll.bundle
   entry: 'src/index.coffee'  # Path to entry module
 
-  # The following options may configured to customize logging and override the
-  # default behavior of handroll.
+  # The following defaults may configured to customize logging and override the
+  # behavior of handroll.
+  # cache:      true    Enable automatic caching
+  # es3:        false   Emit slightly more ES3-compliant output
+  # sourceMap:  true    Collect and save source maps
+  # strip:      false   Remove debugging and console log statements
+  # executable: false   Include shebang and chmod+x output
+  # quiet:      false   Suppress default output
+  # verbose:    false   Print extra details about bundle
 
-  cache:      true   # Enable automatic caching
-  es3:        false  # Emit slightly more ES3-compliant output
-  sourceMap:  true   # Collect and save source maps
-  strip:      false  # Remove debugging and console log statements
-  executable: false  # Include shebang and chmod+x output
-  quiet:      false  # Suppress default output
-  verbose:    false  # Print extra details about bundle
-
-# Save ES module for use by bundlers
+# Save ES module for use by bundlers...
 await bundle.save
-  format: 'es'
-  # dest: pkg.module
+  format:     'es'
+  # dest:     pkg.module
   # external: true
 
-# Save CommonJS module for use by Node.js
+# Save CommonJS module for use by Node.js...
 await bundle.save
   format: 'cjs'
   # dest: pkg.main
+  # external: true
 
-# Save bundle + deps for use on the web
+# Save bundle + deps for use on the web...
 await bundle.save
-  format: 'web'
-  # dest: pkg.name + '.js'
+  format:       'web'  # iife format
+  # dest:       pkg.name + '.js'
+  # moduleName: camelCase pkg.name
+  # external:   false
 
-# Save binary with shebang for quick cli, using top-level save method
+# Save binary with shebang for quick cli, using top-level save method and new
+# entry module...
 await handroll.save
   entry:  'src/cli.coffee'
   format: 'cli'
   # dest: pkg.bin
+  # executable: false
 ```
 
 ### Motivating example
