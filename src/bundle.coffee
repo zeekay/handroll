@@ -22,6 +22,8 @@ class Bundle
         @writeWeb opts
       when 'cjs',  'node'
         @writeCjs opts
+      when 'bin',  'node'
+        @writeBin opts
       else
         throw new Error 'Unsupported export format'
 
@@ -62,6 +64,14 @@ class Bundle
     @bundle.write
       dest:       dest
       format:     'cjs'
+      sourceMap:  opts.sourceMap
+
+  writeBin: merge (opts) ->
+    dest = opts.dest ? opts.pkg.main ? 'index.js'
+    @bundle.write
+      dest:       dest
+      format:     'cjs'
+      header:     '#!/usr/bin/env node'
       sourceMap:  opts.sourceMap
 
   writeWeb: merge (opts) ->
