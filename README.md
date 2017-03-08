@@ -50,7 +50,7 @@ await bundle.save
 
 # Save bundle + deps for use on the web...
 await bundle.save
-  format:       'web'  # iife format
+  format:       'web'
   # dest:       pkg.name + '.js'
   # moduleName: camelCase pkg.name
   # external:   false
@@ -58,10 +58,11 @@ await bundle.save
 # Save binary with shebang for quick cli, using top-level save method and new
 # entry module...
 await handroll.save
-  entry:  'src/cli.coffee'
-  format: 'cli'
-  # dest: pkg.bin
-  # executable: false
+  entry:        'src/cli.coffee'
+  format:       'cli'
+  # dest:       pkg.bin
+  # executable: true
+  # external:   true
 ```
 
 ### Motivating example
