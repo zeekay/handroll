@@ -6,26 +6,26 @@ import builtins    from 'rollup-plugin-node-builtins'
 import coffee      from 'rollup-plugin-coffee-script'
 import commonjs    from 'rollup-plugin-commonjs'
 import es3         from 'rollup-plugin-es3'
-import filesize    from 'rollup-plugin-filesize'
 import executable  from 'rollup-plugin-executable'
 import globals     from 'rollup-plugin-node-globals'
 import json        from 'rollup-plugin-json'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import pug         from 'rollup-plugin-pug'
+import shebang     from 'rollup-plugin-shebang'
 import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 import stylup      from 'rollup-plugin-stylup'
-import shebang     from 'rollup-plugin-shebang'
 
 import autoprefixer from 'autoprefixer'
-import chalk        from 'chalk';
+import chalk        from 'chalk'
 import comments     from 'postcss-discard-comments'
 import lost         from 'lost-stylus'
 import postcss      from 'poststylus'
 import rupture      from 'rupture'
 
-import Bundle from './bundle'
-import {merge} from './utils'
+import Bundle   from './bundle'
+import filesize from './filesize'
+import {merge}  from './utils'
 
 cache = null
 
@@ -129,16 +129,7 @@ class Handroll
       plugins.push executable()
 
     unless opts.quiet
-      plugins.push filesize
-        # format:
-        #   unix: true
-        render: (_, size, gzip) ->
-          gb = chalk.green.bold
-          wb = chalk.white.bold
-          """
-          #{wb opts.entry} - #{gb size} (#{gb gzip} compressed)
-          """
-
+      plugins.push filesize()
       if opts.details
         plugins.push sizes details: true
 
@@ -151,7 +142,8 @@ class Handroll
         plugins:    plugins
         sourceMap:  opts.sourceMap
       .then (bundle) ->
-        console.log 'bundled', opts.entry
+        unless opts.quiet
+          console.log chalk.white.bold opts.entry
         resolve new Bundle bundle, opts
       .catch (err) ->
         unless err.plugin?
