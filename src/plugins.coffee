@@ -10,6 +10,7 @@ import sourcemaps  from 'rollup-plugin-sourcemaps'
 import compilers from './compilers'
 import annotate  from './plugins/annotate'
 import filesize  from './plugins/filesize'
+import minify    from './plugins/minify'
 import shebang   from './plugins/shebang'
 
 
@@ -64,6 +65,9 @@ export default (opts) ->
       debugger:  true
       functions: ['console.log', 'assert.*', 'debug', 'alert']
       sourceMap: opts.sourceMap
+
+  if opts.minify
+    plugins.push minify()
 
   # Extra logging + details
   unless opts.quiet
