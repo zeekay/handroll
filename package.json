@@ -45,7 +45,7 @@
     "poststylus": "0.2.3",
     "rollup": "0.41.4",
     "rollup-plugin-coffee-script": "1.1.0",
-    "rollup-plugin-commonjs": "7.0.0",
+    "rollup-plugin-commonjs": "7.1.0",
     "rollup-plugin-es3": "1.0.3",
     "rollup-plugin-executable": "1.0.0",
     "rollup-plugin-json": "2.1.0",
@@ -57,7 +57,7 @@
     "rollup-plugin-sizes": "0.3.0",
     "rollup-plugin-sourcemaps": "0.4.1",
     "rollup-plugin-strip": "1.1.1",
-    "rollup-plugin-stylup": "1.2.5",
+    "rollup-plugin-stylup": "1.2.7",
     "rupture": "0.6.2"
   },
   "devDependencies": {
