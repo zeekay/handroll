@@ -39,7 +39,10 @@ class Handroll
     @
 
   bundle: merge (opts) ->
-    new Bundle opts
+    bundle = new Bundle opts
+    new Promise (resolve, reject) ->
+      (bundle.rollup cache: true)
+        .then -> resolve bundle
 
   generate: merge (opts) ->
     (new Bundle opts).generate()

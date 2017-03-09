@@ -37,27 +37,32 @@ class Bundle
   constructor: (@opts = {}) ->
     return new Bundle @opts unless @ instanceof Bundle
 
-  rollup: (opts) ->
+  rollup: merge (opts) ->
+    if @bundle?
+      return Promise.resolve @bundle
+
     if opts.external == true
       opts.external = getExternal opts.pkg
+
       unless opts.quiet
         console.log 'external:'
         for dep in opts.external
           console.log " - #{dep}"
 
-    new Promise (resolve, reject) ->
+    new Promise (resolve, reject) =>
       rollup.rollup
-        acorn:      opts.acorn
-        cache:      opts.cache ? cache
-        entry:      opts.entry
-        external:   opts.external
-        plugins:    plugins opts
-        sourceMap:  opts.sourceMap
+        entry:     opts.entry
+        cache:     cache
+        acorn:     opts.acorn
+        external:  opts.external
+        plugins:   plugins opts
+        sourceMap: opts.sourceMap
       .then (bundle) =>
+        @bundle = bundle if opts.cache
         resolve bundle
         unless opts.quiet
           console.log chalk.white.bold opts.entry
-      .catch (err) ->
+      .catch (err) =>
         if err.plugin? and err.id?
           console.error "Plugin '#{err.plugin}' failed on module #{err.id}"
         else if err.id?
