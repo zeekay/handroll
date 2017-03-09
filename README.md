@@ -23,17 +23,19 @@ over-written.
 ```coffee
 import handroll from 'handroll'
 
-bundle = handroll.bundle
+bundle = await handroll.bundle
   entry: 'src/index.coffee'  # Path to entry module
 
   # The following defaults may configured to customize logging and override the
   # behavior of handroll.
+
   # cache:      true    Enable automatic caching
   # es3:        false   Emit slightly more ES3-compliant output
+  # executable: false   Include shebang and chmod+x output
+  # external:   false   Set package.json dependencies as external
+  # quiet:      false   Suppress default output
   # sourceMap:  true    Collect and save source maps
   # strip:      false   Remove debugging and console log statements
-  # executable: false   Include shebang and chmod+x output
-  # quiet:      false   Suppress default output
   # verbose:    false   Print extra details about bundle
 
 # Write ES module for use by bundlers (with external deps)
