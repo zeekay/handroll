@@ -75,11 +75,13 @@ class Bundle
       sourceMap:  opts.sourceMap
 
   writeWeb: merge (opts) ->
-    dest = opts.dest ? ((moduleName opts.pkg.name) + '.js').toLowerCase()
+    name = opts.moduleName ? moduleName opts.pkg.name
+    dest = opts.dest       ? "#{name}.js".toLowerCase()
+
     @bundle.write
       dest:       dest
       format:     'iife'
-      moduleName: moduleName opts.pkg.name
+      moduleName: name
       sourceMap:  opts.sourceMap
 
   writeLib: merge (opts) ->
