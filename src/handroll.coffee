@@ -50,9 +50,12 @@ class Handroll
     opts.sourceMap  ?= sourceMapOverride() ? true
     opts.use        ?= []
 
-    if opts.external
+    if opts.external == true
       opts.external = @getExternal opts.pkg
-      console.log 'found external packages', opts.external
+      unless opts.quiet
+        console.log 'found external packages:'
+        for dep in opts.external
+          console.log " − #{dep}"
 
     opts.compilers  ?= {}
     opts.compilers.coffee ?= coffee()
@@ -142,9 +145,9 @@ class Handroll
         plugins:    plugins
         sourceMap:  opts.sourceMap
       .then (bundle) ->
+        resolve new Bundle bundle, opts
         unless opts.quiet
           console.log chalk.white.bold opts.entry
-        resolve new Bundle bundle, opts
       .catch (err) ->
         unless err.plugin?
           console.error "Failed to parse module #{err.id}"
