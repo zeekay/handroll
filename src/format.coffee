@@ -10,8 +10,8 @@ export detectFormat = (opts) ->
   switch opts.format
     when 'app'
       app opts
-    when 'bin', 'binary', 'executable'
-      bin opts
+    when 'cli', 'bin', 'binary', 'executable'
+      cli opts
     when 'cjs', 'commonjs', 'node'
       cjs opts
     when 'es',  'module'
@@ -53,8 +53,8 @@ export cjs = (opts) ->
   sourceMap:  opts.sourceMap
 
 
-export bin = (opts) ->
-  dest = opts.dest ? opts.pkg.main ? 'index.js'
+export cli = (opts) ->
+  dest = opts.dest ? opts.pkg.bin ? path.join 'bin/', (moduleName opts.pkg.name).toLowerCase()
 
   dest:       dest
   format:     'cjs'
