@@ -16,34 +16,39 @@ usage = ->
   handroll <entry> [options]
 
   Options:
-    --commonjs    Enable CommonJS support
-    --dest        Destination to write output
-    --format      Format to output
-    --source-map  Enable source map support
+    --commonjs     Enable CommonJS support
+    --dest         Destination to write output
+    --format       Format to output
+    --module-name  Name to use for iife module
+    --source-map   Enable source map support
 
-    --version     Print version information
-    --help        Print this usage
+    --version      Print version information
+    --help         Print this usage
   """
   process.exit 0
 
 opts =
-  commonjs:  false
-  dest:      null
-  entry:     null
-  format:    'es'
-  sourceMap: false
+  entry:      null
+
+  commonjs:   false
+  dest:       null
+  format:     'es'
+  moduleName: null
+  sourceMap:  false
 
 args = process.argv.slice 2
 opts.entry = args.shift()
 
 while opt = args.shift()
   switch opt
+    when '--commonjs'
+      opts.commonjs = true
     when '--dest'
       opts.dest = args.shift()
     when '--format'
       opts.format = args.shift()
-    when '--commonjs'
-      opts.commonjs = true
+    when '--module-name'
+      opts.moduleName = args.shift()
     when '--source-map'
       opts.sourceMap = false
     else
