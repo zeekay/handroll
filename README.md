@@ -36,33 +36,19 @@ bundle = handroll.bundle
   # quiet:      false   Suppress default output
   # verbose:    false   Print extra details about bundle
 
-# Save ES module for use by bundlers...
-await bundle.write
-  format:     'es'
-  # dest:     pkg.module
-  # external: true
+# Write ES module for use by bundlers (with external deps)
+await bundle.write format: 'es'
 
-# Save CommonJS module for use by Node.js...
-await bundle.write
-  format: 'cjs'
-  # dest: pkg.main
-  # external: true
+# Write CommonJS module for use by Node.js (with external deps)
+await bundle.write format: 'cjs'
 
-# Save bundle + deps for use on the web...
-await bundle.write
-  format:       'web'
-  # dest:       pkg.name + '.js'
-  # es3:        true
-  # moduleName: camelCase pkg.name
+# Write IIFE bundle with all deps for web
+await bundle.write format: 'web'
 
-# Save binary with shebang for quick cli, using top-level save method and new
-# entry module...
+# Write executable with shebang using new entry module
 await handroll.write
-  entry:        'src/cli.coffee'
-  format:       'cli'
-  # dest:       pkg.bin
-  # executable: true
-  # external:   true
+  entry:  'src/cli.coffee'
+  format: 'cli'
 ```
 
 ### Motivating example
