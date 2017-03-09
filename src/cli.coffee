@@ -57,12 +57,14 @@ while opt = args.shift()
 unless opts.formats.length
   opts.format = 'es'
 
-bundle = handroll.bundle
+handroll.bundle
   commonjs:   opts.commonjs
   entry:      opts.entry
   moduleName: opts.moduleName
-
-for fmt in opts.formats
-  bundle.write
-    format: fmt
-    dest:   opts.dest
+.then (bundle) ->
+  for fmt in opts.formats
+    bundle.write
+      format: fmt
+      dest:   opts.dest
+.catch (err) ->
+  console.log err.stack
