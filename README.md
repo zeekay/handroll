@@ -30,13 +30,14 @@ bundle = await handroll.bundle
   # behavior of handroll.
 
   # cache:      true    Enable automatic caching
+  # details:    false   Print extra details about bundle
   # es3:        false   Emit slightly more ES3-compliant output
   # executable: false   Include shebang and chmod+x output
   # external:   false   Set package.json dependencies as external
+  # minify:     false   Use uglify to minify bundle
   # quiet:      false   Suppress default output
   # sourceMap:  true    Collect and save source maps
   # strip:      false   Remove debugging and console log statements
-  # verbose:    false   Print extra details about bundle
 
 # Write ES module for use by bundlers (with external deps)
 await bundle.write format: 'es'
