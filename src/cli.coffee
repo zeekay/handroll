@@ -52,7 +52,6 @@ while opt = args.shift()
 handroll.bundle
   entry: opts.entry, commonjs: opts.commonjs
 .then (bundle) ->
-  result = bundle.write format: opts.format, dest: opts.dest
-  console.log result.code
+  bundle.write format: opts.format, dest: opts.dest
 .catch (err) ->
   console.log err.stack
