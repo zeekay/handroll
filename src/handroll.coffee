@@ -53,7 +53,7 @@ class Handroll
     if opts.external == true
       opts.external = @getExternal opts.pkg
       unless opts.quiet
-        console.log 'found external packages:'
+        console.log 'external:'
         for dep in opts.external
           console.log " − #{dep}"
 
