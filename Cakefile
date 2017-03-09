@@ -39,13 +39,14 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     coffee()
     nodeResolve
       extensions: ['.js', '.coffee']
-      module: true
+      module:     true
   ]
 
   # CommonJS bootstrap lib
   bundle = yield rollup.rollup
     acorn:
       allowReserved: true
+
     entry:     'src/index.coffee'
     external:  Object.keys pkg.dependencies
     plugins:   plugins
