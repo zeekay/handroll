@@ -29,10 +29,10 @@ usage = ->
 
 opts =
   entry:      null
+  formats:    []
 
   commonjs:   false
   dest:       null
-  format:     'es'
   moduleName: null
   sourceMap:  false
 
@@ -45,22 +45,26 @@ while opt = args.shift()
       opts.commonjs = true
     when '--dest'
       opts.dest = args.shift()
-    when '--format'
-      opts.format = args.shift()
+    when '--format', '--fmt'
+      opts.formats.push args.shift()
     when '--module-name'
       opts.moduleName = args.shift()
     when '--source-map'
-      opts.sourceMap = false
+      opts.sourceMap = true
     else
       error "Unrecognized option: '#{opt}'"
+
+unless opts.formats.length
+  opts.format = 'es'
 
 handroll.bundle
   commonjs:   opts.commonjs
   entry:      opts.entry
   moduleName: opts.moduleName
 .then (bundle) ->
-  bundle.write
-    format: opts.format
-    dest:   opts.dest
+  for fmt in opts.formats
+    bundle.write
+      format: fmt
+      dest:   opts.dest
 .catch (err) ->
   console.log err.stack
