@@ -64,7 +64,7 @@ handroll.bundle({
   commonjs: opts.commonjs
 }).then(function(bundle) {
   var result;
-  result = bundle.generate({
+  result = bundle.write({
     format: opts.format
   });
   return console.log(result.code);
