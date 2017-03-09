@@ -16,9 +16,11 @@ usage = ->
   handroll <entry> [options]
 
   Options:
-    --format      Format to output
     --commonjs    Enable CommonJS support
+    --dest        Destination to write output
+    --format      Format to output
     --source-map  Enable source map support
+
     --version     Print version information
     --help        Print this usage
   """
@@ -26,6 +28,7 @@ usage = ->
 
 opts =
   commonjs:  false
+  dest:      null
   entry:     null
   format:    'es'
   sourceMap: false
@@ -35,6 +38,8 @@ opts.entry = args.shift()
 
 while opt = args.shift()
   switch opt
+    when '--dest'
+      opts.dest = args.shift()
     when '--format'
       opts.format = args.shift()
     when '--commonjs'
@@ -47,7 +52,7 @@ while opt = args.shift()
 handroll.bundle
   entry: opts.entry, commonjs: opts.commonjs
 .then (bundle) ->
-  result = bundle.write format: opts.format
+  result = bundle.write format: opts.format, dest: opts.dest
   console.log result.code
 .catch (err) ->
   console.log err.stack
