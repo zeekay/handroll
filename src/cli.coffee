@@ -4,7 +4,7 @@ os = require 'os'
 handroll = require '../'
 
 error = (message) ->
-  log.error message
+  console.error message
   process.exit 1
 
 version = ->
