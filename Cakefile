@@ -18,15 +18,11 @@ task 'build', 'build project', ['bootstrap'], ->
   yield bundle.write format: 'cjs'
   yield bundle.write format: 'es'
 
-  bundle = yield handroll.bundle
+  yield handroll.write
     entry:     'src/cli.coffee'
-    external:   true
     sourceMap:  false
     executable: true
-
-  yield bundle.write
-    dest:   'bin/handroll'
-    format: 'bin'
+    format:     'bin'
 
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
   coffee      = require 'rollup-plugin-coffee-script'

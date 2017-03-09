@@ -11,6 +11,7 @@ render = (filename, size, gzipSize) ->
 export default (opts = {}) ->
   opts.format ?= {}
 
+  name: 'filesize'
   ongenerate: (bundle, result) ->
     size = fileSize Buffer.byteLength result.code, opts.format
     gzipSize = fileSize gzip.sync(result.code), opts.format
