@@ -15,7 +15,12 @@ $ handroll src/index.coffee --format web > index.js
 ```
 
 ### JavaScript API
-As magical as possible. Built-in support for CoffeeScript, Stylus and Pug.
+Handroll's JavaScript API provides a similar interface to Rollup, with the
+`bundle` step being optional (and only useful if you want to cache the
+intermediate bundle). In most cases you'll want to juse use `.write` or
+`.generate` directly.
+
+Built-in support for many file-types (CoffeeScript, Stylus, Pug, JSON, etc).
 Rollup.js options, plugins and write destination are automatically derived for
 you from format option in most instances. Defaults can of course be easily
 over-written.
@@ -29,14 +34,16 @@ bundle = await handroll.bundle
   # The following defaults may configured to customize logging and override the
   # behavior of handroll.
 
-  # cache:      true    Enable automatic caching
-  # details:    false   Print extra details about bundle
+  # compilers:  null    Customize compilers used per-filetype
   # es3:        false   Emit slightly more ES3-compliant output
   # executable: false   Include shebang and chmod+x output
   # external:   false   Set package.json dependencies as external
-  # minify:     false   Use uglify to minify bundle
-  # quiet:      false   Suppress default output
   # sourceMap:  true    Collect and save source maps
+
+  # quiet:      false   Suppress default output
+  # details:    false   Print extra details about bundle
+
+  # minify:     false   Use uglify to minify bundle
   # strip:      false   Remove debugging and console log statements
 
 # Write ES module for use by bundlers (with external deps)
@@ -56,16 +63,19 @@ await handroll.write
 
 ### Motivating example
 ```coffee
+rollup        = require 'rollup'
+
 autoTransform = require 'rollup-plugin-auto-transform'
 builtins      = require 'rollup-plugin-node-builtins'
 coffee        = require 'rollup-plugin-coffee-script'
 commonjs      = require 'rollup-plugin-commonjs'
+es3           = require 'rollup-plugin-es3'
 filesize      = require 'rollup-plugin-filesize'
 globals       = require 'rollup-plugin-node-globals'
 json          = require 'rollup-plugin-json'
 nodeResolve   = require 'rollup-plugin-node-resolve'
 pug           = require 'rollup-plugin-pug'
-rollup        = require 'rollup'
+strip         = require 'rollup-plugin-strip'
 stylup        = require 'rollup-plugin-stylup'
 
 postcss      = require 'poststylus'
@@ -106,6 +116,8 @@ plugins = [
   commonjs
     extensions: ['.js', '.coffee']
     sourceMap: false
+  es3()
+  strip()
   filesize()
 ]
 
@@ -118,9 +130,6 @@ await bundle.write
   dest:   'public/js/app.js'
   format: 'iife'
 ```
-
-..and that's with all the necessary scaffolding omitted.
-
 
 ### License
 [MIT](https://github.com/zeekay/handroll/blob/master/LICENSE)
