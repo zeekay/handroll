@@ -55,8 +55,12 @@ while opt = args.shift()
       error "Unrecognized option: '#{opt}'"
 
 handroll.bundle
-  entry: opts.entry, commonjs: opts.commonjs
+  commonjs:   opts.commonjs
+  entry:      opts.entry
+  moduleName: opts.moduleName
 .then (bundle) ->
-  bundle.write format: opts.format, dest: opts.dest
+  bundle.write
+    format: opts.format
+    dest:   opts.dest
 .catch (err) ->
   console.log err.stack
