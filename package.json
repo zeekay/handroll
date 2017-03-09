@@ -5,6 +5,12 @@
   "homepage": "http://github.com/zeekay/handroll",
   "bugs": "http://github.com/zeekay/handroll/issues",
   "keywords": [
+    "bundler",
+    "bundling",
+    "es6",
+    "handroll",
+    "modules",
+    "preprocessor",
     "rollup"
   ],
   "bin": "bin/handroll",
