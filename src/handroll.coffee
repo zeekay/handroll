@@ -55,7 +55,7 @@ class Handroll
       unless opts.quiet
         console.log 'external:'
         for dep in opts.external
-          console.log " − #{dep}"
+          console.log " - #{dep}"
 
     opts.compilers  ?= {}
     opts.compilers.coffee ?= coffee()
@@ -105,10 +105,14 @@ class Handroll
 
     plugins
 
-  getExternal: (pkg) ->
+  getExternal: (pkg, dev = false) ->
     deps    = Object.keys pkg.dependencies    ? {}
     devDeps = Object.keys pkg.devDependencies ? {}
-    deps.concat devDeps
+
+    if dev
+      deps.concat devDeps
+    else
+      deps
 
   bundle: (opts) ->
     @init opts if opts?
