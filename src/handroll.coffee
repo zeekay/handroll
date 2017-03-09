@@ -24,6 +24,7 @@ import postcss      from 'poststylus'
 import rupture      from 'rupture'
 
 import Bundle   from './bundle'
+import annotate from './annotate'
 import filesize from './filesize'
 import {merge}  from './utils'
 
@@ -89,6 +90,8 @@ class Handroll
 
     for k,v of opts.compilers
       plugins.push v
+
+    plugins.push annotate opts
 
     if opts.commonjs
       plugins.push builtins()

@@ -37,19 +37,19 @@ bundle = handroll.bundle
   # verbose:    false   Print extra details about bundle
 
 # Save ES module for use by bundlers...
-await bundle.save
+await bundle.write
   format:     'es'
   # dest:     pkg.module
   # external: true
 
 # Save CommonJS module for use by Node.js...
-await bundle.save
+await bundle.write
   format: 'cjs'
   # dest: pkg.main
   # external: true
 
 # Save bundle + deps for use on the web...
-await bundle.save
+await bundle.write
   format:       'web'
   # dest:       pkg.name + '.js'
   # es3:        true
@@ -57,7 +57,7 @@ await bundle.save
 
 # Save binary with shebang for quick cli, using top-level save method and new
 # entry module...
-await handroll.save
+await handroll.write
   entry:        'src/cli.coffee'
   format:       'cli'
   # dest:       pkg.bin
@@ -84,7 +84,7 @@ autoprefixer = require 'autoprefixer'
 comments     = require 'postcss-discard-comments'
 lost         = require 'lost-stylus'
 
-pkg         = require './package.json'
+pkg = require './package.json'
 
 plugins = [
   autoTransform()
@@ -121,13 +121,13 @@ plugins = [
 ]
 
 bundle = await rollup.rollup
-  entry:    'src/app.coffee'
-  plugins:  plugins
+  entry:   'src/app.coffee'
+  plugins: plugins
 
 # App bundle for browser
 await bundle.write
-  dest:      'public/js/app.js'
-  format:    'iife'
+  dest:   'public/js/app.js'
+  format: 'iife'
 ```
 
 ..and that's with all the necessary scaffolding omitted.
