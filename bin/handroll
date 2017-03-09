@@ -28,7 +28,7 @@ version = function() {
 };
 
 usage = function() {
-  console.log("handroll [options] <entry>\n\nOptions:\n  --format      Format to output\n  --commonjs    Enable CommonJS support\n  --source-map  Enable source map support\n  --version     Print version information\n  --help        Print this usage");
+  console.log("handroll <entry> [options]\n\nOptions:\n  --format      Format to output\n  --commonjs    Enable CommonJS support\n  --source-map  Enable source map support\n  --version     Print version information\n  --help        Print this usage");
   return process.exit(0);
 };
 
@@ -41,7 +41,7 @@ opts = {
 
 args = process.argv.slice(2);
 
-opts.entry = args.pop();
+opts.entry = args.shift();
 
 while (opt = args.shift()) {
   switch (opt) {

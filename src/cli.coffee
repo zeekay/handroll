@@ -13,7 +13,7 @@ version = ->
 
 usage = ->
   console.log """
-  handroll [options] <entry>
+  handroll <entry> [options]
 
   Options:
     --format      Format to output
@@ -31,7 +31,7 @@ opts =
   sourceMap: false
 
 args = process.argv.slice 2
-opts.entry = args.pop()
+opts.entry = args.shift()
 
 while opt = args.shift()
   switch opt
