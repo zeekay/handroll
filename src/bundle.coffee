@@ -39,7 +39,12 @@ class Bundle
 
   rollup: merge (opts) ->
     if @bundle?
+      unless opts.quiet
+        console.log 'using cached bundle'
       return Promise.resolve @bundle
+
+    unless opts.quiet
+      console.log 'rolling up'
 
     if opts.external == true
       opts.external = getExternal opts.pkg
@@ -52,13 +57,13 @@ class Bundle
     new Promise (resolve, reject) =>
       rollup.rollup
         entry:     opts.entry
-        cache:     cache
+        cache:     opts.cache ? cache
         acorn:     opts.acorn
         external:  opts.external
         plugins:   plugins opts
         sourceMap: opts.sourceMap
       .then (bundle) =>
-        @bundle = bundle if opts.cache
+        @bundle = bundle if opts.cacheBundle
         resolve bundle
         unless opts.quiet
           console.log chalk.white.bold opts.entry
