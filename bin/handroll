@@ -18,7 +18,7 @@ os = require('os');
 handroll = require('../');
 
 error = function(message) {
-  log.error(message);
+  console.error(message);
   return process.exit(1);
 };
 
