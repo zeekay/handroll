@@ -35,10 +35,11 @@ export default (opts) ->
 
   # Automatically resolve node modules
   plugins.push nodeResolve
-    browser:    opts.browser
-    extensions: opts.extensions
-    module:     true
-    jsnext:     true
+    browser:        opts.browser
+    extensions:     opts.extensions
+    module:         true
+    jsnext:         true
+    preferBuiltins: opts.preferBuiltins ? true
 
   # Enable CommonJS
   if opts.commonjs
