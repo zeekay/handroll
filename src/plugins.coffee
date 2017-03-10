@@ -1,3 +1,5 @@
+import path from 'path'
+
 import builtins    from 'rollup-plugin-node-builtins'
 import commonjs    from 'rollup-plugin-commonjs'
 import es3         from 'rollup-plugin-es3'
@@ -36,6 +38,7 @@ export default (opts) ->
 
   # Automatically resolve node modules
   plugins.push nodeResolve
+    basedir:        opts.basedir ? path.dirname opts.entry
     browser:        opts.browser
     extensions:     opts.extensions
     module:         true

@@ -1,26 +1,21 @@
-import fs from 'fs'
-import {dirname, resolve, normalize} from 'path'
-
-import nodeResolve    from 'resolve'
-import browserResolve from 'browser-resolve'
+import fs             from 'fs'
+import path           from 'path'
 import builtins       from 'builtin-modules'
+import browserResolve from 'browser-resolve'
+import nodeResolve    from 'resolve'
 
 COMMONJS_BROWSER_EMPTY = nodeResolve.sync 'browser-resolve/empty.js', __dirname
-ES6_BROWSER_EMPTY      = resolve __dirname, '../src/plugins/empty.js'
-CONSOLE_WARN           = (args...) -> console.warn args...
+ES6_BROWSER_EMPTY      = path.resolve __dirname, '../src/plugins/empty.js'
 
 
-export default (options = {}) ->
-  skip      = options.skip   ? []
-  useJsnext = options.jsnext == true
-  useModule = options.module != false
-  useMain   = options.main   != false
+export default (opts = {}) ->
+  extensions     = opts.extensions
+  preferBuiltins = opts.preferBuilts ? true
+  skip           = opts.skip         ? []
 
-  isPreferBuiltinsSet = options.preferBuiltins == true or options.preferBuiltins == false
-  preferBuiltins      = if isPreferBuiltinsSet then options.preferBuiltins else true
+  resolveId = if opts.browser then browserResolve else nodeResolve
 
-  onwarn    = options.onwarn or CONSOLE_WARN
-  resolveId = if options.browser then browserResolve else nodeResolve
+  seen = {}
 
   name: 'node-resolve'
   resolveId: (importee, importer) ->
@@ -30,56 +25,55 @@ export default (options = {}) ->
     parts = importee.split /[\/\\]/
     id    = parts.shift()
 
+    basedir = opts.basedir ? path.dirname importer
+
     if id[0] == '@' && parts.length
       # scoped packages
       id += "/#{parts.shift()}"
     else if id[0] == '.'
-      # an import relative to the parent dir of the importer
-      id = resolve importer, '..', importee
+      # An import relative to the parent dir of the importer, force basedir to
+      # match importer
+      basedir  = path.dirname importer
+      id       = path.resolve importer, '..', importee
+      relative = true
 
-    return if skip != true and ~skip.indexOf id
+    return if ~skip.indexOf id
 
-    new Promise (accept, reject) ->
-      resolveId importee,
-        basedir: dirname importer
+    new Promise (resolve, reject) ->
+      opts =
+        basedir:    basedir
+        extensions: extensions
         packageFilter: (pkg) ->
-          if !useJsnext and !useMain and !useModule
-            if skip == true
-              accept false
-            else
-              reject Error "To import from a package in node_modules (#{importee}), either options.jsnext, options.module or options.main must be true"
-          else if useModule && pkg['module']
-            pkg['main'] = pkg['module']
-          else if useJsnext && pkg['jsnext:main']
-            pkg['main'] = pkg['jsnext:main']
-          else if (useJsnext || useModule) && !useMain
-            if skip == true
-              accept false
-            else
-              reject Error "Package #{importee} (imported by #{importer}) does not have a module or jsnext:main field. You should either allow legacy modules with options.main, or skip it with options.skip = ['#{importee}'])"
+          # Try in order: 'module', 'jsnext:main' and 'main' fields.
+          if pkg.module
+            pkg.main = pkg.module
+          else if pkg['jsnext:main']
+            pkg.main = pkg['jsnext:main']
+
+          unless pkg.main or relative
+            reject Error "Package #{importee} (imported by #{importer}) does not have a main, module or jsnext:main field"
+            console.log pkg
           pkg
-        extensions: options.extensions
-      , (err, resolved) ->
-        if resolved and fs.existsSync resolved
+
+      resolveId importee, opts, (err, resolved) ->
+        return reject Error "Could not resolve '#{importee}' from #{path.normalize importer}" if err?
+
+        # Resolve symlinks
+        if fs.existsSync resolved
           resolved = fs.realpathSync resolved
 
-        if err
-          if skip == true
-            accept false
-          else
-            reject Error "Could not resolve '#{importee}' from #{normalize importer}"
-        else
-          if resolved == COMMONJS_BROWSER_EMPTY
-            accept ES6_BROWSER_EMPTY
-          else if ~builtins.indexOf resolved
-            accept null
-          else if  ~builtins.indexOf importee && preferBuiltins
-            if !isPreferBuiltinsSet
-                onwarn """"
-                  preferring built-in module '#{importee}' over local alternative
-                  at '#{resolved}', pass 'preferBuiltins: false' to disable this
-                  behavior or 'preferBuiltins: true' to disable this warning
-                  """
-            accept null
-          else
-            accept resolved
+        # Empty modules?
+        if resolved == COMMONJS_BROWSER_EMPTY
+          return resolve ES6_BROWSER_EMPTY
+
+        # Built-in module previously resolved?
+        if ~builtins.indexOf resolved
+          return resolve null
+
+        # Prefer built-ins
+        if preferBuiltins and ~builtins.indexOf importee
+          unless opts.quiet
+            console.log "preferring built-in module '#{importee}' over local alternative at '#{resolved}'"
+          return resolve null
+
+        resolve resolved
