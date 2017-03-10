@@ -58,10 +58,6 @@ export default (opts = {}) ->
       resolveId importee, opts, (err, resolved) ->
         return reject Error "Could not resolve '#{importee}' from #{path.normalize importer}" if err?
 
-        # Resolve symlinks
-        if fs.existsSync resolved
-          resolved = fs.realpathSync resolved
-
         # Empty modules?
         if resolved == COMMONJS_BROWSER_EMPTY
           return resolve ES6_BROWSER_EMPTY
@@ -76,4 +72,13 @@ export default (opts = {}) ->
             console.log "preferring built-in module '#{importee}' over local alternative at '#{resolved}'"
           return resolve null
 
-        resolve resolved
+        # Resolve symlinks
+        fs.exists resolved, (exists) ->
+          unless exists
+            unless opts.quiet
+              console.log "resolved #{resolved}, but it doesn't exist"
+            return resolve null
+
+          fs.realpath resolved, (err, resolved) ->
+            return reject err if err?
+            resolve resolved
