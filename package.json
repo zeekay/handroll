@@ -22,7 +22,7 @@
     "dist/"
   ],
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
     "prepublish": "cake build",
