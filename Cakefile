@@ -54,12 +54,11 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     format:    'cjs'
     sourceMap: true
 
-
 task 'watch', 'watch project and build on changes', ->
   build = (filename) ->
     console.log filename, 'modified, rebuilding'
     invoke 'build' if not running 'build'
-  watch 'src/*.coffee',  build
+  watch 'src/',          build
   watch 'node_modules/', build, watchSymlink: true
 
 task 'test', 'test handroll', ['build']
