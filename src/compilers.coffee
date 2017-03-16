@@ -1,8 +1,8 @@
 # import buble  from 'rollup-plugin-buble'
-import coffee from 'rollup-plugin-coffee-script'
-import json   from 'rollup-plugin-json'
-import pug    from 'rollup-plugin-pug'
-import stylup from 'rollup-plugin-stylup'
+import json    from 'rollup-plugin-json'
+import pug     from 'rollup-plugin-pug'
+import stylup  from 'rollup-plugin-stylup'
+import coffee2 from 'rollup-plugin-coffee2'
 
 import autoprefixer from 'autoprefixer'
 import comments     from 'postcss-discard-comments'
@@ -17,10 +17,9 @@ export default (opts) ->
   # Default compilers
   compilers = {}
 
-  compilers.coffee ?= coffee()
+  compilers.coffee ?= coffee2()
 
-  # compilers.js     ?= buble
-
+  # compilers.js     ?= buble()
   compilers.json   ?= json()
 
   compilers.pug    ?= pug

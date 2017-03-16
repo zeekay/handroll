@@ -26,14 +26,14 @@ task 'build', 'build project', ['bootstrap'], ->
     sourceMap:  false
 
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
-  coffee      = require 'rollup-plugin-coffee-script'
-  nodeResolve = require 'rollup-plugin-node-resolve'
   rollup      = require 'rollup'
+  coffee2     = require 'rollup-plugin-coffee2'
+  nodeResolve = require 'rollup-plugin-node-resolve'
 
   pkg = require './package.json'
 
   plugins = [
-    coffee()
+    coffee2()
     nodeResolve
       extensions: ['.js', '.coffee']
       module:     true
