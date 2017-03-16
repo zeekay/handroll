@@ -6,7 +6,7 @@ import rollup from 'rollup'
 
 import plugins from './plugins'
 import {merge} from './utils'
-import {detectFormat} from './format'
+import {detectFormat, detectFormats} from './format'
 
 
 cache = null
@@ -31,6 +31,13 @@ writeApp = (opts) ->
     </html>
     """
   opts
+
+write = (bundle, opts) ->
+  switch opts.format
+    when 'app'
+      bundle.write writeApp opts
+    else
+      bundle.write detectFormat opts
 
 
 class Bundle
@@ -88,11 +95,13 @@ class Bundle
     new Promise (resolve, reject) =>
       @rollup opts
         .then (bundle) =>
-          switch opts.format
-            when 'app'
-              resolve bundle.write writeApp opts
-            else
-              resolve bundle.write detectFormat opts
+          ps = []
+
+          for fmt in detectFormats opts
+            ps.push write bundle, Object.assign {}, opts, format: fmt
+
+          Promise.all ps
+
         .catch (err) ->
           reject err
 
