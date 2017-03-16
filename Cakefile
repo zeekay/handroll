@@ -15,8 +15,7 @@ task 'build', 'build project', ['bootstrap'], ->
     external:  true
     sourceMap: true
 
-  yield bundle.write format: 'cjs'
-  yield bundle.write format: 'es'
+  yield bundle.write formats: ['cjs', 'es']
 
   yield handroll.write
     entry:      'src/cli.coffee'
