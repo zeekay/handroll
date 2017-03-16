@@ -24,3 +24,6 @@ export enableAsync = ->
     return
 
   v8.setFlagsFromString '--harmony_async_await'
+
+export log = ->
+  console.log.apply console, arguments unless @quiet

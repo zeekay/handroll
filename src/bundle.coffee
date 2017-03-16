@@ -5,11 +5,11 @@ import chalk from 'chalk'
 import rollup from 'rollup'
 
 import plugins from './plugins'
-import {merge} from './utils'
+import {log, merge} from './utils'
 import {detectFormat, detectFormats} from './format'
 
 
-cache = null
+cached = null
 
 getExternal = (pkg, dev = false) ->
   deps    = Object.keys pkg.dependencies    ? {}
@@ -32,6 +32,9 @@ writeApp = (opts) ->
     """
   opts
 
+generate = (bundle, opts) ->
+  bundle.generate detectFormat opts
+
 write = (bundle, opts) ->
   switch opts.format
     when 'app'
@@ -44,65 +47,80 @@ class Bundle
   constructor: (@opts = {}) ->
     return new Bundle @opts unless @ instanceof Bundle
 
+  log:     -> log.apply     @, arguments
+  plugins: -> plugins.apply @, arguments
+
+  cache: ({cache, invalidate}) ->
+    cache ?= cached
+
+    if invalidate?
+      @log 'pruning cache object'
+      for id in invalidate
+        delete cache[id]
+
+    cache
+
   rollup: merge (opts) ->
+    unless opts.entry? and opts.entry != ''
+      throw new Error 'No entry module specified'
+
     if @bundle?
-      unless opts.quiet
-        console.log 'using cached bundle'
+      @log 'using cached bundle'
       return Promise.resolve @bundle
 
-    unless opts.quiet
-      console.log 'rolling up'
+    @log 'rolling up'
 
+    external = []
     if opts.external == true
-      opts.external = getExternal opts.pkg
+      external = getExternal opts.pkg
 
-      unless opts.quiet
-        console.log 'external:'
-        for dep in opts.external
-          console.log " - #{dep}"
+      if external.length
+        @log 'external:'
+        for dep in external
+          @log " - #{dep}"
 
     new Promise (resolve, reject) =>
       rollup.rollup
-        entry:     opts.entry
-        cache:     opts.cache ? cache
+        external:  external
+
         acorn:     opts.acorn
-        external:  opts.external
-        plugins:   plugins opts
+        entry:     opts.entry
         sourceMap: opts.sourceMap
+        cache:     @cache opts
+        plugins:   @plugins opts
+
       .then (bundle) =>
         @bundle = bundle if opts.cacheBundle
         resolve bundle
-        unless opts.quiet
-          console.log chalk.white.bold opts.entry
+        @log chalk.white.bold opts.entry
+
       .catch (err) =>
         if err.plugin? and err.id?
-          console.error "Plugin '#{err.plugin}' failed on module #{err.id}"
+          @log "Plugin '#{err.plugin}' failed on module #{err.id}"
         else if err.id?
-          console.error "Failed to parse module #{err.id}"
+          @log "Failed to parse module #{err.id}"
         else
-          console.error err.stack
+          @log error err.stack
+        reject err
+
+  rollupFormats: (opts, fn) ->
+    @rollup opts
+      .then (bundle) =>
+        ps      = []
+        formats = detectFormats opts
+
+        for fmt in formats
+          ps.push fn bundle, Object.assign {}, opts, format: fmt
+
+        Promise.all ps
+
+      .catch (err) ->
         reject err
 
   generate: merge (opts) ->
-    new Promise (resolve, reject) =>
-      @rollup opts
-        .then (bundle) ->
-          resolve bundle.generate detectFormat opts
-        .catch (err) ->
-          reject err
+    @rollupFormats opts, generate
 
   write: merge (opts) ->
-    new Promise (resolve, reject) =>
-      @rollup opts
-        .then (bundle) =>
-          ps = []
-
-          for fmt in detectFormats opts
-            ps.push write bundle, Object.assign {}, opts, format: fmt
-
-          Promise.all ps
-
-        .catch (err) ->
-          reject err
+    @rollupFormats opts, write
 
 export default Bundle

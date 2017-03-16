@@ -9,11 +9,13 @@ ES6_BROWSER_EMPTY      = path.resolve __dirname, '../src/plugins/empty.js'
 
 
 export default (opts = {}) ->
-  extensions     = opts.extensions
-  preferBuiltins = opts.preferBuilts ? true
-  skip           = opts.skip         ? []
+  basedir        = opts.basedir        ? null
+  browser        = opts.browser        ? false
+  extensions     = opts.extensions     ? ['.js', '.json', '.coffee', '.pug', '.styl']
+  preferBuiltins = opts.preferBuiltins ? true
+  skip           = opts.skip           ? []
 
-  resolveId = if opts.browser then browserResolve else nodeResolve
+  resolveId = if browser then browserResolve else nodeResolve
 
   seen = {}
 
@@ -52,7 +54,6 @@ export default (opts = {}) ->
 
           unless pkg.main or relative
             reject Error "Package #{importee} (imported by #{importer}) does not have a main, module or jsnext:main field"
-            console.log pkg
           pkg
 
       resolveId importee, opts, (err, resolved) ->
@@ -76,7 +77,7 @@ export default (opts = {}) ->
         fs.exists resolved, (exists) ->
           unless exists
             unless opts.quiet
-              console.log "resolved #{resolved}, but it doesn't exist"
+              console.log "resolved #{importee} to #{resolved}, which does not exist"
             return resolve null
 
           fs.realpath resolved, (err, resolved) ->
