@@ -29,7 +29,7 @@ export default (opts) ->
       plugins.push v
 
   # Load up any extra plugins specified
-  for plugin in opts.use
+  for plugin in (opts.use ? [])
     plugins.push plugin
 
   # Add extra info above each module in bunlde
@@ -41,9 +41,7 @@ export default (opts) ->
     basedir:        opts.basedir ? path.dirname opts.entry
     browser:        opts.browser
     extensions:     opts.extensions
-    module:         true
-    jsnext:         true
-    preferBuiltins: opts.preferBuiltins ? true
+    preferBuiltins: opts.preferBuiltins
 
   # Enable CommonJS
   if opts.commonjs
