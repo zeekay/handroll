@@ -21,6 +21,14 @@ export detectFormat = (opts) ->
     else
       throw new Error 'Unsupported export format'
 
+export detectFormats = (opts) ->
+  formats = opts.formats ? []
+
+  if opts.format?
+    formats.push opts.format
+
+  formats
+
 export app = (opts) ->
   dest = opts.dest ? opts.pkg.app ? opts.pkg.main
 
