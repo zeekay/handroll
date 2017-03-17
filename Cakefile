@@ -10,10 +10,11 @@ task 'clean', 'clean project', ->
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap.js'
 
+  pkg = require './package.json'
+
   bundle = yield handroll.bundle
     entry:     'src/index.coffee'
     external:  true
-    sourceMap: true
 
   yield bundle.write formats: ['cjs', 'es']
 
@@ -36,15 +37,15 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     nodeResolve
       extensions: ['.js', '.coffee']
       module:     true
+      jsnext:     true
   ]
 
   # CommonJS bootstrap lib
   bundle = yield rollup.rollup
     acorn:
       allowReserved: true
-
     entry:     'src/index.coffee'
-    external:  Object.keys pkg.dependencies
+    external:  (Object.keys pkg.dependencies).concat Object.keys pkg.devDependencies
     plugins:   plugins
     sourceMap: true
 
