@@ -40,7 +40,7 @@
     "url": "http://github.com/zeekay/handroll"
   },
   "dependencies": {
-    "autoprefixer": "6.7.6",
+    "autoprefixer": "6.7.7",
     "browser-resolve": "1.11.2",
     "builtin-modules": "1.1.1",
     "chalk": "1.1.3",
