@@ -16,7 +16,7 @@ import nodeResolve from './plugins/node-resolve'
 import shebang     from './plugins/shebang'
 
 
-export default (opts) ->
+export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
 

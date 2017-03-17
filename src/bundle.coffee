@@ -1,13 +1,10 @@
-import fs    from 'fs'
-import path  from 'path'
-
 import {rollup} from 'rollup'
 
-import log     from './log'
-import plugins from './plugins'
+import log from './log'
 
 import {autoExternal}    from './external'
 import {autoFormats}     from './formats'
+import {autoPlugins}     from './plugins'
 import {generate}        from './generate'
 import {merge}           from './utils'
 import {write, writeAll} from './write'
@@ -37,19 +34,19 @@ class Bundle
       log 'using cached bundle'
       return Promise.resolve @bundle
 
-    opts.formats  = autoFormats opts
     opts.external = autoExternal opts
+    opts.formats  = autoFormats opts
+    opts.plugins  = autoPlugins opts
 
     new Promise (resolve, reject) =>
       log 'rolling up'
 
       rollup
         cache:     @cache opts
-        external:  opts.external
-        plugins:   plugins opts
-
         acorn:     opts.acorn
         entry:     opts.entry
+        external:  opts.external
+        plugins:   opts.plugins
         sourceMap: opts.sourceMap
 
       .then (bundle) =>
