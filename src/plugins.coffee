@@ -5,6 +5,7 @@ import commonjs    from 'rollup-plugin-commonjs'
 import es3         from 'rollup-plugin-es3'
 import executable  from 'rollup-plugin-executable'
 import globals     from 'rollup-plugin-node-globals'
+import nodeResolve from 'rollup-plugin-node-resolve-magic'
 import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 
@@ -12,7 +13,6 @@ import annotate    from './plugins/annotate'
 import compilers   from './compilers'
 import filesize    from './plugins/filesize'
 import minify      from './plugins/minify'
-import nodeResolve from './plugins/node-resolve'
 import shebang     from './plugins/shebang'
 
 
