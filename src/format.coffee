@@ -16,18 +16,24 @@ export detectFormat = (opts) ->
       cjs opts
     when 'es',  'module'
       es opts
+    when 'umd'
+      umd opts
     when 'web', 'iife'
       web opts
     else
       throw new Error 'Unsupported export format'
 
 export detectFormats = (opts) ->
-  formats = opts.formats ? []
-
+  # Default to single format if opts.format provided
   if opts.format?
-    formats.push opts.format
-
-  formats
+    [opts.format]
+  else
+    # Ensure only one instance of each format
+    formats = []
+    for fmt in opts.formats
+      unless ~formats.indexOf fmt
+        formats.push fmt
+    formats
 
 export app = (opts) ->
   dest = opts.dest ? opts.pkg.app ? opts.pkg.main
@@ -76,4 +82,10 @@ export web = (opts) ->
   dest:       dest
   format:     'iife'
   moduleName: name
+  sourceMap:  opts.sourceMap
+
+
+export umd = (opts) ->
+  dest:       opts.dest
+  format:     'umd'
   sourceMap:  opts.sourceMap
