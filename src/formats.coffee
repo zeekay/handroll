@@ -21,6 +21,7 @@ export autoFormats = ({format, formats, pkg}) ->
     formats
 
 
+# Convert our formats to Rollup settings
 export detectFormat = (opts) ->
   # Default to es module
   opts.format ?= 'es'
@@ -41,17 +42,17 @@ export detectFormat = (opts) ->
     else
       throw new Error 'Unsupported export format'
 
+# Detect formats requested
 export detectFormats = (opts) ->
-  # Default to single format if opts.format provided
+  # opts.format overrides opts.formats
   if opts.format?
     [opts.format]
+  else if opts.formats?
+    opts.formats
   else
-    formats = []
-    for fmt in (opts.formats ? [])
-      unless ~formats.indexOf fmt
-        formats.push fmt
-    formats
+    autoFormats opts
 
+# Various pre-configurations we support
 export app = (opts) ->
   dest = opts.dest ? opts.pkg.app ? opts.pkg.main
 
