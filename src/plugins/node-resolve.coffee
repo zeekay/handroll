@@ -51,9 +51,8 @@ export default (opts = {}) ->
             pkg.main = pkg.module
           else if pkg['jsnext:main']
             pkg.main = pkg['jsnext:main']
-
-          unless pkg.main or relative
-            reject Error "Package #{importee} (imported by #{importer}) does not have a main, module or jsnext:main field"
+          unless pkg.main
+            pkg.main = './index.js'
           pkg
 
       resolveId importee, opts, (err, resolved) ->
