@@ -70,14 +70,14 @@ class Bundle
 
     @log 'rolling up'
 
-    external = []
+    external = opts.external ? []
     if opts.external == true
       external = getExternal opts.pkg
 
-      if external.length
-        @log 'external:'
-        for dep in external
-          @log " - #{dep}"
+    if external.length
+      @log 'external:'
+      for dep in external
+        @log " - #{dep}"
 
     new Promise (resolve, reject) =>
       rollup.rollup
@@ -95,12 +95,17 @@ class Bundle
         @log chalk.white.bold opts.entry
 
       .catch (err) =>
-        if err.plugin? and err.id?
+        if err.loc?.file?
+          @log "Failed to parse '#{err.loc.file}'"
+          @log err.stack
+        else if err.plugin? and err.id?
           @log "Plugin '#{err.plugin}' failed on module #{err.id}"
+          @log err.stack
         else if err.id?
-          @log "Failed to parse module #{err.id}"
+          @log "Failed to parse module #{err.id}:"
+          @log err.stack
         else
-          @log error err.stack
+          @log err.stack
         reject err
 
   rollupFormats: (opts, fn) ->
