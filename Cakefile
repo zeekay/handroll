@@ -29,7 +29,7 @@ task 'build', 'build project', ['bootstrap'], ->
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
   rollup      = require 'rollup'
   coffee2     = require 'rollup-plugin-coffee2'
-  nodeResolve = require 'rollup-plugin-node-resolve'
+  nodeResolve = require 'rollup-plugin-node-resolve-magic'
 
   pkg = require './package.json'
 
