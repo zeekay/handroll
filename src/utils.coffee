@@ -1,7 +1,11 @@
+import log from './log'
+
 # Create a merged copy of a set of objects
 export merge = (fn) ->
-  (opts = {}) ->
-    fn.call @, (Object.assign {}, @opts, opts)
+  (opts) ->
+    opts = (Object.assign {}, @opts, opts)
+    log.verbose !opts.quiet if opts.quiet?
+    fn.call @, opts
 
 # Try to guess moduleName (used in export for browser bundles)
 export moduleName = (name) ->
@@ -24,6 +28,3 @@ export enableAsync = ->
     return
 
   v8.setFlagsFromString '--harmony_async_await'
-
-export log = ->
-  console.log.apply console, arguments unless @quiet

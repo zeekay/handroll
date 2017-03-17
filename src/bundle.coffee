@@ -1,60 +1,29 @@
 import fs    from 'fs'
 import path  from 'path'
 
-import chalk from 'chalk'
-import rollup from 'rollup'
+import {rollup} from 'rollup'
 
+import log     from './log'
 import plugins from './plugins'
-import {log, merge} from './utils'
-import {detectFormat, detectFormats} from './format'
 
+import {autoExternal}    from './external'
+import {autoFormats}     from './formats'
+import {generate}        from './generate'
+import {merge}           from './utils'
+import {write, writeAll} from './write'
 
 cached = null
-
-getExternal = (pkg, dev = false) ->
-  deps    = Object.keys pkg.dependencies    ? {}
-  devDeps = Object.keys pkg.devDependencies ? {}
-
-  if dev
-    deps.concat devDeps
-  else
-    deps
-
-writeApp = (opts) ->
-  opts = detectFormat opts
-  fs.writeFileSync (path.join opts.basedir, 'index.html'), """
-    <!DOCTYPE html>
-    <html lang="en">
-      <body>
-        <script src="#{opts.dest}"></script>
-      </body>
-    </html>
-    """
-  opts
-
-generate = (bundle, opts) ->
-  bundle.generate detectFormat opts
-
-write = (bundle, opts) ->
-  switch opts.format
-    when 'app'
-      bundle.write writeApp opts
-    else
-      bundle.write detectFormat opts
 
 
 class Bundle
   constructor: (@opts = {}) ->
     return new Bundle @opts unless @ instanceof Bundle
 
-  log:     -> log.apply     @, arguments
-  plugins: -> plugins.apply @, arguments
-
   cache: ({cache, invalidate}) ->
     cache ?= cached
 
     if invalidate?
-      @log 'pruning cache object'
+      log 'pruning cache object'
       for id in invalidate
         delete cache[id]
 
@@ -65,67 +34,58 @@ class Bundle
       throw new Error 'No entry module specified'
 
     if @bundle?
-      @log 'using cached bundle'
+      log 'using cached bundle'
       return Promise.resolve @bundle
 
-    @log 'rolling up'
-
-    external = opts.external ? []
-    if opts.external == true
-      external = getExternal opts.pkg
-
-    if external.length
-      @log 'external:'
-      for dep in external
-        @log " - #{dep}"
+    opts.formats  = autoFormats opts
+    opts.external = autoExternal opts
 
     new Promise (resolve, reject) =>
-      rollup.rollup
-        external:  external
+      log 'rolling up'
+
+      rollup
+        cache:     @cache opts
+        external:  opts.external
+        plugins:   plugins opts
 
         acorn:     opts.acorn
         entry:     opts.entry
         sourceMap: opts.sourceMap
-        cache:     @cache opts
-        plugins:   @plugins opts
 
       .then (bundle) =>
         @bundle = bundle if opts.cacheBundle
         resolve bundle
-        @log chalk.white.bold opts.entry
+        log.white.bold opts.entry
 
       .catch (err) =>
         if err.loc?.file?
-          @log "Failed to parse '#{err.loc.file}'"
-          @log err.stack
+          log "Failed to parse '#{err.loc.file}'"
+          log err.stack
         else if err.plugin? and err.id?
-          @log "Plugin '#{err.plugin}' failed on module #{err.id}"
-          @log err.stack
+          log "Plugin '#{err.plugin}' failed on module #{err.id}"
+          log err.stack
         else if err.id?
-          @log "Failed to parse module #{err.id}:"
-          @log err.stack
+          log "Failed to parse module #{err.id}:"
+          log err.stack
         else
-          @log err.stack
-        reject err
-
-  rollupFormats: (opts, fn) ->
-    @rollup opts
-      .then (bundle) =>
-        ps      = []
-        formats = detectFormats opts
-
-        for fmt in formats
-          ps.push fn bundle, Object.assign {}, opts, format: fmt
-
-        Promise.all ps
-
-      .catch (err) ->
+          log err.stack
         reject err
 
   generate: merge (opts) ->
-    @rollupFormats opts, generate
+    new Promise (resolve, reject) =>
+      @rollup opts
+        .then (bundle) ->
+          resolve generate bundle, opts
+        .catch reject
 
   write: merge (opts) ->
-    @rollupFormats opts, write
+    new Promise (resolve, reject) =>
+      @rollup opts
+        .then (bundle) ->
+          if opts.format?
+            resolve write bundle, opts
+          else
+            resolve writeAll bundle, opts
+        .catch reject
 
 export default Bundle

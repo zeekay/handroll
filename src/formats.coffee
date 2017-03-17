@@ -2,6 +2,24 @@ import fs from 'fs'
 
 import {moduleName} from './utils'
 
+# autoFormat tries to guess the formats required for an operation based on your
+# package.json file. If opts.format is specified, multiple formats will not be
+# considered.
+export autoFormats = ({format, formats, pkg}) ->
+  if format?
+    [format]
+  else if formats?
+    formats
+  else
+    formats = []
+    if pkg.browser?
+      formats.push 'web'
+    if pkg.main?
+      formats.push 'cjs'
+    if pkg.module?
+      formats.push 'es'
+    formats
+
 
 export detectFormat = (opts) ->
   # Default to es module
@@ -28,9 +46,8 @@ export detectFormats = (opts) ->
   if opts.format?
     [opts.format]
   else
-    # Ensure only one instance of each format
     formats = []
-    for fmt in opts.formats
+    for fmt in (opts.formats ? [])
       unless ~formats.indexOf fmt
         formats.push fmt
     formats
