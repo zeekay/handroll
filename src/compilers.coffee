@@ -38,8 +38,6 @@ export default (opts) ->
       ]
     ], opts.compilers?.stylus
 
-  console.log stylusOpts
-
   # Default compilers
   compilers =
     coffee: coffee2 coffeeOpts
