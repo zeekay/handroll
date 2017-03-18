@@ -28,3 +28,26 @@ export enableAsync = ->
     return
 
   v8.setFlagsFromString '--harmony_async_await'
+
+
+export isPlugin = do ->
+  keys = new Set [
+    'name'
+    'options'
+    'load'
+    'resolveId'
+    'transform'
+    'transformBundle'
+    'ongenerate'
+    'onwrite'
+    'intro'
+    'outro'
+    'banner'
+    'footer'
+  ]
+
+  (obj) ->
+    for own k of obj
+      if keys.has k
+        return true
+    false

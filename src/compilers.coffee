@@ -1,5 +1,3 @@
-import {isString} from 'es-is'
-
 # import buble  from 'rollup-plugin-buble'
 import coffee2 from 'rollup-plugin-coffee2'
 import json    from 'rollup-plugin-json'
@@ -12,18 +10,19 @@ import lost         from 'lost-stylus'
 import postcss      from 'poststylus'
 import rupture      from 'rupture'
 
-import log from './log'
+import log        from './log'
+import {isPlugin} from './utils'
 
 export default (opts) ->
   coffeeOpts = Object.assign {}, opts.compilers?.coffee
   jsonOpts   = Object.assign {}, opts.compilers?.json
   pugOpts    = Object.assign {},
-      compileDebug:           true
+      compileDebug:           false
       inlineRuntimeFunctions: false
       pretty:                 true
       sourceMap:              opts.sourceMap
       staticPattern:          /\S/
-  , opts.compilers?.json
+  , opts.compilers?.pug
 
   stylusOpts = Object.assign {},
     sourceMap: opts.sourceMap
@@ -46,8 +45,8 @@ export default (opts) ->
     pug:    pug     pugOpts
     stylus: stylup  stylusOpts
 
+  # If passed a legitimate plugin, all it to override the defaults
   for k,v of opts.compilers
-    unless isString v
-      compilers[k] = opts.compilers[k]
+    compilers[k] = v if isPlugin v
 
   compilers
