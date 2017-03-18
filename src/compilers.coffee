@@ -1,10 +1,10 @@
 import {isString} from 'es-is'
 
 # import buble  from 'rollup-plugin-buble'
+import coffee2 from 'rollup-plugin-coffee2'
 import json    from 'rollup-plugin-json'
 import pug     from 'rollup-plugin-pug'
 import stylup  from 'rollup-plugin-stylup'
-import coffee2 from 'rollup-plugin-coffee2'
 
 import autoprefixer from 'autoprefixer'
 import comments     from 'postcss-discard-comments'
