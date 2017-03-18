@@ -72,7 +72,7 @@
     "cake-version": "0.1.9",
     "coffee-script": "1.12.4",
     "es-is": "3.2.1",
-    "rollup-plugin-coffee2": "0.1.5",
+    "rollup-plugin-coffee2": "0.1.6",
     "rollup-plugin-executable": "1.0.0",
     "rollup-plugin-node-resolve-magic": "0.1.5",
     "shortcake": "1.2.5"
