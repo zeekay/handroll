@@ -61,7 +61,6 @@
     "rollup-plugin-sizes": "0.3.0",
     "rollup-plugin-sourcemaps": "0.4.1",
     "rollup-plugin-strip": "1.1.1",
-    "rollup-plugin-stylup": "1.3.0",
     "rupture": "0.6.2",
     "uglify-js": "2.8.13"
   },
@@ -75,6 +74,7 @@
     "rollup-plugin-coffee2": "0.1.6",
     "rollup-plugin-executable": "1.0.0",
     "rollup-plugin-node-resolve-magic": "0.1.5",
+    "rollup-plugin-stylup": "1.3.0",
     "shortcake": "1.2.5"
   }
 }
