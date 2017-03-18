@@ -1,5 +1,5 @@
+import log           from './log'
 import {enableAsync} from './utils'
-import log from './log'
 
 enableAsync()
 
