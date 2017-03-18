@@ -32,5 +32,7 @@ export autoExternal = ({external, pkg}) ->
     log 'external:'
     for dep in external
       log " - #{dep}"
+  else
+    log 'no externals'
 
   external
