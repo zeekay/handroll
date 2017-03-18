@@ -10,31 +10,28 @@ import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
 
 import annotate    from './plugins/annotate'
-import compilers   from './compilers'
 import filesize    from './plugins/filesize'
 import minify      from './plugins/minify'
 import shebang     from './plugins/shebang'
 
+import autoCompilers from './compilers'
+import log           from './log'
 
 export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
 
   if opts.plugins?
-    for plugin in opts.plugins
-      plugins.push plugin
+    plugins = plugins.concat opts.plugins
   else
-    # Add compilers
-    for k,v of compilers opts
+    for k,v of autoCompilers opts
       plugins.push v
 
   # Load up any extra plugins specified
-  for plugin in (opts.use ? [])
-    plugins.push plugin
+  plugins = plugins.concat (opts.use ? [])
 
   # Add extra info above each module in bunlde
-  plugins.push annotate
-    sourceMap: opts.sourceMap
+  plugins.push annotate sourceMap: opts.sourceMap
 
   # Automatically resolve node modules
   plugins.push nodeResolve
@@ -75,5 +72,9 @@ export autoPlugins = (opts) ->
     plugins.push filesize()
     if opts.details
       plugins.push sizes details: true
+
+  log 'plugins:'
+  for plugin in plugins
+    log " - #{plugin.name}"
 
   plugins
