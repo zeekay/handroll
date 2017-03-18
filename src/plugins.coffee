@@ -76,6 +76,7 @@ export autoPlugins = (opts) ->
 
   log 'plugins:'
   for plugin in plugins
-    log " + #{plugin.name}"
+    name = (plugin.name ? '').replace /rollup-plugin-/, ''
+    log " + #{name}"
 
   plugins

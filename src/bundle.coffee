@@ -32,7 +32,6 @@ class Bundle
 
     if @bundle?
       log 'using cached bundle'
-      console.log Object.keys @bundle
       return Promise.resolve @bundle
 
     opts.external = autoExternal opts
