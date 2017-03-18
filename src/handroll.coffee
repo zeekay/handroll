@@ -16,19 +16,21 @@ class Handroll
   constructor: (opts = {}) ->
     return new Handroll opts unless @ instanceof Handroll
 
+    opts.pkg        ?= require path.join process.cwd(), 'package.json'
+
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false
+    opts.compilers  ?= null
     opts.es3        ?= false
     opts.executable ?= false
-    opts.external   ?= false
     opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
-    opts.pkg        ?= require path.join process.cwd(), 'package.json'
     opts.sourceMap  ?= sourceMapOverride() ? true
-    opts.use        ?= []
-    opts.compilers  ?= null
-    opts.quiet      ?= false
 
-    log.verbose opts.quiet
+    opts.external   ?= null
+    opts.plugins    ?= null
+    opts.use        ?= []
+
+    log.verbose not (opts.quiet ? false)
 
     @opts = opts
 
