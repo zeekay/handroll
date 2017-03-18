@@ -20,8 +20,8 @@ class Bundle
     cache ?= cached
 
     if invalidate?
-      log 'pruning cache object'
       for id in invalidate
+        log "removing #{id} from module cache"
         delete cache[id]
 
     cache
@@ -32,6 +32,7 @@ class Bundle
 
     if @bundle?
       log 'using cached bundle'
+      console.log Object.keys @bundle
       return Promise.resolve @bundle
 
     opts.external = autoExternal opts
@@ -59,13 +60,13 @@ class Bundle
 
       .catch (err) =>
         if err.loc?.file?
-          log "Failed to parse '#{err.loc.file}'"
-          log err.stack
+          log "\nFailed to parse '#{err.loc.file}'"
+          log "\n#{err.frame}\n" if err.frame?
         else if err.plugin? and err.id?
-          log "Plugin '#{err.plugin}' failed on module #{err.id}"
+          log "\nPlugin '#{err.plugin}' failed on module #{err.id}"
           log err.stack
         else if err.id?
-          log "Failed to parse module #{err.id}:"
+          log "\nFailed to parse module #{err.id}"
           log err.stack
         else
           log err.stack
