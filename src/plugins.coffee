@@ -39,6 +39,7 @@ export autoPlugins = (opts) ->
     browser:        opts.browser
     extensions:     opts.extensions
     preferBuiltins: opts.preferBuiltins
+    skip:           opts.external
 
   # Enable CommonJS
   if opts.commonjs
@@ -75,6 +76,6 @@ export autoPlugins = (opts) ->
 
   log 'plugins:'
   for plugin in plugins
-    log " - #{plugin.name}"
+    log " + #{plugin.name}"
 
   plugins

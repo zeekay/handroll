@@ -48,6 +48,9 @@ class Bundle
         external:  opts.external
         plugins:   opts.plugins
         sourceMap: opts.sourceMap
+        onwarn:    (message) ->
+          return if /external dependency/.test message
+          log.error message
 
       .then (bundle) =>
         @bundle = bundle if opts.cacheBundle
