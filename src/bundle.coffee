@@ -48,7 +48,7 @@ class Bundle
         external:  opts.external
         plugins:   opts.plugins
         sourceMap: opts.sourceMap
-        onwarn:    (message) ->
+        onwarn:    ({message}) ->
           return if /external dependency/.test message
           log.error message
 
