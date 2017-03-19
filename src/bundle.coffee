@@ -17,6 +17,8 @@ class Bundle
     return new Bundle @opts unless @ instanceof Bundle
 
   cache: ({cache, invalidate}) ->
+    return null if cache == false
+
     cache ?= cached
 
     if invalidate?
