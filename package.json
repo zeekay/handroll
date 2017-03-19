@@ -19,7 +19,8 @@
   "jsnext:main": "dist/handroll.mjs",
   "files": [
     "bin/",
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "engines": {
     "node": ">=4.0.0"
