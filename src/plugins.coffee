@@ -45,9 +45,10 @@ export autoPlugins = (opts) ->
   if opts.commonjs
     plugins.push builtins()
     plugins.push globals()
-    plugins.push commonjs
+    plugins.push commonjs Object.assign
       extensions: opts.extensions
       sourceMap:  opts.sourceMap
+    , opts.commonjs
 
   # Support ES3 on end
   if opts.es3
