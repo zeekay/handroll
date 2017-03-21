@@ -1,7 +1,7 @@
+import path     from 'path'
 import {rollup} from 'rollup'
 
 import log from './log'
-
 import {autoExternal}    from './external'
 import {autoFormats}     from './formats'
 import {autoPlugins}     from './plugins'
@@ -37,6 +37,8 @@ class Bundle
       return Promise.resolve @bundle
 
     opts.autoExternal = opts.autoExternal ? opts.external == true
+    opts.basedir      = opts.basedir      ? path.dirname opts.entry
+
     opts.external     = autoExternal opts
     opts.formats      = autoFormats opts
     opts.plugins      = autoPlugins opts
