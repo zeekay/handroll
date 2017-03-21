@@ -103,8 +103,14 @@ bundle = await handroll.bundle
   # external: Object.keys pkg.dependencies
   external:   true
 
+  # Use `commonjs` to enable importing and customize CommonJS adaptor behavior.
+  #
+  # commonjs:
+  #   namedExports:
+  #     './module.js': ['foo', 'bar']
+  commonjs: false
+
   basedir:    './'   # Customize basedir used for resolution
-  commonjs:   false  # Enable importing from CommonJS modules
   details:    false  # Print extra details about bundle
   es3:        false  # Emit slightly more ES3-compliant output
   executable: false  # Include shebang and chmod+x output
