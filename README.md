@@ -29,11 +29,12 @@ over-written.
 import handroll from 'handroll'
 
 bundle = await handroll.bundle
-  entry: 'src/index.coffee'  # Path to entry module
+  entry: 'src/index.coffee'  # Path to entry module, required
 
-  # Format to use for generation/write. By default Handroll will export ES
-  # modules. Multiple formats may be specified using `formats`.
-  formats: ['es']
+  # Use `format` or `formats` to customize export format. Handroll defaults to
+  # ES module format. Multiple formats may be specified using `formats`:
+  #
+  # formats: ['cjs', 'es']
   format:  'es'
 
   # Use `dest` to specify where a given format should be written. By default
@@ -71,29 +72,29 @@ bundle = await handroll.bundle
   #   prismjs: 'Prism'
   legacy: null
 
-  # Array of plugins for rollup to use. Other than compilers (which are
-  # automatically detected based on filetypes used, most plugins will be
-  # inferred based on your other options. You can explicitly configure the
-  # plugins to be used by passing an array of options instead:
+  # Use `plugin` to override plugins Handroll should use. Other than compilers
+  # (which are automatically detected based on filetypes used, most plugins will
+  # be inferred based on your other options.
   #
   # plugins: [buble(), commonjs()]
   plugins:    null
 
-  # Detect external deps or explicitly list them. By default Handroll will try
-  # to automatically detect dependencies based on your package.json. Passing
-  # external: false or an explicit list will disable this behavior.
+  # Use `external` to configure which dependencies Rollup considers external. By
+  # default Handroll will try to automatically infer external dependencies based
+  # on your package.json. Use `external: false` or an explicit list will disable
+  # this behavior.
   #
   # external: Object.keys pkg.dependencies
   external:   true
 
   basedir:    './'   # Customize basedir used for resolution
   commonjs:   false  # Enable importing from CommonJS modules
+  details:    false  # Print extra details about bundle
   es3:        false  # Emit slightly more ES3-compliant output
   executable: false  # Include shebang and chmod+x output
-  sourceMap:  true   # Collect and save source maps
-  quiet:      false  # Suppress default output
-  details:    false  # Print extra details about bundle
   minify:     false  # Use uglify to minify bundle
+  quiet:      false  # Suppress default output
+  sourceMap:  true   # Collect and save source maps
   strip:      false  # Remove debugging and console log statements
 
 # Write ES module for use by bundlers (with external deps)
