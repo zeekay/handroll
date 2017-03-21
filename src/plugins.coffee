@@ -18,11 +18,13 @@ import shebang     from './plugins/shebang'
 import autoCompilers from './compilers'
 import log           from './log'
 
-resolve = (id, browser = false) ->
-  if browser
-    nodeResolve.browser.sync id
+
+resolve = (id, opts = {}) ->
+  if opts.browser
+    nodeResolve.browser.sync id, basedir: opts.basedir
   else
-    nodeResolve.node.sync id
+    nodeResolve.node.sync id, basedir: opts.basedir
+
 
 export autoPlugins = (opts) ->
   # Start with source map support
@@ -42,7 +44,7 @@ export autoPlugins = (opts) ->
 
   # Automatically resolve node modules
   plugins.push nodeResolve
-    basedir:        opts.basedir ? path.dirname opts.entry
+    basedir:        opts.basedir
     browser:        opts.browser
     extensions:     opts.extensions
     preferBuiltins: opts.preferBuiltins
@@ -54,7 +56,7 @@ export autoPlugins = (opts) ->
     # Attempt to automatically resolve path to node module
     for k,v of opts.legacy
       try
-        pkg = resolve k, opts.browser
+        pkg = resolve k, opts
         delete opts.legacy[k]
         opts.legacy[pkg] = v
       catch err
