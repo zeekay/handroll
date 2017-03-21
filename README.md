@@ -63,11 +63,11 @@ bundle = await handroll.bundle
   #   web    -> pkg.name + '.js'
   dest: 'dist/lib.js'
 
-  # Use `compilers` to Customize plugins automatically used per-filetype:
+  # Use `compilers` to customize plugins used per-filetype.
   #
   # compilers:
   #   coffee:
-  #     verison: 1
+  #     verison: 1  # use CS 1.x instead of 2.x
   #
   # Or specify your own:
   #
@@ -75,7 +75,7 @@ bundle = await handroll.bundle
   #   js:   buble()
   #   less: less()
   compilers:
-    coffee: coffe2()
+    coffee: coffee()
     json:   json()
     pug:    pug()
     styl:   stylus()
@@ -88,17 +88,17 @@ bundle = await handroll.bundle
   #   prismjs: 'Prism'
   legacy: null
 
-  # Use `plugin` to override plugins Handroll should use. Other than compilers
-  # (which are automatically detected based on filetypes used, most plugins will
-  # be inferred based on your other options.
+  # Use `plugins` to override plugins Handroll should use. By default Handroll
+  # will try to automatically infer and configure the plugins you should use.
   #
   # plugins: [buble(), commonjs()]
   plugins:    null
 
   # Use `external` to configure which dependencies Rollup considers external. By
   # default Handroll will try to automatically infer external dependencies based
-  # on your package.json. Use `external: false` or an explicit list will disable
-  # this behavior.
+  # on package.json. Normal dependencies are assumed to be external while
+  # devDependencies are assumed to be fully subsumbed during the build step.
+  # You can use `external: false` or an explicit list to disable this behavior.
   #
   # external: Object.keys pkg.dependencies
   external:   true
