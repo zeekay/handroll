@@ -13,8 +13,29 @@ cached = null
 
 
 class Bundle
-  constructor: (@opts = {}) ->
-    return new Bundle @opts unless @ instanceof Bundle
+  constructor: (opts = {}) ->
+    return new Bundle opts unless @ instanceof Bundle
+
+    opts.pkg        ?= require path.join process.cwd(), 'package.json'
+
+    opts.acorn      ?= allowReserved: true
+    opts.browser    ?= false
+    opts.compilers  ?= null
+    opts.es3        ?= false
+    opts.executable ?= false
+    opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
+    opts.sourceMap  ?= true
+
+    opts.external   ?= null
+    opts.plugins    ?= null
+    opts.use        ?= []
+
+    opts.autoExternal = opts.autoExternal ? opts.external == true
+    opts.basedir      = opts.basedir      ? path.dirname opts.entry
+
+    log.verbose not (opts.quiet ? false)
+
+    @opts = opts
 
   cache: ({cache, invalidate}) ->
     return null if cache == false
@@ -35,9 +56,6 @@ class Bundle
     if @bundle?
       log 'using cached bundle'
       return Promise.resolve @bundle
-
-    opts.autoExternal = opts.autoExternal ? opts.external == true
-    opts.basedir      = opts.basedir      ? path.dirname opts.entry
 
     opts.external     = autoExternal opts
     opts.formats      = autoFormats opts
