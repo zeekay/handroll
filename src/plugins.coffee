@@ -39,8 +39,8 @@ export autoPlugins = (opts) ->
     browser:        opts.browser
     extensions:     opts.extensions
     preferBuiltins: opts.preferBuiltins
-    external:       opts.external ? true
-    skip:           opts.skip     ? []
+    external:       opts.autoExternal ? true
+    skip:           opts.skip         ? []
 
   # Enable CommonJS
   if opts.commonjs

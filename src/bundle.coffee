@@ -36,20 +36,24 @@ class Bundle
       log 'using cached bundle'
       return Promise.resolve @bundle
 
-    opts.external = autoExternal opts
-    opts.formats  = autoFormats opts
-    opts.plugins  = autoPlugins opts
+    opts.autoExternal = opts.autoExternal ? opts.external == true
+    opts.external     = autoExternal opts
+    opts.formats      = autoFormats opts
+    opts.plugins      = autoPlugins opts
 
     new Promise (resolve, reject) =>
       log 'rolling up'
 
       rollup
-        cache:     @cache opts
-        acorn:     opts.acorn
         entry:     opts.entry
+
+        cache:     @cache opts
+
+        acorn:     opts.acorn
         external:  opts.external
         plugins:   opts.plugins
         sourceMap: opts.sourceMap
+
         onwarn:    ({message}) ->
           return if /external dependency/.test message
           log.error message
