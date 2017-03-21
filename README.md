@@ -38,6 +38,7 @@ bundle = await handroll.bundle
 
   # Use `dest` to specify where a given format should be written. By default
   # Handroll will infer dest based on your package.json:
+  #
   #   format -> default dest
   #   cjs    -> pkg.main
   #   es     -> pkg.module
@@ -45,15 +46,22 @@ bundle = await handroll.bundle
   #   web    -> pkg.name + '.js'
   dest: 'dist/lib.js'
 
-  # Use `compilers` to Customize plugins used per-filetype
+  # Use `compilers` to Customize plugins automatically used per-filetype:
+  #
   # compilers:
   #   coffee:
   #     verison: 1
-  # ...or supply your own:
+  #
+  # Or specify your own:
+  #
   # compilers:
   #   js:   buble()
   #   less: less()
-  compilers:  null
+  compilers:
+    coffee: coffe2()
+    json:   json()
+    pug     pug()
+    styl:   stylus()
 
   # Use `legacy` to specificy non-module scripts and corresponding exports.
   # Non-module scripts installed with npm will be automatically resolved.
@@ -67,12 +75,15 @@ bundle = await handroll.bundle
   # automatically detected based on filetypes used, most plugins will be
   # inferred based on your other options. You can explicitly configure the
   # plugins to be used by passing an array of options instead:
+  #
   # plugins: [buble(), commonjs()]
   plugins:    null
 
   # Detect external deps or explicitly list them. By default Handroll will try
   # to automatically detect dependencies based on your package.json. Passing
-  # external: false will disable this behavior.
+  # external: false or an explicit list will disable this behavior.
+  #
+  # external: Object.keys pkg.dependencies
   external:   true
 
   basedir:    './'   # Customize basedir used for resolution
