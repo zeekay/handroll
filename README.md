@@ -15,12 +15,12 @@ $ handroll src/index.coffee --format web > index.js
 ```
 
 ### JavaScript API
-Handroll's JavaScript API provides a similar interface to Rollup, with the
+Handroll's JavaScript API provides an interface similar to Rollup, with the
 `bundle` step being optional (and only useful if you want to cache the
-intermediate bundle). In most cases you'll want to juse use `.write` or
-`.generate` directly.
+intermediate bundle). In most cases you'll want to use `.write` or `.generate`
+directly.
 
-Rollup.js options and plugin configuration options are automatically inferred as
+Rollup.js and plugin configuration and options are automatically inferred as as
 much as possible based on package.json. Built-in support for many file-types
 (CoffeeScript, Stylus, Pug, JSON, etc).
 
