@@ -14,8 +14,8 @@ task 'build', 'build project', ['bootstrap'], ->
   pkg = require './package.json'
 
   bundle = yield handroll.bundle
-    entry:     'src/index.coffee'
-    external:  true
+    entry:    'src/index.coffee'
+    external: true
 
   yield bundle.write formats: ['cjs', 'es']
 
