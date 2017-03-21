@@ -18,6 +18,12 @@ import shebang     from './plugins/shebang'
 import autoCompilers from './compilers'
 import log           from './log'
 
+resolve = (id, browser = false) ->
+  if browser
+    nodeResolve.browser.sync id
+  else
+    nodeResolve.node.sync id
+
 export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
@@ -45,6 +51,13 @@ export autoPlugins = (opts) ->
 
   # Enable legacy
   if opts.legacy?
+    # Attempt to automatically resolve path to node module
+    for k,v of opts.legacy
+      try
+        pkg = resolve k, opts.browser
+        delete opts.legacy[k]
+        opts.legacy[pkg] = v
+      catch err
     plugins.push legacy opts.legacy
 
   # Enable CommonJS
