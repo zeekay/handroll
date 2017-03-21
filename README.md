@@ -96,11 +96,17 @@ bundle = await handroll.bundle
   quiet:      false  # Suppress default output
   sourceMap:  true   # Collect and save source maps
   strip:      false  # Remove debugging and console log statements
+```
 
-# Write ES module for use by bundlers (with external deps)
+### Examples
+```coffee
+# Create new bundle
+var bundle = await handroll.bundle entry: 'src/index.coffee'
+
+# Write ES module for use by bundlers
 await bundle.write format: 'es'
 
-# Write CommonJS module for use by Node.js (with external deps)
+# Write CommonJS module for use by Node.js
 await bundle.write format: 'cjs'
 
 # Write IIFE bundle with all deps for web
@@ -110,76 +116,6 @@ await bundle.write format: 'web'
 await handroll.write
   entry:  'src/cli.coffee'
   format: 'cli'
-```
-
-### Motivating example
-```coffee
-rollup        = require 'rollup'
-
-autoTransform = require 'rollup-plugin-auto-transform'
-builtins      = require 'rollup-plugin-node-builtins'
-coffee        = require 'rollup-plugin-coffee-script'
-commonjs      = require 'rollup-plugin-commonjs'
-es3           = require 'rollup-plugin-es3'
-filesize      = require 'rollup-plugin-filesize'
-globals       = require 'rollup-plugin-node-globals'
-json          = require 'rollup-plugin-json'
-nodeResolve   = require 'rollup-plugin-node-resolve'
-pug           = require 'rollup-plugin-pug'
-strip         = require 'rollup-plugin-strip'
-stylup        = require 'rollup-plugin-stylup'
-
-postcss      = require 'poststylus'
-autoprefixer = require 'autoprefixer'
-comments     = require 'postcss-discard-comments'
-lost         = require 'lost-stylus'
-
-pkg = require './package.json'
-
-plugins = [
-  autoTransform()
-  globals()
-  builtins()
-  coffee()
-  pug
-    pretty:                 true
-    compileDebug:           true
-    sourceMap:              false
-    inlineRuntimeFunctions: false
-    staticPattern:          /\S/
-  stylup
-    sourceMap: false
-    plugins: [
-      lost()
-      postcss [
-        autoprefixer browsers: '> 1%'
-        'lost'
-        'css-mqpacker'
-        comments removeAll: true
-      ]
-    ]
-  json()
-  nodeResolve
-    browser: true
-    extensions: ['.js', '.coffee', '.pug', '.styl']
-    module: true
-    jsnext: true
-  commonjs
-    extensions: ['.js', '.coffee']
-    sourceMap: false
-  es3()
-  strip()
-  filesize()
-]
-
-bundle = await rollup.rollup
-  entry:   'src/app.coffee'
-  plugins: plugins
-
-# App bundle for browser
-await bundle.write
-  dest:   'public/js/app.js'
-  format: 'iife'
 ```
 
 ### License
