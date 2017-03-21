@@ -30,9 +30,6 @@ class Bundle
     opts.plugins    ?= null
     opts.use        ?= []
 
-    opts.autoExternal = opts.autoExternal ? opts.external == true
-    opts.basedir      = opts.basedir      ? path.dirname opts.entry
-
     log.verbose not (opts.quiet ? false)
 
     @opts = opts
@@ -56,6 +53,9 @@ class Bundle
     if @bundle?
       log 'using cached bundle'
       return Promise.resolve @bundle
+
+    opts.autoExternal = opts.autoExternal ? opts.external == true
+    opts.basedir      = opts.basedir      ? path.dirname opts.entry
 
     opts.external     = autoExternal opts
     opts.formats      = autoFormats opts
