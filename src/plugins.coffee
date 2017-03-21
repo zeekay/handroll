@@ -19,7 +19,7 @@ import autoCompilers from './compilers'
 import log           from './log'
 
 
-resolve = (id, opts = {}) ->
+resolveId = (id, opts = {}) ->
   if opts.browser
     nodeResolve.browser.sync id, basedir: opts.basedir
   else
@@ -56,9 +56,8 @@ export autoPlugins = (opts) ->
     # Attempt to automatically resolve path to node module
     for k,v of opts.legacy
       try
-        pkg = resolve k, opts
-        delete opts.legacy[k]
-        opts.legacy[pkg] = v
+        mod = resolveId k, opts
+        opts.legacy[mod] = v
       catch err
     plugins.push legacy opts.legacy
 
