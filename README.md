@@ -25,9 +25,26 @@ Rollup.js options, plugins and write destination are automatically derived for
 you from format option in most instances. Defaults can of course be easily
 over-written.
 
-```coffee
-import handroll from 'handroll'
+#### handroll.bundle (options) -> Promise
+Create a new `Bundle` and cache result of `bundle.rollup`.
 
+#### handroll.write  (options) -> Promise
+Create new `Bundle` and immediately export in appropriate format(s).
+
+#### bundle.write    (options) -> Promise
+Write bundle in appropriate format(s).
+
+#### bundle.generate (options) -> Promise
+Generate output in appropriate format(s).
+
+#### bundle.rollup   (options) -> Promise
+Automatically infer compilers, plugins, formats and other relevant options and
+Rollup bundle.
+
+#### options
+All Handroll operations can be passed the same set of options.
+
+```coffee
 bundle = await handroll.bundle
   entry: 'src/index.coffee'  # Path to entry module, required
 
@@ -100,8 +117,11 @@ bundle = await handroll.bundle
 
 ### Examples
 ```coffee
+import handroll from 'handroll'
+
 # Create new bundle
-var bundle = await handroll.bundle entry: 'src/index.coffee'
+bundle = await handroll.bundle
+  entry: 'src/index.coffee'
 
 # Write ES module for use by bundlers
 await bundle.write format: 'es'
