@@ -55,6 +55,7 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-es3": "1.0.3",
     "rollup-plugin-json": "2.1.0",
+    "rollup-plugin-legacy": "1.0.0",
     "rollup-plugin-node-builtins": "2.1.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve-magic": "0.1.8",

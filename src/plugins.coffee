@@ -8,6 +8,7 @@ import globals     from 'rollup-plugin-node-globals'
 import nodeResolve from 'rollup-plugin-node-resolve-magic'
 import sizes       from 'rollup-plugin-sizes'
 import sourcemaps  from 'rollup-plugin-sourcemaps'
+import legacy      from 'rollup-plugin-legacy'
 
 import annotate    from './plugins/annotate'
 import filesize    from './plugins/filesize'
@@ -41,6 +42,10 @@ export autoPlugins = (opts) ->
     preferBuiltins: opts.preferBuiltins
     external:       opts.autoExternal ? true
     skip:           opts.skip         ? []
+
+  # Enable legacy
+  if opts.legacy?
+    plugins.push legacy opts.legacy
 
   # Enable CommonJS
   if opts.commonjs
