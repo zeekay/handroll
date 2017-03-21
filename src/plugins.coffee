@@ -53,11 +53,10 @@ export autoPlugins = (opts) ->
 
   # Enable legacy
   if opts.legacy?
-    # Attempt to automatically resolve path to node module
     for k,v of opts.legacy
       try
-        mod = resolveId k, opts
-        opts.legacy[mod] = v
+        # Attempt to automatically resolve path to legacy files
+        opts.legacy[resolveId k, opts] = v
       catch err
     plugins.push legacy opts.legacy
 

@@ -65,3 +65,12 @@ task 'watch', 'watch project and build on changes', ->
   watch 'node_modules/', build, watchSymlink: true
 
 task 'test', 'test handroll', ['build']
+
+task 'bundle:legacy', '', ->
+  handroll = require './dist/bootstrap.js'
+  handroll.write
+    entry:  'test.coffee'
+    dest:   'test.js'
+    format: 'web'
+    legacy:
+      prismjs: 'Prism'
