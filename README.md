@@ -20,10 +20,9 @@ Handroll's JavaScript API provides a similar interface to Rollup, with the
 intermediate bundle). In most cases you'll want to juse use `.write` or
 `.generate` directly.
 
-Built-in support for many file-types (CoffeeScript, Stylus, Pug, JSON, etc).
-Rollup.js options, plugins and write destination are automatically derived for
-you from format option in most instances. Defaults can of course be easily
-over-written.
+Rollup.js options and plugin configuration options are automatically inferred as
+much as possible based on package.json. Built-in support for many file-types
+(CoffeeScript, Stylus, Pug, JSON, etc).
 
 #### handroll.bundle (options) -> Promise
 Create a new `Bundle` and cache result of `bundle.rollup`.
