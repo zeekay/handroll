@@ -51,7 +51,7 @@ bundle = await handroll.bundle
   # ES module format. Multiple formats may be specified using `formats`:
   #
   # formats: ['cjs', 'es']
-  format:  'es'
+  format: 'es'
 
   # Use `dest` to specify where a given format should be written. By default
   # Handroll will infer dest based on your package.json:
@@ -92,7 +92,7 @@ bundle = await handroll.bundle
   # will try to automatically infer and configure the plugins you should use.
   #
   # plugins: [buble(), commonjs()]
-  plugins:    null
+  plugins: null
 
   # Use `external` to configure which dependencies Rollup considers external. By
   # default Handroll will try to automatically infer external dependencies based
@@ -101,7 +101,7 @@ bundle = await handroll.bundle
   # You can use `external: false` or an explicit list to disable this behavior.
   #
   # external: Object.keys pkg.dependencies
-  external:   true
+  external: true
 
   # Use `commonjs` to enable importing and customize CommonJS adaptor behavior.
   #
