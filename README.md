@@ -60,7 +60,7 @@ bundle = await handroll.bundle
   compilers:
     coffee: coffe2()
     json:   json()
-    pug     pug()
+    pug:    pug()
     styl:   stylus()
 
   # Use `legacy` to specificy non-module scripts and corresponding exports.
