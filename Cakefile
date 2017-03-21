@@ -9,14 +9,22 @@ use 'cake-version'
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
 
-task 'build', 'build project', ->
-  b = yield bundle
+task 'bootstrap', 'bootstrap project', ->
+  bundle.write
     entry:    'src/index.coffee'
+    dest:     'dist/bootstrap.js'
+    format:   'cjs'
     external: true
 
-  yield b.write formats: ['cjs', 'es']
+task 'build', 'build project', ['bootstrap'], ->
+  handroll = require './dist/bootstrap'
 
-  yield bundle.write
+  yield handroll.bundle
+    entry:    'src/index.coffee'
+    formats:  ['cjs', 'es']
+    external: true
+
+  yield handroll.write
     entry:      'src/cli.coffee'
     format:     'cli'
     executable: true

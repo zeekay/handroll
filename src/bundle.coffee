@@ -50,6 +50,8 @@ class Bundle
     unless opts.entry? and opts.entry != ''
       throw new Error 'No entry module specified'
 
+    log.white.bold 'hand rolling'
+
     if @bundle?
       log 'using cached bundle'
       return Promise.resolve @bundle
@@ -62,8 +64,6 @@ class Bundle
     opts.plugins      = autoPlugins opts
 
     new Promise (resolve, reject) =>
-      log 'rolling up'
-
       rollup
         entry:     opts.entry
 
