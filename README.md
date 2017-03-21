@@ -31,20 +31,59 @@ import handroll from 'handroll'
 bundle = await handroll.bundle
   entry: 'src/index.coffee'  # Path to entry module
 
-  # The following defaults may configured to customize logging and override the
-  # behavior of handroll.
+  # Format to use for generation/write. By default Handroll will export ES
+  # modules. Multiple formats may be specified using `formats`.
+  formats: ['es']
+  format:  'es'
 
-  # compilers:  null    Customize compilers used per-filetype
-  # es3:        false   Emit slightly more ES3-compliant output
-  # executable: false   Include shebang and chmod+x output
-  # external:   false   Set package.json dependencies as external
-  # sourceMap:  true    Collect and save source maps
+  # Use `dest` to specify where a given format should be written. By default
+  # Handroll will infer dest based on your package.json:
+  #   format -> default dest
+  #   cjs    -> pkg.main
+  #   es     -> pkg.module
+  #   cli    -> pkg.bin
+  #   web    -> pkg.name + '.js'
+  dest: 'dist/lib.js'
 
-  # quiet:      false   Suppress default output
-  # details:    false   Print extra details about bundle
+  # Use `compilers` to Customize plugins used per-filetype
+  # compilers:
+  #   coffee:
+  #     verison: 1
+  # ...or supply your own:
+  # compilers:
+  #   js:   buble()
+  #   less: less()
+  compilers:  null
 
-  # minify:     false   Use uglify to minify bundle
-  # strip:      false   Remove debugging and console log statements
+  # Use `legacy` to specificy non-module scripts and corresponding exports.
+  # Non-module scripts installed with npm will be automatically resolved.
+  #
+  # legacy:
+  #   './vendor/some.lib.js': 'someLib'
+  #   prismjs: 'Prism'
+  legacy: null
+
+  # Array of plugins for rollup to use. Other than compilers (which are
+  # automatically detected based on filetypes used, most plugins will be
+  # inferred based on your other options. You can explicitly configure the
+  # plugins to be used by passing an array of options instead:
+  # plugins: [buble(), commonjs()]
+  plugins:    null
+
+  # Detect external deps or explicitly list them. By default Handroll will try
+  # to automatically detect dependencies based on your package.json. Passing
+  # external: false will disable this behavior.
+  external:   true
+
+  basedir:    './'   # Customize basedir used for resolution
+  commonjs:   false  # Enable importing from CommonJS modules
+  es3:        false  # Emit slightly more ES3-compliant output
+  executable: false  # Include shebang and chmod+x output
+  sourceMap:  true   # Collect and save source maps
+  quiet:      false  # Suppress default output
+  details:    false  # Print extra details about bundle
+  minify:     false  # Use uglify to minify bundle
+  strip:      false  # Remove debugging and console log statements
 
 # Write ES module for use by bundlers (with external deps)
 await bundle.write format: 'es'
