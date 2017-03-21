@@ -18,13 +18,10 @@
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",
   "files": [
-    "README.md",
     "LICENSE",
+    "README.md",
     "bin/",
-    "dist/handroll.js",
-    "dist/handroll.js.map",
-    "dist/handroll.mjs",
-    "dist/handroll.mjs.map",
+    "dist/",
     "src/"
   ],
   "engines": {
@@ -72,6 +69,7 @@
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   },
   "devDependencies": {
+    "cake-bundle": "0.1.20",
     "cake-outdated": "0.1.12",
     "cake-publish": "0.1.5",
     "cake-test": "0.1.0",
