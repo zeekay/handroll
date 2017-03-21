@@ -18,8 +18,13 @@
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",
   "files": [
+    "README.md",
+    "LICENSE",
     "bin/",
-    "dist/",
+    "dist/handroll.js",
+    "dist/handroll.js.map",
+    "dist/handroll.mjs",
+    "dist/handroll.mjs.map",
     "src/"
   ],
   "engines": {
