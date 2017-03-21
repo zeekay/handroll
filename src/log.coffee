@@ -1,4 +1,4 @@
-import {white} from './colors'
+import {gray, white} from './colors'
 
 verbose = true
 
@@ -13,10 +13,16 @@ log.error = ->
 log.verbose = (bool) ->
   verbose = bool
 
+log.gray = (message) ->
+  log gray message
+
 log.white = (message) ->
   log white message
 
 log.white.bold = (message) ->
   log white.bold message
+
+log.white.dim = (message) ->
+  log white.dim message
 
 export default log

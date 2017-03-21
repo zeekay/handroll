@@ -19,7 +19,7 @@ task 'bootstrap', 'bootstrap project', ->
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap'
 
-  yield handroll.bundle
+  yield handroll.write
     entry:    'src/index.coffee'
     formats:  ['cjs', 'es']
     external: true

@@ -8,6 +8,7 @@ import {autoPlugins}     from './plugins'
 import {generate}        from './generate'
 import {merge}           from './utils'
 import {write, writeAll} from './write'
+import {version}         from '../package.json'
 
 cached = null
 
@@ -50,7 +51,7 @@ class Bundle
     unless opts.entry? and opts.entry != ''
       throw new Error 'No entry module specified'
 
-    log.white.bold 'hand rolling'
+    log.white.dim "handroll v#{version} 🍣"
 
     if @bundle?
       log 'using cached bundle'
