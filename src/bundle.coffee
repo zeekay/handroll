@@ -51,7 +51,7 @@ class Bundle
     unless opts.entry? and opts.entry != ''
       throw new Error 'No entry module specified'
 
-    log.white.dim "handroll v#{version} 🍙"
+    log.white.dim "handroll v#{version} 🍣"
 
     if @bundle?
       log 'using cached bundle'
