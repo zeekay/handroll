@@ -18,6 +18,7 @@
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",
   "files": [
+    "bin/handroll",
     "dist/",
     "src/"
   ],
