@@ -5,6 +5,7 @@ use 'cake-outdated'
 use 'cake-publish'
 use 'cake-test'
 use 'cake-version'
+use 'cake-yarn'
 
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
