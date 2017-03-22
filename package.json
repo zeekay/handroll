@@ -66,9 +66,9 @@
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   },
   "devDependencies": {
-    "cake-bundle": "0.2.3",
+    "cake-bundle": "0.2.4",
     "cake-outdated": "0.1.13",
-    "cake-publish": "0.1.5",
+    "cake-publish": "0.1.6",
     "cake-test": "0.1.0",
     "cake-version": "0.1.11",
     "coffee-script": "1.12.4",
