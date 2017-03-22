@@ -18,9 +18,6 @@
   "module": "dist/handroll.mjs",
   "jsnext:main": "dist/handroll.mjs",
   "files": [
-    "LICENSE",
-    "README.md",
-    "bin/",
     "dist/",
     "src/"
   ],
