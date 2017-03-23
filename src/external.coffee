@@ -5,8 +5,13 @@ import log from './log'
 
 # Get external packages from package.json
 export getExternal = (pkg, dev = false) ->
-  deps    = Object.keys pkg.dependencies    ? {}
-  devDeps = Object.keys pkg.devDependencies ? {}
+  deps     = Object.keys pkg.dependencies     ? {}
+  devDeps  = Object.keys pkg.devDependencies  ? {}
+  peerDeps = Object.keys pkg.peerDependencies ? {}
+
+  # Should always include peer dependencies, these are not even part of the
+  # package being bundled.
+  deps = deps.concat peerDeps
 
   if dev
     deps.concat devDeps
