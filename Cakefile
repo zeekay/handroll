@@ -14,11 +14,13 @@ task 'bootstrap', 'bootstrap project', ->
     entry:    'src/index.coffee'
     dest:     'dist/bootstrap.js'
     format:   'cjs'
+    external: true
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap'
 
   b = new handroll.Bundle
+    external: true
     compilers:
       coffee:
         version: 1
