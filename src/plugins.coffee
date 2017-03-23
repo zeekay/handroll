@@ -49,7 +49,7 @@ export autoPlugins = (opts) ->
     extensions:     opts.extensions
     preferBuiltins: opts.preferBuiltins
     external:       opts.autoExternal ? true
-    skip:           opts.skip         ? []
+    skip:           opts.skip         ? opts.external
 
   # Enable legacy
   if opts.legacy?
