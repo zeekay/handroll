@@ -12,7 +12,6 @@ import {version}         from '../package.json'
 
 cached = null
 
-
 class Bundle
   constructor: (opts = {}) ->
     return new Bundle opts unless @ instanceof Bundle
