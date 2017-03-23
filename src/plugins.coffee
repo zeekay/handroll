@@ -1,17 +1,17 @@
 import path from 'path'
 
-import builtins    from 'rollup-plugin-node-builtins'
-import commonjs    from 'rollup-plugin-commonjs'
-import es3         from 'rollup-plugin-es3'
-import executable  from 'rollup-plugin-executable'
-import globals     from 'rollup-plugin-node-globals'
-import nodeResolve from 'rollup-plugin-node-resolve-magic'
-import sizes       from 'rollup-plugin-sizes'
-import sourcemaps  from 'rollup-plugin-sourcemaps'
-import legacy      from 'rollup-plugin-legacy'
+import commonjs     from 'rollup-plugin-commonjs'
+import es3          from 'rollup-plugin-es3'
+import executable   from 'rollup-plugin-executable'
+import legacy       from 'rollup-plugin-legacy'
+import nodeResolve  from 'rollup-plugin-node-resolve-magic'
+import sizes        from 'rollup-plugin-sizes'
+import sourcemaps   from 'rollup-plugin-sourcemaps'
 
 import annotate    from './plugins/annotate'
+import builtins    from './plugins/builtins'
 import filesize    from './plugins/filesize'
+import globals     from './plugins/globals'
 import minify      from './plugins/minify'
 import shebang     from './plugins/shebang'
 
@@ -97,6 +97,8 @@ export autoPlugins = (opts) ->
   log 'plugins:'
   for plugin in plugins
     name = (plugin.name ? '').replace /rollup-plugin-/, ''
+    if name == ""
+      console.log plugin.resolveId.toString()
     log " + #{name}"
 
   plugins
