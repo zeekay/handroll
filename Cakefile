@@ -5,7 +5,6 @@ use 'cake-outdated'
 use 'cake-publish'
 use 'cake-test'
 use 'cake-version'
-use 'cake-yarn'
 
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
@@ -15,21 +14,23 @@ task 'bootstrap', 'bootstrap project', ->
     entry:    'src/index.coffee'
     dest:     'dist/bootstrap.js'
     format:   'cjs'
-    external: true
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap'
 
-  yield handroll.write
+  b = new handroll.Bundle
+    compilers:
+      coffee:
+        version: 1
+
+  yield b.write
     entry:    'src/index.coffee'
     formats:  ['cjs', 'es']
-    external: true
 
-  yield handroll.write
+  yield b.write
     entry:      'src/cli.coffee'
     format:     'cli'
     executable: true
-    external:   true
     sourceMap:  false
 
 task 'watch', 'watch project and build on changes', ->
