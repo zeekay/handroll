@@ -17,7 +17,7 @@ task 'bootstrap', 'bootstrap project', ->
     external: true
 
 task 'build', 'build project', ['bootstrap'], ->
-  handroll = require './dist/bootstrap'
+  handroll = require './dist/bootstrap.js'
 
   b = new handroll.Bundle
     external: true

@@ -1,5 +1,6 @@
 import log           from './log'
 import {enableAsync} from './utils'
+import pkg           from '../package.json'
 
 enableAsync()
 
@@ -10,5 +11,6 @@ handroll = new Handroll()
 handroll.Bundle   = Bundle
 handroll.Handroll = Handroll
 handroll.verbose  = log.verbose
+handroll.version  = pkg.version
 
 export default handroll

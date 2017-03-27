@@ -1,14 +1,14 @@
-fs = require 'fs'
-os = require 'os'
+import fs from 'fs'
 
-handroll = require '../'
+import handroll from '../'
+import pkg      from '../package.json'
 
 error = (message) ->
   console.error message
   process.exit 1
 
 version = ->
-  console.log (require '../package.json').version
+  console.log pkg.version
   process.exit 0
 
 usage = ->
@@ -50,6 +50,8 @@ while opt = args.shift()
     when '--module-name'
       opts.moduleName = args.shift()
     when '--source-map'
+      opts.sourceMap = true
+    when '--version', '-v', 'version'
       opts.sourceMap = true
     else
       error "Unrecognized option: '#{opt}'"
