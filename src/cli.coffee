@@ -52,12 +52,15 @@ while opt = args.shift()
     when '--source-map'
       opts.sourceMap = true
     when '--version', '-v', 'version'
-      opts.sourceMap = true
+      version()
     else
       error "Unrecognized option: '#{opt}'"
 
 unless opts.formats.length
   opts.format = 'es'
+
+unless opts.entry
+  usage()
 
 handroll.bundle
   commonjs:   opts.commonjs
