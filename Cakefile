@@ -13,15 +13,11 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
   coffee2     = require 'rollup-plugin-coffee2'
   nodeResolve = require 'rollup-plugin-node-resolve-magic'
 
-  pkg = require './package.json'
-
-  plugins = [
+  pkg      = require './package.json'
+  external = (Object.keys pkg.dependencies).concat Object.keys pkg.devDependencies
+  plugins  = [
     coffee2()
-    nodeResolve
-      extensions: ['.js', '.coffee']
-      external:   true
-      jsnext:     true
-      module:     true
+    nodeResolve()
   ]
 
   # CommonJS bootstrap lib
@@ -37,7 +33,7 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     format:    'cjs'
     sourceMap: true
 
-task 'build', 'build project', ['bootstrap'], ->
+task 'build', 'build project', ->
   handroll = require './dist/bootstrap.js'
 
   b = new handroll.Bundle
