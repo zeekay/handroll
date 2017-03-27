@@ -13,7 +13,10 @@ version = ->
 
 usage = ->
   console.log """
-  handroll <entry> [options]
+  handroll #{pkg.version}
+
+  Usage:
+    handroll <entry> [options]
 
   Options:
     --commonjs     Enable CommonJS support
@@ -37,7 +40,6 @@ opts =
   sourceMap:  false
 
 args = process.argv.slice 2
-opts.entry = args.shift()
 
 while opt = args.shift()
   switch opt
@@ -52,14 +54,18 @@ while opt = args.shift()
     when '--source-map'
       opts.sourceMap = true
     when '--version', '-v', 'version'
+      console.log 'version'
       version()
     else
-      error "Unrecognized option: '#{opt}'"
+      if /^-/.test opt
+        error "Unrecognized option: '#{opt}'"
+      else
+        opts.entry = opt
 
 unless opts.formats.length
   opts.format = 'es'
 
-unless opts.entry
+unless opts.entry?
   usage()
 
 handroll.bundle
