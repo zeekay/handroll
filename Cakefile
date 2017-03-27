@@ -1,6 +1,5 @@
 require 'shortcake'
 
-use 'cake-bundle'
 use 'cake-outdated'
 use 'cake-publish'
 use 'cake-test'
@@ -9,12 +8,34 @@ use 'cake-version'
 task 'clean', 'clean project', ->
   exec 'rm -rf dist'
 
-task 'bootstrap', 'bootstrap project', ->
+task 'bootstrap', 'Build bootstrapped version of handroll', ->
+  rollup      = require 'rollup'
+  coffee2     = require 'rollup-plugin-coffee2'
+  nodeResolve = require 'rollup-plugin-node-resolve-magic'
+
+  pkg = require './package.json'
+
+  plugins = [
+    coffee2()
+    nodeResolve
+      extensions: ['.js', '.coffee']
+      external:   true
+      jsnext:     true
+      module:     true
+  ]
+
+  # CommonJS bootstrap lib
+  bundle = yield rollup.rollup
+    entry:     'src/index.coffee'
+    acorn:     allowReserved: true
+    external:  external
+    plugins:   plugins
+    sourceMap: true
+
   bundle.write
-    entry:    'src/index.coffee'
-    dest:     'dist/bootstrap.js'
-    format:   'cjs'
-    external: true
+    dest:      './dist/bootstrap.js'
+    format:    'cjs'
+    sourceMap: true
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './dist/bootstrap.js'
