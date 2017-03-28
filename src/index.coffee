@@ -1,11 +1,7 @@
-import log           from './log'
-import {enableAsync} from './utils'
-import pkg           from '../package.json'
-
-enableAsync()
-
 import Bundle   from './bundle'
 import Handroll from './handroll'
+import log      from './log'
+import pkg      from '../package.json'
 
 handroll = new Handroll()
 handroll.Bundle   = Bundle
