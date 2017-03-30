@@ -99,6 +99,8 @@ export web = (opts) ->
 
   dest:       dest
   format:     'iife'
+  browser:    opts.browser  ? true
+  external:   opts.external ? false
   moduleName: name
   sourceMap:  opts.sourceMap
 
