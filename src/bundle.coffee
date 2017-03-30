@@ -8,7 +8,6 @@ import {autoPlugins}     from './plugins'
 import {generate}        from './generate'
 import {banner, merge}   from './utils'
 import {write, writeAll} from './write'
-import {version}         from '../package.json'
 
 cached = null
 
