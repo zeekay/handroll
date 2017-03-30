@@ -6,7 +6,7 @@ import {autoExternal}    from './external'
 import {autoFormats}     from './formats'
 import {autoPlugins}     from './plugins'
 import {generate}        from './generate'
-import {merge}           from './utils'
+import {banner, merge}   from './utils'
 import {write, writeAll} from './write'
 import {version}         from '../package.json'
 
@@ -50,7 +50,7 @@ class Bundle
     unless opts.entry? and opts.entry != ''
       throw new Error 'No entry module specified'
 
-    log.white.dim "handroll v#{version} 🍣"
+    banner()
 
     if @bundle?
       log 'using cached bundle'
