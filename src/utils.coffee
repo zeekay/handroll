@@ -1,4 +1,5 @@
-import log from './log'
+import log       from './log'
+import {version} from '../package.json'
 
 # Create a merged copy of a set of objects
 export merge = (fn) ->
