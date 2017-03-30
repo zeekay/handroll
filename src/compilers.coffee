@@ -2,6 +2,7 @@
 import coffee2 from 'rollup-plugin-coffee2'
 import json    from 'rollup-plugin-json'
 import pug     from 'rollup-plugin-pug'
+import string  from 'rollup-plugin-string'
 import stylup  from 'rollup-plugin-stylup'
 
 import autoprefixer from 'autoprefixer'
@@ -39,13 +40,15 @@ export default (opts) ->
 
   # Default compilers
   compilers =
-    coffee: coffee2 coffeeOpts
     # js:     buble   jsOpts
+    coffee: coffee2 coffeeOpts
+    css:    string  include: '**/*.css'
+    html:   string  include: '**/*.html'
     json:   json    jsonOpts
     pug:    pug     pugOpts
     stylus: stylup  stylusOpts
 
-  # If passed a legitimate plugin, all it to override the defaults
+  # If passed a legitimate plugin, allow it to override default
   for k,v of opts.compilers
     compilers[k] = v if isPlugin v
 
