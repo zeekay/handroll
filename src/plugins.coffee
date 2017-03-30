@@ -60,10 +60,13 @@ export autoPlugins = (opts) ->
       catch err
     plugins.push legacy opts.legacy
 
+  # Enable node modules in browser
+  if opts.browser
+    plugins.push globals()
+    plugins.push builtins()
+
   # Enable CommonJS
   if opts.commonjs
-    plugins.push builtins()
-    plugins.push globals()
     plugins.push commonjs Object.assign
       extensions: opts.extensions
       sourceMap:  opts.sourceMap
