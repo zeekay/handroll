@@ -35,3 +35,8 @@ export isPlugin = do ->
       if keys.has k
         return true
     false
+
+export banner = ->
+  unless banner.seen?
+    log.white.dim "handroll v#{version} 🍣"
+    banner.seen = true
