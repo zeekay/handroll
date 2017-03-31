@@ -6,7 +6,7 @@ use 'cake-test'
 use 'cake-version'
 
 task 'clean', 'clean project', ->
-  exec 'rm -rf dist'
+  exec 'rm -rf lib && rm -rf bin/handroll'
 
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
   rollup      = require 'rollup'
@@ -28,13 +28,13 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     plugins:   plugins
     sourceMap: true
 
-  bundle.write
-    dest:      './dist/bootstrap.js'
+  yield bundle.write
+    dest:      'lib/bootstrap.js'
     format:    'cjs'
     sourceMap: true
 
 task 'build', 'build project', ->
-  handroll = require './dist/bootstrap.js'
+  handroll = require './lib/bootstrap.js'
 
   b = new handroll.Bundle
     external: true
