@@ -77,6 +77,7 @@
     "es-is": "3.2.2",
     "rollup-plugin-coffee2": "0.1.8",
     "rollup-plugin-executable": "1.0.0",
-    "shortcake": "1.2.7"
+    "shortcake": "1.2.7",
+    "stylus": "0.54.5"
   }
 }

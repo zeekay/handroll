@@ -27,6 +27,7 @@ usage = ->
     --cjs          CommonJS module format
     --cli          Executable format
     --web          Web format
+    --browser      Bundle for browser
     --module-name  Name to use for iife module
     --source-map   Enable source map support
 
@@ -39,6 +40,7 @@ opts =
   entry:      null
   formats:    []
 
+  browser:    false
   commonjs:   false
   dest:       null
   moduleName: null
@@ -70,6 +72,9 @@ while opt = args.shift()
 
     when '--module-name'
       opts.moduleName = args.shift()
+
+    when '--browser'
+      opts.browser = true
 
     when '--source-map'
       opts.sourceMap = true
