@@ -14,12 +14,12 @@
     "rollup"
   ],
   "bin": "bin/handroll",
-  "main": "dist/handroll.js",
-  "module": "dist/handroll.mjs",
-  "jsnext:main": "dist/handroll.mjs",
+  "main": "lib/handroll.js",
+  "module": "lib/handroll.mjs",
+  "jsnext:main": "lib/handroll.mjs",
   "files": [
     "bin/handroll",
-    "dist/",
+    "lib/",
     "src/"
   ],
   "engines": {
