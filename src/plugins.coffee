@@ -61,9 +61,13 @@ export autoPlugins = (opts) ->
     plugins.push legacy opts.legacy
 
   # Enable node modules in browser
-  if opts.browser
+  if opts.browser or opts.node
     plugins.push globals()
     plugins.push builtins()
+
+  # Slightly more ES3 compatible output
+  if opts.browser or opts.es3
+    plugins.push es3()
 
   # Enable CommonJS
   if opts.commonjs
@@ -71,10 +75,6 @@ export autoPlugins = (opts) ->
       extensions: opts.extensions
       sourceMap:  opts.sourceMap
     , opts.commonjs
-
-  # Support ES3 on end
-  if opts.es3
-    plugins.push es3()
 
   # Automatically make bundle executable
   if opts.executable
