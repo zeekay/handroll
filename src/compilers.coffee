@@ -6,8 +6,9 @@ import string  from 'rollup-plugin-string'
 import stylup  from 'rollup-plugin-stylup'
 
 import autoprefixer from 'autoprefixer'
-import comments     from 'postcss-discard-comments'
-import lost         from 'lost-stylus'
+import cssnano      from 'cssnano'
+import lost         from 'lost'
+import lostStylus   from 'lost-stylus'
 import postcss      from 'poststylus'
 import rupture      from 'rupture'
 
@@ -15,12 +16,20 @@ import log        from './log'
 import {isPlugin} from './utils'
 
 export default (opts) ->
+  postPlugins = [
+    lost()
+    autoprefixer browsers: '> 1%'
+  ]
+
+  if opts.minify
+    postPlugins.push cssnano()
+
   coffeeOpts = Object.assign {}, opts.compilers?.coffee
   jsonOpts   = Object.assign {}, opts.compilers?.json
   pugOpts    = Object.assign {},
       compileDebug:           false
       inlineRuntimeFunctions: false
-      pretty:                 true
+      pretty:                 if opts.minify then false else true
       sourceMap:              opts.sourceMap
       staticPattern:          /\S/
   , opts.compilers?.pug
@@ -28,14 +37,9 @@ export default (opts) ->
   stylusOpts = Object.assign {},
     sourceMap: opts.sourceMap
     plugins: [
-      lost()
+      lostStylus()
       rupture()
-      postcss [
-        'css-mqpacker'
-        'lost'
-        autoprefixer browsers: '> 1%'
-        comments removeAll: true
-      ]
+      postcss postPlugins
     ], opts.compilers?.stylus
 
   # Default compilers
