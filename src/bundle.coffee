@@ -11,11 +11,17 @@ import {write, writeAll} from './write'
 
 cached = null
 
+readPkg = ->
+  try
+    require path.join process.cwd(), 'package.json'
+  catch err
+    {}
+
 class Bundle
   constructor: (opts = {}) ->
     return new Bundle opts unless @ instanceof Bundle
 
-    opts.pkg        ?= require path.join process.cwd(), 'package.json'
+    opts.pkg ?= readPkg()
 
     if opts.format == 'web'
       opts.browser  = opts.browser  ? true
