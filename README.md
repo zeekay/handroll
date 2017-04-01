@@ -228,7 +228,7 @@ await Promise.all([
 ```
 
 ### Example `package.json`
-```json
+```javascript
 {
   "name":        "mylib",
   "main":        "lib/mylib.js",  // CommonJS dest
