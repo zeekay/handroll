@@ -20,12 +20,12 @@ and `package.json`.
 - Automatic transforms based on filetype with built-in support for many
   languages
 - Automatic destination and format detection based on `package.json`:
-    - `'main'` generates CommonJS module
-    - `'module'` generates ES module bundle
-    - `'bin'` generates executable
+    - 'main' generates CommonJS module
+    - 'module' generates ES module bundle
+    - 'bin' generates executable
 - Higher-level formats
-    - `'cli'`, bundle JS into an executable
-    - `'web'`, bundle JS for the browser
+    - 'cli' bundles JS into an executable
+    - 'web' bundles JS for the browser
 - Built-in minification support
 - Built-in legacy module support
 - Built-in CommonJS support
