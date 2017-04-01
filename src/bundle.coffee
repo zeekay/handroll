@@ -21,6 +21,9 @@ class Bundle
       opts.browser  = opts.browser  ? true
       opts.external = opts.external ? false
 
+    if opts.format == 'cli'
+      opts.executable ?= true
+
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false
     opts.compilers  ?= null
