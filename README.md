@@ -1,10 +1,10 @@
 # handroll
 [![npm][npm-img]][npm-url]
 [![build][build-img]][build-url]
-[![dependencies][dependency-img]][dependency-url]
-[![download][download-img]][download-url]
+[![dependencies][dependencies-img]][dependencies-url]
+[![downloads][downloads-img]][downloads-url]
 [![license][license-img][license-url]
-[![chat][gitter-img]][gitter-url]
+[![chat][chat-img]][chat-url]
 
 ## Expertly rolled JavaScript
 JavaScript API and CLI for for bundling opinionated JavaScript with
@@ -150,17 +150,17 @@ await handroll.write
   format: 'cli'
 ```
 
-[build-img]:      https://img.shields.io/travis/zeekay/handroll.svg
-[build-url]:      https://travis-ci.org/zeekay/handroll
-[chat-img]:       https://badges.gitter.im/join-chat.svg
-[chat-url]:       https://gitter.im/zeekay/hi
-[coverage-img]:   https://coveralls.io/repos/zeekay/handroll/badge.svg?branch=master&service=github
-[coverage-url]:   https://coveralls.io/github/zeekay/handroll?branch=master
-[dependency-img]: https://david-dm.org/zeekay/handroll.svg
-[dependency-url]: https://david-dm.org/zeekay/handroll
-[download-img]:   https://img.shields.io/npm/dm/handroll.svg
-[download-url]:   http://badge.fury.io/js/handroll
-[license-img]:    https://img.shields.io/npm/l/handroll.svg
-[license-url]:    https://github.com/zeekay/handroll/blob/master/LICENSE
-[npm-img]:        https://img.shields.io/npm/v/handroll.svg
-[npm-url]:        https://www.npmjs.com/package/handroll
+[build-img]:        https://img.shields.io/travis/zeekay/handroll.svg
+[build-url]:        https://travis-ci.org/zeekay/handroll
+[chat-img]:         https://badges.gitter.im/join-chat.svg
+[chat-url]:         https://gitter.im/zeekay/hi
+[coverage-img]:     https://coveralls.io/repos/zeekay/handroll/badge.svg?branch=master&service=github
+[coverage-url]:     https://coveralls.io/github/zeekay/handroll?branch=master
+[dependencies-img]: https://david-dm.org/zeekay/handroll.svg
+[dependencies-url]: https://david-dm.org/zeekay/handroll
+[downloads-img]:    https://img.shields.io/npm/dm/handroll.svg
+[downloads-url]:    http://badge.fury.io/js/handroll
+[license-img]:      https://img.shields.io/npm/l/handroll.svg
+[license-url]:      https://github.com/zeekay/handroll/blob/master/LICENSE
+[npm-img]:          https://img.shields.io/npm/v/handroll.svg
+[npm-url]:          https://www.npmjs.com/package/handroll
