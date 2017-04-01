@@ -6,22 +6,22 @@
 [![license][license-img]][license-url]
 [![chat][chat-img]][chat-url]
 
-## Expertly rolled JavaScript
+### Expertly rolled JavaScript
 JavaScript API and CLI for for bundling opinionated JavaScript with
 [Rollup](https://github.com/rollup/rollup). Tastes great with
 [shortcake](https://github.com/zeekay/shortcake).
 
-### Install
+## Install
 ```bash
 $ npm install handroll --save-dev
 ```
 
-### CLI
+## CLI
 ```bash
 $ handroll src/index.coffee --format web > index.js
 ```
 
-### JavaScript API
+## JavaScript API
 Handroll's JavaScript API provides an interface similar to Rollup, with the
 `bundle` step being optional (and only useful if you want to cache the
 intermediate bundle). In most cases you'll want to use `.write` or `.generate`
@@ -127,7 +127,7 @@ bundle = await handroll.bundle
   strip:      false  # Remove debugging and console log statements
 ```
 
-### Examples
+## Examples
 ```coffee
 import handroll from 'handroll'
 
