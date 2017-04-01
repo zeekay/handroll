@@ -181,19 +181,39 @@ const bundle = await handroll.bundle({
   entry: 'src/index.js'
 })
 
-// Write ES module for use by bundlers
-await bundle.write({format: 'es'})
+// Write ES module (for use by bundlers)
+await bundle.write({
+  format: 'es'
+  // dest: pkg.module
+})
 
-// Write CommonJS module for use by Node.js
-await bundle.write({format: 'cjs'})
+// Write CommonJS module (for use by Node.js)
+await bundle.write({
+  format: 'cjs'
+  // dest: pkg.main
+})
 
-// Write IIFE bundle with all deps for web
-await bundle.write({format: 'web'})
+// Write ES module and CommonJS module
+await bundle.write({formats: ['cjs', 'es']})
+
+// If 'main' and 'module' are specified in your package.json, formats can be omitted
+await bundle.write()
+
+// Write bundle for web, using browser modules and ensuring no dependencies are excluded
+await bundle.write({
+  format: 'web',
+  // external: false,
+  // browser:  true,
+  // dest:     pkg.name + '.js',
+})
 
 // Write executable with shebang using new entry module
 await handroll.write({
-  entry:  'src/cli.js'
-  format: 'cli'
+  entry:  'src/cli.js',
+  format: 'cli',
+  // executable: true,
+  // external:   true,
+  // dest:       pkg.bin,
 })
 
 // Share options across multiple destinations
@@ -201,6 +221,10 @@ const bundle = new handroll.Bundle({
   entry:    'src/index.js',
   external: false
 })
+await Promise.all([
+  bundle.write({format: 'es'}),
+  bundle.write({format: 'cjs'}),
+])
 ```
 
 ## License
