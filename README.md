@@ -1,7 +1,6 @@
 # handroll
 [![npm][npm-img]][npm-url]
 [![build][build-img]][build-url]
-<!-- [![coverage][coverage-img]][coverage-url] -->
 [![dependencies][dependency-img]][dependency-url]
 [![download][download-img]][download-url]
 [![license][license-img][license-url]
