@@ -66,7 +66,7 @@ export app = (opts) ->
   sourceMap: opts.sourceMap
 
 export es = (opts) ->
-  dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next'] ? 'index.mjs'
+  dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next'] ? null
 
   dest:      dest
   format:    'es'
@@ -74,7 +74,7 @@ export es = (opts) ->
 
 
 export cjs = (opts) ->
-  dest = opts.dest ? opts.pkg.main ? 'index.js'
+  dest = opts.dest ? opts.pkg.main ? null
 
   dest:       dest
   format:     'cjs'
