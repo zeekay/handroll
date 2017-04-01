@@ -94,13 +94,16 @@ while opt = args.shift()
       else
         opts.entry = opt
 
+console.log opts
 unless opts.entry?
   usage()
 
 handroll.bundle
   commonjs:   opts.commonjs
   entry:      opts.entry
+  minify:     opts.minify
   moduleName: opts.moduleName
+  sourceMap:  opts.sourceMap
 .then (bundle) ->
   for fmt in opts.formats
     bundle.write
