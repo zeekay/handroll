@@ -1,7 +1,5 @@
 # handroll
 
-#### Expertly rolled JavaScript
-
 [![npm][npm-img]][npm-url]
 [![build][build-img]][build-url]
 [![dependencies][dependencies-img]][dependencies-url]
@@ -9,9 +7,29 @@
 [![license][license-img]][license-url]
 [![chat][chat-img]][chat-url]
 
+### Expertly rolled JavaScript
+
 JavaScript API and CLI for for bundling opinionated JavaScript with
-[Rollup](https://github.com/rollup/rollup). Tastes great with
-[shortcake](https://github.com/zeekay/shortcake).
+[Rollup](https://github.com/rollup/rollup). Provides a similar interface to
+Rollup with many options and plugins automatically configured based on format
+and `package.json`.
+
+## Features
+- Automatic external module detection
+- Automatic node module resolution with improved resolution strategy
+- Automatic transforms based on filetype with built-in support for many
+  languages
+- Automatic destination and format detection based on `package.json`:
+    - `'main'` generates CommonJS module
+    - `'module'` generates ES module bundle
+    - `'bin'` generates executable
+- Higher-level formats
+    - `'cli'`, bundle JS into an executable
+    - `'web'`, bundle JS for the browser
+- Built-in minification support
+- Built-in legacy module support
+- Built-in CommonJS support
+- Nice error handling and logging with built-in statistics and details view
 
 ## Install
 ```bash
@@ -29,9 +47,6 @@ Handroll's JavaScript API provides an interface similar to Rollup, with the
 intermediate bundle). In most cases you'll want to use `.write` or `.generate`
 directly.
 
-Rollup and plugins are automatically inferred and configured based on your
-package.json and other specified options. Built-in support for many file-types
-(CoffeeScript, Stylus, Pug, JSON, etc).
 
 #### handroll.bundle (options) -> Promise
 Create a new `Bundle` and cache result of `bundle.rollup`.
