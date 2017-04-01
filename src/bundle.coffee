@@ -23,12 +23,13 @@ class Bundle
 
     opts.pkg ?= readPkg()
 
+    # These formats have specific meanings
     if opts.format == 'web'
-      opts.browser  = opts.browser  ? true
-      opts.external = opts.external ? false
+      opts.browser  = true
+      opts.external = false
 
     if opts.format == 'cli'
-      opts.executable ?= true
+      opts.executable = true
 
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false

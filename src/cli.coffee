@@ -43,7 +43,7 @@ opts =
 
   browser:    false
   commonjs:   false
-  dest:       null
+  dest:       ''
   moduleName: null
   sourceMap:  true
   minify:     false
@@ -104,6 +104,10 @@ handroll.bundle
   moduleName: opts.moduleName
   sourceMap:  opts.sourceMap
 .then (bundle) ->
+  unless opts.formats.length > 0
+    return bundle.write
+      format: 'es'
+
   for fmt in opts.formats
     bundle.write
       format: fmt
