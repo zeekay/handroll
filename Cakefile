@@ -11,12 +11,14 @@ task 'clean', 'clean project', ->
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
   rollup      = require 'rollup'
   coffee2     = require 'rollup-plugin-coffee2'
+  json        = require 'rollup-plugin-json'
   nodeResolve = require 'rollup-plugin-node-resolve-magic'
 
   pkg      = require './package.json'
   external = (Object.keys pkg.dependencies).concat Object.keys pkg.devDependencies
   plugins  = [
     coffee2()
+    json()
     nodeResolve()
   ]
 
