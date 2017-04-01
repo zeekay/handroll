@@ -188,6 +188,9 @@ await handroll.write
   format: 'cli'
 ```
 
+## License
+[MIT][license-url]
+
 [build-img]:        https://img.shields.io/travis/zeekay/handroll.svg
 [build-url]:        https://travis-ci.org/zeekay/handroll
 [chat-img]:         https://badges.gitter.im/join-chat.svg
