@@ -42,15 +42,6 @@ export autoPlugins = (opts) ->
   # Add extra info above each module in bunlde
   plugins.push annotate sourceMap: opts.sourceMap
 
-  # Automatically resolve node modules
-  plugins.push nodeResolve
-    basedir:        opts.basedir
-    browser:        opts.browser
-    extensions:     opts.extensions
-    preferBuiltins: opts.preferBuiltins
-    external:       opts.autoExternal ? true
-    skip:           opts.skip         ? opts.external
-
   # Enable legacy
   if opts.legacy?
     for k,v of opts.legacy
@@ -64,6 +55,15 @@ export autoPlugins = (opts) ->
   if opts.browser or opts.node
     plugins.push globals()
     plugins.push builtins()
+
+  # Automatically resolve node modules
+  plugins.push nodeResolve
+    basedir:        opts.basedir
+    browser:        opts.browser
+    extensions:     opts.extensions
+    preferBuiltins: opts.preferBuiltins
+    external:       opts.autoExternal ? true
+    skip:           opts.skip         ? opts.external
 
   # Slightly more ES3 compatible output
   if opts.browser or opts.es3
