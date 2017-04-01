@@ -3,7 +3,7 @@
 [![build][build-img]][build-url]
 [![dependencies][dependencies-img]][dependencies-url]
 [![downloads][downloads-img]][downloads-url]
-[![license][license-img][license-url]
+[![license][license-img]][license-url]
 [![chat][chat-img]][chat-url]
 
 ## Expertly rolled JavaScript
