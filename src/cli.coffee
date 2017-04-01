@@ -94,7 +94,6 @@ while opt = args.shift()
       else
         opts.entry = opt
 
-console.log opts
 unless opts.entry?
   usage()
 

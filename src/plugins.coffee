@@ -100,8 +100,6 @@ export autoPlugins = (opts) ->
   log 'plugins:'
   for plugin in plugins
     name = (plugin.name ? '').replace /rollup-plugin-/, ''
-    if name == ""
-      console.log plugin.resolveId.toString()
     log " + #{name}"
 
   plugins
