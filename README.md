@@ -38,7 +38,6 @@ $ npm install handroll -g
 
 ## CLI
 ```bash
-$ handroll
 handroll
 
 Usage:
