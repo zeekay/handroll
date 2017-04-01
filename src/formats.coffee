@@ -59,12 +59,8 @@ export app = (opts) ->
   stat = fs.statSync dest
 
   if stat.isDirectory()
-    basedir = dest
     dest    = path.join dest, 'app.js'
-  else
-    basedir = path.dirname dest
 
-  basedir:   basedir
   dest:      dest
   format:    'iife'
   sourceMap: opts.sourceMap
@@ -99,8 +95,6 @@ export web = (opts) ->
 
   dest:       dest
   format:     'iife'
-  browser:    opts.browser  ? true
-  external:   opts.external ? false
   moduleName: name
   sourceMap:  opts.sourceMap
 

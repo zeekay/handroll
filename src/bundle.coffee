@@ -17,6 +17,10 @@ class Bundle
 
     opts.pkg        ?= require path.join process.cwd(), 'package.json'
 
+    if opts.format == 'web'
+      opts.browser  = opts.browser  ? true
+      opts.external = opts.external ? false
+
     opts.acorn      ?= allowReserved: true
     opts.browser    ?= false
     opts.compilers  ?= null
@@ -57,7 +61,6 @@ class Bundle
 
     opts.autoExternal = opts.autoExternal ? opts.external == true
     opts.basedir      = opts.basedir      ? path.dirname opts.entry
-
     opts.external     = autoExternal opts
     opts.formats      = autoFormats opts
     opts.plugins      = autoPlugins opts
