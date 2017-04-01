@@ -227,6 +227,25 @@ await Promise.all([
 ])
 ```
 
+### Example `package.json`
+```json
+{
+  "name":        "mylib",
+  "main":        "lib/mylib.js",  // CommonJS dest
+  "module":      "lib/mylib.mjs", // ES module dest
+  "jsnext:main": "lib/mylib.mjs", // For compatibility with outdated bundlers
+
+  // To ensure your generated files are packaged correctly:
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "prepublishOnly": "handroll src/index.js --formats cjs,es"
+  }
+}
+```
+
 ## License
 [MIT][license-url]
 
