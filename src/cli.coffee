@@ -30,6 +30,7 @@ usage = ->
     --browser      Bundle for browser
     --module-name  Name to use for iife module
     --source-map   Enable source map support
+    --minify       Enable minification
 
     --version      Print version information
     --help         Print this usage
@@ -44,7 +45,8 @@ opts =
   commonjs:   false
   dest:       null
   moduleName: null
-  sourceMap:  false
+  sourceMap:  true
+  minify:     false
 
 args = process.argv.slice 2
 
@@ -80,6 +82,9 @@ while opt = args.shift()
       opts.sourceMap = true
     when '--no-source-map'
       opts.sourceMap = false
+
+    when '--minify'
+      opts.minify = true
 
     when '--version', '-v', 'version'
       version()
