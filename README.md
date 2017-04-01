@@ -176,27 +176,27 @@ const bundle = await handroll.bundle({
 ```javascript
 import handroll from 'handroll'
 
-# Create new bundle
+// Create new bundle
 const bundle = await handroll.bundle({
   entry: 'src/index.js'
 })
 
-# Write ES module for use by bundlers
+// Write ES module for use by bundlers
 await bundle.write({format: 'es'})
 
-# Write CommonJS module for use by Node.js
+// Write CommonJS module for use by Node.js
 await bundle.write({format: 'cjs'})
 
-# Write IIFE bundle with all deps for web
+// Write IIFE bundle with all deps for web
 await bundle.write({format: 'web'})
 
-# Write executable with shebang using new entry module
+// Write executable with shebang using new entry module
 await handroll.write({
   entry:  'src/cli.js'
   format: 'cli'
 })
 
-# Share options across multiple destinations
+// Share options across multiple destinations
 const bundle = new handroll.Bundle({
   entry:    'src/index.js',
   external: false
