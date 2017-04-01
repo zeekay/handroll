@@ -1,4 +1,5 @@
 # handroll
+
 [![npm][npm-img]][npm-url]
 [![build][build-img]][build-url]
 [![dependencies][dependencies-img]][dependencies-url]
@@ -6,7 +7,8 @@
 [![license][license-img]][license-url]
 [![chat][chat-img]][chat-url]
 
-### Expertly rolled JavaScript
+#### Expertly rolled JavaScript
+
 JavaScript API and CLI for for bundling opinionated JavaScript with
 [Rollup](https://github.com/rollup/rollup). Tastes great with
 [shortcake](https://github.com/zeekay/shortcake).
