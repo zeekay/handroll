@@ -33,12 +33,33 @@ and `package.json`.
 
 ## Install
 ```bash
-$ npm install handroll --save-dev
+$ npm install handroll -g
 ```
 
 ## CLI
 ```bash
-$ handroll src/index.coffee --format web > index.js
+$ handroll
+handroll
+
+Usage:
+  handroll <entry> [options]
+
+Options:
+  --commonjs     Enable CommonJS support
+  --dest,   -o   Destination to write output
+  --format, -f   Format to output
+  --formats      Comma separated list of formats to output
+  --es           ES module format
+  --cjs          CommonJS module format
+  --cli          Executable format
+  --web          Web format
+  --browser      Bundle for browser
+  --module-name  Name to use for iife module
+  --source-map   Enable source map support
+  --minify       Enable minification
+
+  --version      Print version information
+  --help         Print this usage
 ```
 
 ## JavaScript API
