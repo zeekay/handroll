@@ -1,4 +1,5 @@
-import fs from 'fs'
+import fs         from 'fs'
+import {isString} from 'es-is'
 
 import {moduleName} from './utils'
 
@@ -83,6 +84,10 @@ export cjs = (opts) ->
 
 export cli = (opts) ->
   dest = opts.dest ? opts.pkg.bin ? path.join 'bin/', (moduleName opts.pkg.name).toLowerCase()
+
+  # Sometimes bin is an object, use the first mapping here
+  unless isString dest
+    dest = dest[(Object.keys dest)[0]]
 
   dest:       dest
   format:     'cjs'
