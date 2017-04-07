@@ -67,7 +67,8 @@ export autoPlugins = (opts) ->
 
   # Slightly more ES3 compatible output
   if opts.browser or opts.es3
-    plugins.push es3()
+    unless opts.es3 == false
+      plugins.push es3()
 
   # Enable CommonJS
   if opts.commonjs
