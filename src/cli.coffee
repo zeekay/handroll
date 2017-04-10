@@ -115,6 +115,7 @@ handroll.bundle
   unless opts.formats.length > 0
     return bundle.write
       format: 'es'
+      dest:   opts.dest
 
   for fmt in opts.formats
     bundle.write
