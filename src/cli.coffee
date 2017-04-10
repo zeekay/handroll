@@ -30,6 +30,8 @@ usage = ->
     --browser      Bundle for browser
     --module-name  Name to use for iife module
     --source-map   Enable source map support
+    --external     Modules to consider external
+    --no-external  No modules should be external
     --minify       Enable minification
 
     --version      Print version information
@@ -41,6 +43,7 @@ opts =
   entry:      null
   formats:    []
 
+  external:   null
   browser:    false
   commonjs:   false
   dest:       ''
@@ -61,6 +64,11 @@ while opt = args.shift()
     when '--format', '--formats', '-f'
       for fmt in args.shift().split ','
         opts.formats.push fmt
+
+    when '--external'
+      opts.external = args.shift().split ','
+    when '--no-external'
+      opts.external = false
 
     # Various module format shorthands
     when '--es'
