@@ -1,9 +1,6 @@
-require 'shortcake'
-
-use 'cake-outdated'
-use 'cake-publish'
-use 'cake-test'
-use 'cake-version'
+use 'sake-outdated'
+use 'sake-publish'
+use 'sake-version'
 
 task 'clean', 'clean project', ->
   exec 'rm -rf lib && rm -rf bin/handroll'
