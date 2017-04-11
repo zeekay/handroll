@@ -7,7 +7,7 @@
 [![license][license-img]][license-url]
 [![chat][chat-img]][chat-url]
 
-### Expertly rolled JavaScript
+> Expertly rolled JavaScript
 
 JavaScript API and CLI for for bundling opinionated JavaScript with
 [Rollup](https://github.com/rollup/rollup). Provides a similar interface to
