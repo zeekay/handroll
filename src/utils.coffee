@@ -41,3 +41,6 @@ export banner = ->
   unless banner.seen?
     log.white.dim "handroll v#{version} 🍣"
     banner.seen = true
+
+export isArray  = (v) -> Array.isArray v
+export isString = (v) -> typeof v == 'string' or v instanceof String

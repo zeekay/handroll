@@ -1,7 +1,6 @@
-import fs       from 'fs'
-import isString from 'es-is/string'
+import fs from 'fs'
 
-import {moduleName} from './utils'
+import {isString, moduleName} from './utils'
 
 # autoFormat tries to guess the formats required for an operation based on your
 # package.json file. If opts.format is specified, multiple formats will not be
