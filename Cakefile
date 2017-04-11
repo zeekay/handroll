@@ -35,6 +35,7 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './lib/bootstrap.js'
+  path     = require 'path'
 
   b = new handroll.Bundle
     external: true
@@ -45,6 +46,9 @@ task 'build', 'build project', ['bootstrap'], ->
   yield b.write
     entry:    'src/index.coffee'
     formats:  ['cjs', 'es']
+    inject:
+      exclude: 'node_modules/**',
+      'Object.assign': path.resolve 'node_modules/es-object-assign/lib/es-object-assign.mjs'
 
   yield b.write
     entry:      'src/cli.coffee'
