@@ -3,6 +3,7 @@ import path from 'path'
 import commonjs     from 'rollup-plugin-commonjs'
 import es3          from 'rollup-plugin-es3'
 import executable   from 'rollup-plugin-executable'
+import inject       from 'rollup-plugin-inject'
 import legacy       from 'rollup-plugin-legacy'
 import nodeResolve  from 'rollup-plugin-node-resolve-magic'
 import sizes        from 'rollup-plugin-sizes'
@@ -29,6 +30,9 @@ resolveId = (id, opts = {}) ->
 export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
+
+  if opts.inject?
+    plugins.push inject opts.inject
 
   if opts.plugins?
     plugins = plugins.concat opts.plugins
