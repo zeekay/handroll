@@ -1,4 +1,4 @@
-import {isArray} from 'es-is'
+import isArray from 'es-is/array'
 
 import log from './log'
 

@@ -1,5 +1,5 @@
-import fs         from 'fs'
-import {isString} from 'es-is'
+import fs       from 'fs'
+import isString from 'es-is/string'
 
 import {moduleName} from './utils'
 
