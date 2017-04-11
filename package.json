@@ -73,7 +73,7 @@
     "rollup-plugin-coffee2": "0.1.10",
     "rollup-plugin-executable": "1.0.0",
     "sake-outdated": "0.1.18",
-    "sake-publish": "0.1.10",
+    "sake-publish": "0.1.11",
     "sake-version": "0.1.16",
     "stylus": "0.54.5"
   }
