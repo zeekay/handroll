@@ -27,22 +27,31 @@ detectExternal = (external, pkg) ->
   external
 
 # Remove included deps from detected externals
-removeIncluded = (external, include = []) ->
+removeIncluded = (externals, include = []) ->
+  removed = []
   for dep in include by -1
-    console.log dep
-    if ~external.indexOf dep
-      log " + #{dep} included"
-      external.splice i, 1
-  external
+    if ~externals.indexOf dep
+      externals.splice i, 1
+      removed.push dep
+  removed
 
 # Log detected external deps
-logExternal = (external) ->
-  if external.length
+logExternals = (externals) ->
+  if externals.length
     log 'external:'
-    for dep in external
+    for dep in externals
       log " - #{dep}"
   else
     log 'no externals'
+  return
+
+# Log detected external deps
+logIncluded = (included) ->
+  if included.length
+    log 'included:'
+    for dep in included
+      log " + #{dep}"
+  return
 
 # autoExternal uses your package.json to guess which dependencies should be
 # considered external. By default only dependencies in pkg.dependencies will be
@@ -52,8 +61,10 @@ logExternal = (external) ->
 export autoExternal = ({external, include, pkg}) ->
   return external if isArray external
 
-  console.log 'detected externals'
-  externals = detectExternal external, pkg
-  removeIncluded externals, include
-  logExternal externals
+  externals = detectExternal external,  pkg
+  included  = removeIncluded externals, include
+
+  logExternals externals
+  logIncluded  included
+
   externals
