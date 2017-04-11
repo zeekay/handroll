@@ -42,18 +42,25 @@ export default (opts) ->
       postcss postPlugins
     ], opts.compilers?.stylus
 
+  # Simple string compilers for .css and .html
+  css       = string  include: '**/*.css'
+  css.name  = 'string-css'
+
+  html      = string  include: '**/*.html'
+  html.name = 'string-html'
+
   # Default compilers
   compilers =
     # js:     buble   jsOpts
     coffee: coffee2 coffeeOpts
-    css:    string  include: '**/*.css'
-    html:   string  include: '**/*.html'
+    css:    css
+    html:   html
     json:   json    jsonOpts
     pug:    pug     pugOpts
     stylus: stylup  stylusOpts
 
   # If passed a legitimate plugin, allow it to override default
-  for k,v of opts.compilers
+  for k, v of opts.compilers
     compilers[k] = v if isPlugin v
 
   compilers
