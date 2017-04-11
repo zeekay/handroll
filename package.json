@@ -68,8 +68,8 @@
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   },
   "devDependencies": {
-    "coffee-script": "1.12.4",
-    "es-is": "3.3.3",
+    "coffee-script": "1.12.5",
+    "es-is": "3.3.10",
     "rollup-plugin-coffee2": "0.1.10",
     "rollup-plugin-executable": "1.0.0",
     "sake-outdated": "0.1.18",
