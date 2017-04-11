@@ -31,14 +31,12 @@ export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
 
+  # Detect compiler plugins or used passed plugins
   if opts.plugins?
     plugins = plugins.concat opts.plugins
   else
     for k,v of autoCompilers opts
       plugins.push v
-
-  if opts.inject?
-    plugins.push inject opts.inject
 
   # Load up any extra plugins specified
   plugins = plugins.concat (opts.use ? [])
@@ -80,6 +78,10 @@ export autoPlugins = (opts) ->
       extensions: opts.extensions
       sourceMap:  opts.sourceMap
     , opts.commonjs
+
+  # Inject imports
+  if opts.inject?
+    plugins.push inject opts.inject
 
   # Automatically make bundle executable
   if opts.executable
