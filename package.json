@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "coffee-script": "1.12.5",
+    "es-object-assign": "4.1.4",
     "rollup-plugin-coffee2": "0.1.10",
     "rollup-plugin-executable": "1.0.0",
     "sake-outdated": "0.1.18",
