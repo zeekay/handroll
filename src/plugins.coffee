@@ -31,14 +31,14 @@ export autoPlugins = (opts) ->
   # Start with source map support
   plugins = [sourcemaps()]
 
-  if opts.inject?
-    plugins.push inject opts.inject
-
   if opts.plugins?
     plugins = plugins.concat opts.plugins
   else
     for k,v of autoCompilers opts
       plugins.push v
+
+  if opts.inject?
+    plugins.push inject opts.inject
 
   # Load up any extra plugins specified
   plugins = plugins.concat (opts.use ? [])
