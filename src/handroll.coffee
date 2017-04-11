@@ -2,7 +2,7 @@ import path from 'path'
 
 import Bundle from './bundle'
 import log from './log'
-import {merge} from './utils'
+import {isArray, merge} from './utils'
 
 
 sourceMapOverride = ->
@@ -21,7 +21,7 @@ class Handroll
     @opts = opts
 
   use: (plugin) ->
-    if Array.isArray plugin
+    if isArray plugin
       plugins = plugin
     else
       plugins = [plugin]

@@ -1,10 +1,8 @@
-import isArray from 'es-is/array'
-
-import log from './log'
-
+import log       from './log'
+import {isArray} from './utils'
 
 # Get external packages from package.json
-export getExternal = (pkg, dev = false) ->
+export getDeps = (pkg, dev = false) ->
   deps     = Object.keys pkg.dependencies     ? {}
   devDeps  = Object.keys pkg.devDependencies  ? {}
   peerDeps = Object.keys pkg.peerDependencies ? {}
@@ -18,21 +16,27 @@ export getExternal = (pkg, dev = false) ->
   else
     deps
 
-# autoExternal uses your package.json to guess which dependencies should be
-# considered external. By default only dependencies in pkg.dependencies will be
-# considered external as pkg.devDependencies are generally only required as
-# part of a build or development process. If this isn't what you want you
-# should manually specify external dependencies instead.
-export autoExternal = ({external, pkg}) ->
-  return external if isArray external
-
+# Convert external opt into detected externals based on option selected
+detectExternal = (external, pkg) ->
   if external == true or !external?
-    external = getExternal pkg
-  else if external == false
+    external = getDeps pkg
+  if external == 'dev'
+    external = getDeps pkg, true
+  if external == false
     external = []
-  else if external == 'dev'
-    external = getExternal pkg, true
+  external
 
+# Remove included deps from detected externals
+removeIncluded = (external, include = []) ->
+  for dep in include by -1
+    console.log dep
+    if ~external.indexOf dep
+      log " + #{dep} included"
+      external.splice i, 1
+  external
+
+# Log detected external deps
+logExternal = (external) ->
   if external.length
     log 'external:'
     for dep in external
@@ -40,4 +44,16 @@ export autoExternal = ({external, pkg}) ->
   else
     log 'no externals'
 
-  external
+# autoExternal uses your package.json to guess which dependencies should be
+# considered external. By default only dependencies in pkg.dependencies will be
+# considered external as pkg.devDependencies are generally only required as
+# part of a build or development process. If this isn't what you want you
+# should manually specify external dependencies instead.
+export autoExternal = ({external, include, pkg}) ->
+  return external if isArray external
+
+  console.log 'detected externals'
+  externals = detectExternal external, pkg
+  removeIncluded externals, include
+  logExternal externals
+  externals

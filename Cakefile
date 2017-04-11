@@ -13,6 +13,7 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
 
   pkg      = require './package.json'
   external = (Object.keys pkg.dependencies).concat Object.keys pkg.devDependencies
+
   plugins  = [
     coffee2()
     json()
@@ -32,7 +33,7 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     format:    'cjs'
     sourceMap: true
 
-task 'build', 'build project', ->
+task 'build', 'build project', ['bootstrap'], ->
   handroll = require './lib/bootstrap.js'
 
   b = new handroll.Bundle

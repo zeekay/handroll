@@ -40,6 +40,8 @@ class Bundle
     opts.sourceMap  ?= true
 
     opts.external   ?= null
+    opts.include    ?= []
+    opts.inject     ?= null
     opts.plugins    ?= null
     opts.use        ?= []
 
