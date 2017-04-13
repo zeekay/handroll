@@ -29,9 +29,9 @@ detectExternal = (external, pkg) ->
 # Remove included deps from detected externals
 removeIncluded = (externals, include = []) ->
   removed = []
-  for dep in include by -1
-    if ~externals.indexOf dep
-      externals.splice i, 1
+  for dep in include
+    if ~(idx = externals.indexOf dep)
+      externals.splice idx, 1
       removed.push dep
   removed
 
