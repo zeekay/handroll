@@ -5,8 +5,8 @@ import log from './log'
 import {autoExternal}    from './external'
 import {autoFormats}     from './formats'
 import {autoPlugins}     from './plugins'
-import {generate}        from './generate'
 import {banner, merge}   from './utils'
+import {generate}        from './generate'
 import {write, writeAll} from './write'
 
 cached = null
