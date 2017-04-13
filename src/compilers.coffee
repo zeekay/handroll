@@ -54,13 +54,13 @@ export default (opts) ->
   # Default compilers
   compilers =
     # js:     buble   jsOpts
-    coffee: coffee2 coffeeOpts
+    coffee:     coffee2    coffeeOpts
+    css:        css
+    html:       html
+    json:       json    jsonOpts
+    pug:        pug     pugOpts
+    stylus:     stylup  stylusOpts
     typescript: typescript typescriptOpts
-    css:    css
-    html:   html
-    json:   json    jsonOpts
-    pug:    pug     pugOpts
-    stylus: stylup  stylusOpts
 
   # If passed a legitimate plugin, allow it to override default
   for k, v of opts.compilers
