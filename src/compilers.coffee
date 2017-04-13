@@ -1,9 +1,10 @@
 # import buble  from 'rollup-plugin-buble'
-import coffee2 from 'rollup-plugin-coffee2'
-import json    from 'rollup-plugin-json'
-import pug     from 'rollup-plugin-pug'
-import string  from 'rollup-plugin-string'
-import stylup  from 'rollup-plugin-stylup'
+import coffee2      from 'rollup-plugin-coffee2'
+import typescript   from 'rollup-plugin-typescript'
+import json         from 'rollup-plugin-json'
+import pug          from 'rollup-plugin-pug'
+import string       from 'rollup-plugin-string'
+import stylup       from 'rollup-plugin-stylup'
 
 import autoprefixer from 'autoprefixer'
 import cssnano      from 'cssnano'
@@ -24,9 +25,10 @@ export default (opts) ->
   if opts.minify
     postPlugins.push cssnano()
 
-  coffeeOpts = Object.assign {}, opts.compilers?.coffee
-  jsonOpts   = Object.assign {}, opts.compilers?.json
-  pugOpts    = Object.assign {},
+  coffeeOpts        = Object.assign {}, opts.compilers?.coffee
+  typescriptOpts    = Object.assign {}, opts.compilers?.typescript
+  jsonOpts          = Object.assign {}, opts.compilers?.json
+  pugOpts           = Object.assign {},
       compileDebug:           false
       inlineRuntimeFunctions: false
       pretty:                 if opts.minify then false else true
@@ -53,6 +55,7 @@ export default (opts) ->
   compilers =
     # js:     buble   jsOpts
     coffee: coffee2 coffeeOpts
+    typescript: typescript typescriptOpts
     css:    css
     html:   html
     json:   json    jsonOpts
