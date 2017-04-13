@@ -44,23 +44,23 @@ export default (opts) ->
       postcss postPlugins
     ], opts.compilers?.stylus
 
-  # Simple string compilers for .css and .html
-  css       = string  include: '**/*.css'
-  css.name  = 'string-css'
-
-  html      = string  include: '**/*.html'
-  html.name = 'string-html'
 
   # Default compilers
   compilers =
     # js:     buble   jsOpts
+
+    # Simple string compilers for .css and .html
     coffee:     coffee2    coffeeOpts
-    css:        css
-    html:       html
-    json:       json    jsonOpts
-    pug:        pug     pugOpts
-    stylus:     stylup  stylusOpts
+    css:        string     include: '**/*.css'
+    html:       string     include: '**/*.html'
+    json:       json       jsonOpts
+    pug:        pug        pugOpts
+    stylus:     stylup     stylusOpts
     typescript: typescript typescriptOpts
+
+  compilers.css.name        = 'string-css'
+  compilers.html.name       = 'string-html'
+  compilers.typescript.name = 'typescript'
 
   # If passed a legitimate plugin, allow it to override default
   for k, v of opts.compilers
