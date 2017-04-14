@@ -88,6 +88,7 @@ export cli = (opts) ->
   unless isString dest
     dest = dest[(Object.keys dest)[0]]
 
+  executable: true
   dest:       dest
   format:     'cjs'
   sourceMap:  opts.sourceMap
