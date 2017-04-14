@@ -88,8 +88,8 @@ export cli = (opts) ->
   unless isString dest
     dest = dest[(Object.keys dest)[0]]
 
-  executable: true
   dest:       dest
+  executable: true
   format:     'cjs'
   sourceMap:  opts.sourceMap
 
@@ -99,6 +99,8 @@ export web = (opts) ->
   dest = opts.dest       ? "#{name}.js".toLowerCase()
 
   dest:       dest
+  browser:    true
+  external:   false
   format:     'iife'
   moduleName: name
   sourceMap:  opts.sourceMap
