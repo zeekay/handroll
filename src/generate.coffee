@@ -1,6 +1,4 @@
-import {detectFormat} from './formats'
+import {formatOpts} from './formats'
 
 export generate = (bundle, opts) ->
-  bundle.generate detectFormat opts
-
-
+  bundle.generate formatOpts opts
