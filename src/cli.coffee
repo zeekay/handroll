@@ -31,6 +31,7 @@ usage = ->
     --module-name  Name to use for iife module
     --source-map   Enable source map support
     --external     Modules to consider external
+    --executable   Force executable mode
     --no-external  No modules should be external
     --minify       Enable minification
 
@@ -70,6 +71,11 @@ while opt = args.shift()
     when '--no-external'
       opts.external = false
 
+    when '--executable'
+      opts.executable = true
+    when '--no-executable'
+      opts.executable = false
+
     # Various module format shorthands
     when '--es'
       opts.formats.push 'es'
@@ -108,6 +114,8 @@ unless opts.entry?
 handroll.bundle
   commonjs:   opts.commonjs
   entry:      opts.entry
+  format:     opts.format
+  formats:    opts.formats
   minify:     opts.minify
   moduleName: opts.moduleName
   sourceMap:  opts.sourceMap

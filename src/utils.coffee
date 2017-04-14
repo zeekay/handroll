@@ -10,6 +10,7 @@ export merge = (fn) ->
 
 # Try to guess moduleName (used in export for browser bundles)
 export moduleName = (name) ->
+  return '' unless name.trim()
   first = name.charAt(0).toUpperCase()
   name  = name.replace /\.js$|\.coffee$|-js$/, ''
   name  = name.replace /-([a-z])/g, (g) -> g[1].toUpperCase()

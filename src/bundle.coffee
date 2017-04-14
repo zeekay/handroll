@@ -2,12 +2,12 @@ import path     from 'path'
 import {rollup} from 'rollup'
 
 import log from './log'
-import {autoExternal}    from './external'
-import {autoFormats}     from './formats'
-import {autoPlugins}     from './plugins'
-import {banner, merge}   from './utils'
-import {generate}        from './generate'
-import {write, writeAll} from './write'
+import {autoExternal}            from './external'
+import {autoFormats, formatOpts} from './formats'
+import {autoPlugins}             from './plugins'
+import {banner, merge}           from './utils'
+import {generate}                from './generate'
+import {write, writeAll}         from './write'
 
 cached = null
 
@@ -65,21 +65,28 @@ class Bundle
 
     opts.autoExternal = opts.autoExternal ? opts.external == true
     opts.basedir      = opts.basedir      ? path.dirname opts.entry
-    opts.external     = autoExternal opts
-    opts.formats      = autoFormats opts
-    opts.plugins      = autoPlugins opts
+
+    # Detect format and update opts accordingly
+    opts.formats = autoFormats opts
+    if opts.formats.length == 1
+      opts.format = opts.formats[0]
+
+    # Set a few overrides if a single format is selected
+    if opts.format?
+      for k, v of (formatOpts opts)
+        opts[k] = v
+
+    opts.external = autoExternal opts
+    opts.plugins  = autoPlugins opts
 
     new Promise (resolve, reject) =>
       rollup
         entry:     opts.entry
-
         cache:     @cache opts
-
         acorn:     opts.acorn
         external:  opts.external
         plugins:   opts.plugins
         sourceMap: opts.sourceMap
-
         onwarn:    ({message}) ->
           return if /external dependency/.test message
           log.error message

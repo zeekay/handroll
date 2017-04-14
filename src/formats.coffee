@@ -1,4 +1,5 @@
-import fs from 'fs'
+import fs   from 'fs'
+import path from 'path'
 
 import {isString, moduleName} from './utils'
 
@@ -20,9 +21,18 @@ export autoFormats = ({format, formats, pkg}) ->
       formats.push 'es'
     formats
 
+# Detect formats requested
+export detectFormats = (opts) ->
+  # opts.format overrides opts.formats
+  if opts.format?
+    [opts.format]
+  else if opts.formats?
+    opts.formats
+  else
+    autoFormats opts
 
 # Convert our formats to Rollup settings
-export detectFormat = (opts) ->
+export formatOpts = (opts) ->
   # Default to es module
   opts.format ?= 'es'
 
@@ -42,47 +52,35 @@ export detectFormat = (opts) ->
     else
       throw new Error 'Unsupported export format'
 
-# Detect formats requested
-export detectFormats = (opts) ->
-  # opts.format overrides opts.formats
-  if opts.format?
-    [opts.format]
-  else if opts.formats?
-    opts.formats
-  else
-    autoFormats opts
-
 # Various pre-configurations we support
 export app = (opts) ->
-  dest = opts.dest ? opts.pkg.app ? opts.pkg.main
+  dest = opts.dest ? opts.pkg?.app ? opts.pkg?.main
 
   stat = fs.statSync dest
 
   if stat.isDirectory()
-    dest    = path.join dest, 'app.js'
+    dest = path.join dest, 'app.js'
 
   dest:      dest
   format:    'iife'
   sourceMap: opts.sourceMap
 
 export es = (opts) ->
-  dest = opts.dest ? opts.pkg.module ? opts.pkg['js:next'] ? null
+  dest = opts.dest ? opts.pkg?.module ? opts.pkg?['js:next'] ? null
 
   dest:      dest
   format:    'es'
   sourceMap: opts.sourceMap
 
-
 export cjs = (opts) ->
-  dest = opts.dest ? opts.pkg.main ? null
+  dest = opts.dest ? opts.pkg?.main ? null
 
   dest:       dest
   format:     'cjs'
   sourceMap:  opts.sourceMap
 
-
 export cli = (opts) ->
-  dest = opts.dest ? opts.pkg.bin ? path.join 'bin/', (moduleName opts.pkg.name).toLowerCase()
+  dest = opts.dest ? opts.pkg?.bin ? path.join 'bin/', (moduleName opts.pkg?.name).toLowerCase()
 
   # Sometimes bin is an object, use the first mapping here
   unless isString dest
@@ -93,9 +91,8 @@ export cli = (opts) ->
   format:     'cjs'
   sourceMap:  opts.sourceMap
 
-
 export web = (opts) ->
-  name = opts.moduleName ? moduleName opts.pkg.name
+  name = opts.moduleName ? moduleName opts.pkg?.name
   dest = opts.dest       ? "#{name}.js".toLowerCase()
 
   dest:       dest
@@ -104,7 +101,6 @@ export web = (opts) ->
   format:     'iife'
   moduleName: name
   sourceMap:  opts.sourceMap
-
 
 export umd = (opts) ->
   dest:       opts.dest

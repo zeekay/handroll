@@ -1,6 +1,6 @@
 import fs   from 'fs'
 import path from 'path'
-import {detectFormat, detectFormats} from './formats'
+import {detectFormats, formatOpts} from './formats'
 
 # Helper to write bundle
 export write = (bundle, opts) ->
@@ -8,7 +8,7 @@ export write = (bundle, opts) ->
     when 'app'
       bundle.write writeApp opts
     else
-      bundle.write detectFormat opts
+      bundle.write formatOpts opts
 
 # Helper to write multiple formats
 export writeAll = (bundle, opts) ->
@@ -20,7 +20,7 @@ export writeAll = (bundle, opts) ->
   Promise.all ps
 
 export writeApp = (opts) ->
-  opts = detectFormat opts
+  opts = formatOpts opts
   fs.writeFileSync (path.join opts.basedir, 'index.html'), """
     <!DOCTYPE html>
     <html lang="en">
