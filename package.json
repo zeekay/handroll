@@ -16,7 +16,6 @@
   "bin": "bin/handroll",
   "main": "lib/handroll.js",
   "module": "lib/handroll.mjs",
-  "jsnext:main": "lib/handroll.mjs",
   "files": [
     "bin/handroll",
     "lib/",
@@ -26,15 +25,11 @@
     "node": ">=4.0.0"
   },
   "scripts": {
+    "build": "sake build",
     "prepublishOnly": "sake build",
+    "pretest": "sake build",
     "test": "sake test"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/zeekay/handroll/blob/master/LICENSE"
-    }
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
