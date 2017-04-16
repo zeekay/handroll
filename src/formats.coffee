@@ -96,7 +96,7 @@ export web = (opts) ->
   dest = opts.dest       ? "#{name}.js".toLowerCase()
 
   dest:       dest
-  browser:    true
+  browser:    opts.browser != false
   external:   false
   format:     'iife'
   moduleName: name
