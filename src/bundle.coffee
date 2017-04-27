@@ -87,8 +87,9 @@ class Bundle
         external:  opts.external
         plugins:   opts.plugins
         sourceMap: opts.sourceMap
-        onwarn:    ({message}) ->
-          return if /external dependency/.test message
+        onwarn:    (warning) ->
+          return if warning.code == 'UNRESOLVED_IMPORT'
+          return opts.onwarn warning if opts.onwarn?
           log.error message
 
       .then (bundle) =>
