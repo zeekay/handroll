@@ -69,8 +69,8 @@
     "es-object-assign": "4.1.4",
     "rollup-plugin-coffee2": "0.1.10",
     "rollup-plugin-executable": "1.0.0",
-    "sake-cli": "0.4.4",
-    "sake-outdated": "0.1.20",
+    "sake-cli": "0.4.16",
+    "sake-outdated": "0.1.21",
     "sake-publish": "0.1.12",
     "sake-version": "0.1.18",
     "stylus": "0.54.5"
