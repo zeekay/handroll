@@ -90,7 +90,7 @@ class Bundle
         onwarn:    (warning) ->
           return if warning.code == 'UNRESOLVED_IMPORT'
           return opts.onwarn warning if opts.onwarn?
-          log.error warning.message
+          log.warn warning.message
 
       .then (bundle) =>
         @bundle = bundle if opts.cacheBundle
