@@ -6,9 +6,12 @@ log = ->
   if verbose
     console.log.apply console, arguments
 
-log.error = ->
+log.warn = ->
   if verbose
-    console.error.apply console, arguments
+    console.log.apply console, arguments
+
+log.error = ->
+  console.error.apply console, arguments
 
 log.verbose = (bool) ->
   verbose = bool
