@@ -36,10 +36,10 @@
     "url": "http://github.com/zeekay/handroll"
   },
   "dependencies": {
-    "autoprefixer": "6.7.7",
+    "autoprefixer": "7.0.0",
     "chalk": "1.1.3",
     "cssnano": "3.10.0",
-    "filesize": "3.5.6",
+    "filesize": "3.5.9",
     "gzip-size": "3.0.0",
     "lost": "8.0.0",
     "lost-stylus": "0.1.3",
@@ -51,7 +51,7 @@
     "rollup-plugin-inject": "2.0.0",
     "rollup-plugin-json": "2.1.1",
     "rollup-plugin-legacy": "1.0.0",
-    "rollup-plugin-node-builtins": "2.1.0",
+    "rollup-plugin-node-builtins": "2.1.1",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve-magic": "0.2.5",
     "rollup-plugin-pug": "0.1.3",
@@ -69,10 +69,10 @@
     "es-object-assign": "4.1.4",
     "rollup-plugin-coffee2": "0.1.10",
     "rollup-plugin-executable": "1.0.0",
-    "sake-cli": "0.5.2",
-    "sake-outdated": "0.1.21",
+    "sake-cli": "0.5.5",
+    "sake-outdated": "0.1.22",
     "sake-publish": "0.1.12",
-    "sake-version": "0.1.18",
+    "sake-version": "0.1.19",
     "stylus": "0.54.5"
   }
 }
