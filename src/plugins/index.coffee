@@ -9,15 +9,14 @@ import nodeResolve  from 'rollup-plugin-node-resolve-magic'
 import sizes        from 'rollup-plugin-sizes'
 import sourcemaps   from 'rollup-plugin-sourcemaps'
 
-import annotate    from './plugins/annotate'
-import builtins    from './plugins/builtins'
-import filesize    from './plugins/filesize'
-import globals     from './plugins/globals'
-import minify      from './plugins/minify'
-import shebang     from './plugins/shebang'
-
-import autoCompilers from './compilers'
-import log           from './log'
+import autoCompilers from '../compilers'
+import log           from '../log'
+import annotate      from './annotate'
+import builtins      from './builtins'
+import filesize      from './filesize'
+import globals       from './globals'
+import minify        from './minify'
+import shebang       from './shebang'
 
 
 resolveId = (id, opts = {}) ->
