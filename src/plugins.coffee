@@ -95,8 +95,8 @@ export autoPlugins = (opts) ->
       functions: ['console.log', 'assert.*', 'debug', 'alert']
       sourceMap: opts.sourceMap
 
-  if opts.minify
-    plugins.push minify()
+  if opts.minify? and not opts.minify == false
+    plugins.push minify Object.assign {}, (sourceMap: opts.sourceMap), opts.minify
 
   # Extra logging + details
   unless opts.quiet
