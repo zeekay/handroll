@@ -3,19 +3,16 @@ export default (opts = {}) ->
 
   name: 'minify'
   transformBundle: (code, plugins, sourceMapChain, options) ->
-    if opts.sourceMap
-      mapPath = opts.sourceMapPath ? opts.dest + '.map'
-    else
-      mapPath = null
-
-
-    result = minify code, fromString: true, outSourceMap: mapPath, outFileName: opts.dest
-
-    # Strip sourcemaps comment and extra \n
-    if result.map
-        commentPos  = result.code.lastIndexOf '//#'
-        result.code = result.code.slice(0, commentPos).trim()
-    else
-      result.map = mappings: ''
+    result = minify code,
+      compress:    opts.compress   ? {}
+      ie8:         opts.ie8        ? false
+      keep_fnames: opts.keepFnames ? opts.keep_fnames ? false
+      mangle:      opts.mangle     ? {}
+      output:      opts.output     ? {}
+      parse:       opts.parse      ? {}
+      sourceMap:   opts.sourceMap  ? false
+      toplevel:    opts.toplevel   ? false
+      warnings:    opts.warnings   ? false
+      wrap:        opts.wrap       ? false
 
     result

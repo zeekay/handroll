@@ -92,9 +92,9 @@ while opt = args.shift()
     when '--browser'
       opts.browser = true
 
-    when '--source-map'
+    when '--source-map', '--sourceMap'
       opts.sourceMap = true
-    when '--no-source-map'
+    when '--no-source-map', '--no-sourceMap'
       opts.sourceMap = false
 
     when '--minify'
