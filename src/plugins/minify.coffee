@@ -1,9 +1,5 @@
 export default (opts = {}) ->
-
-  try
-    { minify } = require 'uglify-js'
-  catch err
-    return name: 'minify (disabled)'
+  { minify } = require 'uglify-es'
 
   name: 'minify'
   transformBundle: (code, plugins, sourceMapChain, options) ->
@@ -11,6 +7,7 @@ export default (opts = {}) ->
       mapPath = opts.sourceMapPath ? opts.dest + '.map'
     else
       mapPath = null
+
 
     result = minify code, fromString: true, outSourceMap: mapPath, outFileName: opts.dest
 
