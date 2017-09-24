@@ -22,14 +22,14 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
 
   # CommonJS bootstrap lib
   bundle = yield rollup.rollup
-    entry:     'src/index.coffee'
+    input:     'src/index.coffee'
     acorn:     allowReserved: true
     external:  external
     plugins:   plugins
-    sourceMap: true
+    sourcemap: true
 
   yield bundle.write
-    dest:      'lib/bootstrap.js'
+    file:      'lib/bootstrap.js'
     format:    'cjs'
     sourceMap: true
 

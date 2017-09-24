@@ -16,11 +16,11 @@ usage = ->
   handroll #{pkg.version}
 
   Usage:
-    handroll <entry> [options]
+    handroll <input > [options]
 
   Options:
+    --output, -o   Destination to write output
     --commonjs     Enable CommonJS support
-    --dest,   -o   Destination to write output
     --format, -f   Format to output
     --formats      Comma separated list of formats to output
     --es           ES module format
@@ -41,13 +41,13 @@ usage = ->
   process.exit 0
 
 opts =
-  entry:      null
+  input:      null
   formats:    []
 
   external:   null
   browser:    false
   commonjs:   false
-  dest:       ''
+  output:     ''
   moduleName: null
   sourceMap:  true
   minify:     false
@@ -59,8 +59,8 @@ while opt = args.shift()
     when '--commonjs'
       opts.commonjs = true
 
-    when '--dest', '--out', '-o'
-      opts.dest = args.shift()
+    when '--output', '--out', '-o'
+      opts.output = args.shift()
 
     when '--format', '--formats', '-f'
       for fmt in args.shift().split ','
@@ -106,14 +106,14 @@ while opt = args.shift()
       if /^-/.test opt
         error "Unrecognized option: '#{opt}'"
       else
-        opts.entry = opt
+        opts.input = opt
 
-unless opts.entry?
+unless opts.input?
   usage()
 
 handroll.bundle
+  input:      opts.input
   commonjs:   opts.commonjs
-  entry:      opts.entry
   format:     opts.format
   formats:    opts.formats
   minify:     opts.minify
@@ -123,11 +123,11 @@ handroll.bundle
   unless opts.formats.length > 0
     return bundle.write
       format: 'es'
-      dest:   opts.dest
+      output: opts.output
 
   for fmt in opts.formats
     bundle.write
       format: fmt
-      dest:   opts.dest
+      output: opts.output
 .catch (err) ->
   console.log err.stack

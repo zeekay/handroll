@@ -15,4 +15,4 @@ export default (opts = {}) ->
   ongenerate: (bundle, result) ->
     size = fileSize Buffer.byteLength result.code, opts.format
     gzipSize = fileSize gzip.sync(result.code), opts.format
-    console.log render bundle.dest, size, gzipSize
+    console.log render bundle.file, size, gzipSize
