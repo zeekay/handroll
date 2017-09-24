@@ -54,55 +54,55 @@ export formatOpts = (opts) ->
 
 # Various pre-configurations we support
 export app = (opts) ->
-  dest = opts.dest ? opts.pkg?.app ? opts.pkg?.main
+  output = opts.output ? opts.pkg?.app ? opts.pkg?.main
 
-  stat = fs.statSync dest
+  stat = fs.statSync output
 
   if stat.isDirectory()
-    dest = path.join dest, 'app.js'
+    output = path.join output, 'app.js'
 
-  dest:      dest
+  file:      output
   format:    'iife'
-  sourceMap: opts.sourceMap
+  sourcemap: opts.sourceMap
 
 export es = (opts) ->
-  dest = opts.dest ? opts.pkg?.module ? opts.pkg?['js:next'] ? null
+  output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? null
 
-  dest:      dest
+  file:      output
   format:    'es'
-  sourceMap: opts.sourceMap
+  sourcemap: opts.sourceMap
 
 export cjs = (opts) ->
-  dest = opts.dest ? opts.pkg?.main ? null
+  output = opts.output ? opts.pkg?.main ? null
 
-  dest:       dest
+  file:       output
   format:     'cjs'
-  sourceMap:  opts.sourceMap
+  sourcemap:  opts.sourceMap
 
 export cli = (opts) ->
-  dest = opts.dest ? opts.pkg?.bin ? path.join 'bin/', (moduleName opts.pkg?.name).toLowerCase()
+  output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (moduleName opts.pkg?.name).toLowerCase()
 
   # Sometimes bin is an object, use the first mapping here
-  unless isString dest
-    dest = dest[(Object.keys dest)[0]]
+  unless isString output
+    output = output[(Object.keys output)[0]]
 
-  dest:       dest
-  executable: true
+  file:       output
   format:     'cjs'
-  sourceMap:  opts.sourceMap
+  executable: true
+  sourcemap:  opts.sourceMap
 
 export web = (opts) ->
-  name = opts.moduleName ? moduleName opts.pkg?.name
-  dest = opts.dest       ? "#{name}.js".toLowerCase()
+  name   = opts.moduleName ? moduleName opts.pkg?.name
+  output = opts.output     ? "#{name}.js".toLowerCase()
 
-  dest:       dest
+  file:       output
+  format:     'iife'
   browser:    opts.browser != false
   external:   false
-  format:     'iife'
   moduleName: name
-  sourceMap:  opts.sourceMap
+  sourcemap:  opts.sourceMap
 
 export umd = (opts) ->
-  dest:       opts.dest
+  file:       opts.output
   format:     'umd'
-  sourceMap:  opts.sourceMap
+  sourcemap:  opts.sourceMap

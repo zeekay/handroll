@@ -47,7 +47,7 @@ Usage:
 
 Options:
   --commonjs     Enable CommonJS support
-  --dest,   -o   Destination to write output
+  --output,   -o Destination to write output
   --format, -f   Format to output
   --formats      Comma separated list of formats to output
   --es           ES module format
@@ -99,15 +99,15 @@ const bundle = await handroll.bundle({
   // formats: ['cjs', 'es']
   format: 'es',
 
-  // Use `dest` to specify where a given format should be written. By default
-  // Handroll will infer dest based on your package.json:
+  // Use `output` to specify where a given format should be written. By default
+  // Handroll will infer output based on your package.json:
   //
-  //   format -> default dest
+  //   format -> default output
   //   cjs    -> pkg.main
   //   es     -> pkg.module
   //   cli    -> pkg.bin
   //   web    -> pkg.name + '.js'
-  dest: 'dist/lib.js',
+  output: 'dist/lib.js',
 
   // Use `compilers` to customize plugins used per-filetype.
   //
@@ -184,13 +184,13 @@ const bundle = await handroll.bundle({
 // Write ES module (for use by bundlers)
 await bundle.write({
   format: 'es'
-  // dest: pkg.module
+  // output: pkg.module
 })
 
 // Write CommonJS module (for use by Node.js)
 await bundle.write({
   format: 'cjs'
-  // dest: pkg.main
+  // output: pkg.main
 })
 
 // Write ES module and CommonJS module
@@ -204,7 +204,7 @@ await bundle.write({
   format: 'web',
   // external: false,
   // browser:  true,
-  // dest:     pkg.name + '.js',
+  // output:     pkg.name + '.js',
 })
 
 // Write executable with shebang using new entry module
@@ -213,7 +213,7 @@ await handroll.write({
   format: 'cli',
   // executable: true,
   // external:   true,
-  // dest:       pkg.bin,
+  // output:     pkg.bin,
 })
 
 // Share options across multiple destinations
@@ -231,8 +231,8 @@ await Promise.all([
 ```javascript
 {
   "name":        "mylib",
-  "main":        "lib/mylib.js",  // CommonJS dest
-  "module":      "lib/mylib.mjs", // ES module dest
+  "main":        "lib/mylib.js",  // CommonJS output
+  "module":      "lib/mylib.mjs", // ES module output
   "jsnext:main": "lib/mylib.mjs", // For compatibility with outdated bundlers
 
   // To ensure your generated files are packaged correctly:

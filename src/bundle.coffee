@@ -54,8 +54,8 @@ class Bundle
     cache
 
   rollup: merge (opts) ->
-    unless opts.entry? and opts.entry != ''
-      throw new Error 'No entry module specified'
+    unless opts.input? and opts.input != ''
+      throw new Error 'No input module specified'
 
     banner()
 
@@ -64,7 +64,7 @@ class Bundle
       return Promise.resolve @bundle
 
     opts.autoExternal = opts.autoExternal ? opts.external == true
-    opts.basedir      = opts.basedir      ? path.dirname opts.entry
+    opts.basedir      = opts.basedir      ? path.dirname opts.input
 
     # Detect format and update opts accordingly
     opts.formats = autoFormats opts
@@ -81,12 +81,12 @@ class Bundle
 
     new Promise (resolve, reject) =>
       rollup
-        entry:     opts.entry
+        input:     opts.input
         cache:     @cache opts
         acorn:     opts.acorn
         external:  opts.external
         plugins:   opts.plugins
-        sourceMap: opts.sourceMap
+        sourcemap: opts.sourceMap
         onwarn:    (warning) ->
           return if warning.code == 'UNRESOLVED_IMPORT'
           return opts.onwarn warning if opts.onwarn?
@@ -95,7 +95,7 @@ class Bundle
       .then (bundle) =>
         @bundle = bundle if opts.cacheBundle
         resolve bundle
-        log.white.bold opts.entry
+        log.white.bold opts.input
 
       .catch (err) =>
         if err.loc?.file?

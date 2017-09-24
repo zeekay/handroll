@@ -6,6 +6,7 @@ export merge = (fn) ->
   (opts) ->
     opts = (Object.assign {}, @opts, opts)
     log.verbose !opts.quiet if opts.quiet?
+    opts.input ?= opts.entry # TODO: Get rid of hack
     fn.call @, opts
 
 # Try to guess moduleName (used in export for browser bundles)

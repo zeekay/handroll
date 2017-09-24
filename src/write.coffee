@@ -25,7 +25,7 @@ export writeApp = (opts) ->
     <!DOCTYPE html>
     <html lang="en">
       <body>
-        <script src="#{opts.dest}"></script>
+        <script src="#{opts.output.file}"></script>
       </body>
     </html>
     """
