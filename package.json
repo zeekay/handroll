@@ -67,7 +67,7 @@
   "devDependencies": {
     "coffee-script": "1.12.7",
     "es-object-assign": "^4.1.4",
-    "rollup-plugin-coffee2": "^0.1.12",
+    "rollup-plugin-coffee2": "^0.1.13",
     "rollup-plugin-executable": "^1.1.0",
     "sake-cli": "^0.5.23",
     "sake-outdated": "^0.1.28",
