@@ -65,7 +65,7 @@
     "uglify-es": "^3.2.2"
   },
   "devDependencies": {
-    "coffee-script": "1.12.7",
+    "coffeescript": "^2.1.0",
     "es-object-assign": "^4.1.4",
     "rollup-plugin-coffee2": "^0.1.13",
     "rollup-plugin-executable": "^1.1.0",
