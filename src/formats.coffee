@@ -37,7 +37,7 @@ export detectFormats = (opts) ->
 # Convert our formats to Rollup settings
 export formatOpts = (opts) ->
   # Default to es module
-  opts.format ?= 'es'
+  opts.format ?= 'cjs'
 
   switch opts.format
     when 'app'
