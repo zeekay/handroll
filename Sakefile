@@ -37,11 +37,7 @@ task 'build', 'build project', ['bootstrap'], ->
   handroll = require './lib/bootstrap.js'
   path     = require 'path'
 
-  b = new handroll.Bundle
-    external: true
-    compilers:
-      coffee:
-        version: 1
+  b = new handroll.Bundle external: true
 
   yield b.write
     entry:    'src/index.coffee'
