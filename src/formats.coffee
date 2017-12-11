@@ -3,6 +3,9 @@ import path from 'path'
 
 import {isString, moduleName} from './utils'
 
+nameFromPkg = (opts) ->
+  moduleName opts.pkg?.name
+
 # autoFormat tries to guess the formats required for an operation based on your
 # package.json file. If opts.format is specified, multiple formats will not be
 # considered.
@@ -66,21 +69,21 @@ export app = (opts) ->
   sourcemap: opts.sourceMap
 
 export es = (opts) ->
-  output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? null
+  output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? 'index.mjs'
 
   file:      output
   format:    'es'
   sourcemap: opts.sourceMap
 
 export cjs = (opts) ->
-  output = opts.output ? opts.pkg?.main ? null
+  output = opts.output ? opts.pkg?.main ? 'index.js'
 
   file:       output
   format:     'cjs'
   sourcemap:  opts.sourceMap
 
 export cli = (opts) ->
-  output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (moduleName opts.pkg?.name).toLowerCase()
+  output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (nameFromPkg opts).toLowerCase()
 
   # Sometimes bin is an object, use the first mapping here
   unless isString output
@@ -92,7 +95,7 @@ export cli = (opts) ->
   sourcemap:  opts.sourceMap
 
 export web = (opts) ->
-  name   = opts.moduleName ? moduleName opts.pkg?.name
+  name   = opts.moduleName ? nameFromPkg opts
   output = opts.output     ? "#{name}.js".toLowerCase()
 
   file:       output
