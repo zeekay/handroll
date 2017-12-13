@@ -1,6 +1,6 @@
 {
   "name": "handroll",
-  "version": "0.15.6",
+  "version": "0.15.7",
   "description": "Expertly rolled JavaScript. API + CLI for for bundling opinionated JavaScript with Rollup.js",
   "homepage": "http://github.com/zeekay/handroll",
   "bugs": "http://github.com/zeekay/handroll/issues",
