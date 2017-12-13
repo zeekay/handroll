@@ -28,7 +28,7 @@ usage = ->
     --cli          Executable format
     --web          Web format
     --browser      Bundle for browser
-    --module-name  Name to use for iife module
+    --name         Name to use for IIFE module
     --source-map   Enable source map support
     --external     Modules to consider external
     --executable   Force executable mode
@@ -48,7 +48,7 @@ opts =
   browser:    false
   commonjs:   false
   output:     ''
-  moduleName: null
+  name:       null
   sourceMap:  true
   minify:     false
 
@@ -86,8 +86,8 @@ while opt = args.shift()
     when '--web'
       opts.formats.push 'web'
 
-    when '--module-name'
-      opts.moduleName = args.shift()
+    when '--name', '--module-name'
+      opts.name = args.shift()
 
     when '--browser'
       opts.browser = true
@@ -117,7 +117,7 @@ handroll.bundle
   format:     opts.format
   formats:    opts.formats
   minify:     opts.minify
-  moduleName: opts.moduleName
+  name:       opts.name
   sourceMap:  opts.sourceMap
 .then (bundle) ->
   unless opts.formats.length > 0

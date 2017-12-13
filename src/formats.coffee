@@ -95,14 +95,14 @@ export cli = (opts) ->
   sourcemap:  opts.sourceMap
 
 export web = (opts) ->
-  name   = opts.moduleName ? nameFromPkg opts
-  output = opts.output     ? "#{name}.js".toLowerCase()
+  name   = opts.name   ? nameFromPkg opts
+  output = opts.output ? "#{name}.js".toLowerCase()
 
   file:       output
   format:     'iife'
   browser:    opts.browser != false
   external:   false
-  moduleName: name
+  name:       name
   sourcemap:  opts.sourceMap
 
 export umd = (opts) ->
