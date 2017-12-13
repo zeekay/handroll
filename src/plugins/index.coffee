@@ -41,7 +41,7 @@ export autoPlugins = (opts) ->
   plugins = plugins.concat (opts.use ? [])
 
   # Add extra info above each module in bunlde
-  plugins.push annotate sourceMap: opts.sourceMap
+  plugins.push annotate sourcemap: opts.sourcemap
 
   # Enable legacy
   if opts.legacy?
@@ -75,7 +75,7 @@ export autoPlugins = (opts) ->
   if opts.commonjs
     plugins.push commonjs Object.assign
       extensions: opts.extensions
-      sourceMap:  opts.sourceMap
+      sourcemap:  opts.sourcemap
     , opts.commonjs
 
   # Inject imports
@@ -92,10 +92,10 @@ export autoPlugins = (opts) ->
     plugins.push strip
       debugger:  true
       functions: ['console.log', 'assert.*', 'debug', 'alert']
-      sourceMap: opts.sourceMap
+      sourcemap: opts.sourcemap
 
   if opts.minify? and not opts.minify == false
-    plugins.push minify Object.assign {}, (sourceMap: opts.sourceMap), opts.minify
+    plugins.push minify Object.assign {}, (source ap: opts.sourcemap), opts.minify
 
   # Extra logging + details
   unless opts.quiet

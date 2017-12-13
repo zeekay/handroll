@@ -10,6 +10,6 @@ export default (opts = {}) ->
     result =
       code: ms.toString()
 
-    if opts.sourceMap
+    if opts.sourcemap
       result.map = ms.generateMap hires: true
     result

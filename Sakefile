@@ -31,7 +31,7 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
   yield bundle.write
     file:      'lib/bootstrap.js'
     format:    'cjs'
-    sourceMap: true
+    sourcemap: true
 
 task 'build', 'build project', ['bootstrap'], ->
   handroll = require './lib/bootstrap.js'
@@ -50,7 +50,7 @@ task 'build', 'build project', ['bootstrap'], ->
     entry:      'src/cli.coffee'
     format:     'cli'
     executable: true
-    sourceMap:  false
+    sourcemap:  false
 
 task 'watch', 'watch project and build on changes', ->
   build = (filename) ->

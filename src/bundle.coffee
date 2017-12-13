@@ -29,7 +29,7 @@ class Bundle
     opts.es3        ?= false
     opts.executable ?= false
     opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
-    opts.sourceMap  ?= true
+    opts.sourcemap  ?= true
 
     opts.external   ?= null
     opts.include    ?= []
@@ -86,7 +86,7 @@ class Bundle
         acorn:     opts.acorn
         external:  opts.external
         plugins:   opts.plugins
-        sourcemap: opts.sourceMap
+        sourcemap: opts.sourcemap
         onwarn:    (warning) ->
           return if warning.code == 'UNRESOLVED_IMPORT'
           return opts.onwarn warning if opts.onwarn?

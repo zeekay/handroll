@@ -49,7 +49,7 @@ opts =
   commonjs:   false
   output:     ''
   name:       null
-  sourceMap:  true
+  sourcemap:  true
   minify:     false
 
 args = process.argv.slice 2
@@ -92,10 +92,10 @@ while opt = args.shift()
     when '--browser'
       opts.browser = true
 
-    when '--source-map', '--sourceMap'
-      opts.sourceMap = true
-    when '--no-source-map', '--no-sourceMap'
-      opts.sourceMap = false
+    when '--source-map', '--sourcemap'
+      opts.sourcemap = true
+    when '--no-source-map', '--no-sourcemap'
+      opts.sourcemap = false
 
     when '--minify'
       opts.minify = true
@@ -118,7 +118,7 @@ handroll.bundle
   formats:    opts.formats
   minify:     opts.minify
   name:       opts.name
-  sourceMap:  opts.sourceMap
+  sourcemap:  opts.sourcemap
 .then (bundle) ->
   unless opts.formats.length > 0
     return bundle.write
