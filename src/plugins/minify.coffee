@@ -10,7 +10,7 @@ export default (opts = {}) ->
       mangle:      opts.mangle     ? {}
       output:      opts.output     ? {}
       parse:       opts.parse      ? {}
-      sourceMap:   opts.sourceMap  ? false
+      sourcemap:   opts.sourcemap  ? false
       toplevel:    opts.toplevel   ? false
       warnings:    opts.warnings   ? false
       wrap:        opts.wrap       ? false

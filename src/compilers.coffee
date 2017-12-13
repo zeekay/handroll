@@ -32,12 +32,12 @@ export default (opts) ->
       compileDebug:           false
       inlineRuntimeFunctions: false
       pretty:                 if opts.minify then false else true
-      sourceMap:              opts.sourceMap
+      sourcemap:              opts.sourcemap
       staticPattern:          /\S/
   , opts.compilers?.pug
 
   stylusOpts = Object.assign {},
-    sourceMap: opts.sourceMap
+    sourcemap: opts.sourcemap
     plugins: [
       lostStylus()
       rupture()

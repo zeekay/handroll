@@ -66,21 +66,21 @@ export app = (opts) ->
 
   file:      output
   format:    'iife'
-  sourcemap: opts.sourceMap
+  sourcemap: opts.sourcemap
 
 export es = (opts) ->
   output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? 'index.mjs'
 
   file:      output
   format:    'es'
-  sourcemap: opts.sourceMap
+  sourcemap: opts.sourcemap
 
 export cjs = (opts) ->
   output = opts.output ? opts.pkg?.main ? 'index.js'
 
   file:       output
   format:     'cjs'
-  sourcemap:  opts.sourceMap
+  sourcemap:  opts.sourcemap
 
 export cli = (opts) ->
   output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (nameFromPkg opts).toLowerCase()
@@ -92,7 +92,7 @@ export cli = (opts) ->
   file:       output
   format:     'cjs'
   executable: true
-  sourcemap:  opts.sourceMap
+  sourcemap:  opts.sourcemap
 
 export web = (opts) ->
   name   = opts.name   ? nameFromPkg opts
@@ -103,9 +103,9 @@ export web = (opts) ->
   browser:    opts.browser != false
   external:   false
   name:       name
-  sourcemap:  opts.sourceMap
+  sourcemap:  opts.sourcemap
 
 export umd = (opts) ->
   file:       opts.output
   format:     'umd'
-  sourcemap:  opts.sourceMap
+  sourcemap:  opts.sourcemap

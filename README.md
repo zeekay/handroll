@@ -55,8 +55,8 @@ Options:
   --cli          Executable format
   --web          Web format
   --browser      Bundle for browser
-  --module-name  Name to use for iife module
-  --source-map   Enable source map support
+  --name         Name to use for iife module
+  --sourcemap    Enable source map support
   --minify       Enable minification
 
   --version      Print version information
@@ -167,7 +167,7 @@ const bundle = await handroll.bundle({
   executable: false,  // Include shebang and chmod+x output
   minify:     false,  // Use uglify to minify bundle
   quiet:      false,  // Suppress default output
-  sourceMap:  true ,  // Collect and save source maps
+  sourcemap:  true ,  // Collect and save source maps
   strip:      false,  // Remove debugging and console log statements
 })
 ```

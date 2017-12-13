@@ -16,7 +16,7 @@ class Handroll
   constructor: (opts = {}) ->
     return new Handroll opts unless @ instanceof Handroll
 
-    opts.sourceMap ?= sourceMapOverride() ? true
+    opts.sourcemap ?= sourceMapOverride() ? true
     log.verbose not (opts.quiet ? false)
     @opts = opts
 
