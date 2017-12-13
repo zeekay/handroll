@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "autoprefixer": "^7.2.2",
+    "builtin-modules": "^2.0.0",
     "chalk": "^2.3.0",
     "cssnano": "3.10.0",
     "filesize": "3.5.11",

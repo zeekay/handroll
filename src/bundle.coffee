@@ -1,7 +1,8 @@
-import path     from 'path'
-import {rollup} from 'rollup'
+import path           from 'path'
+import builtinModules from 'builtin-modules'
+import {rollup}       from 'rollup'
 
-import log from './log'
+import log                       from './log'
 import {autoExternal}            from './external'
 import {autoFormats, formatOpts} from './formats'
 import {autoPlugins}             from './plugins'
@@ -88,8 +89,13 @@ class Bundle
         plugins:   opts.plugins
         sourcemap: opts.sourcemap
         onwarn:    (warning) ->
-          return if warning.code == 'UNRESOLVED_IMPORT'
+          # Skip built-in module warnings
+          if warning.code == 'UNRESOLVED_IMPORT'
+            return if ~builtinModules.indexOf warning.source
+
+          # Delegate to onwarn handler
           return opts.onwarn warning if opts.onwarn?
+
           log.warn warning.message
 
       .then (bundle) =>
