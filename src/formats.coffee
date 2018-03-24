@@ -91,7 +91,6 @@ export cli = (opts) ->
 
   file:       output
   format:     'cjs'
-  executable: true
   sourcemap:  opts.sourcemap
 
 export web = (opts) ->
