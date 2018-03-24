@@ -87,7 +87,6 @@ class Bundle
         acorn:     opts.acorn
         external:  opts.external
         plugins:   opts.plugins
-        sourcemap: opts.sourcemap
         onwarn:    (warning) ->
           # Skip built-in module warnings
           if warning.code == 'UNRESOLVED_IMPORT'
