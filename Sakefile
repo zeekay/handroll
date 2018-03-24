@@ -26,7 +26,6 @@ task 'bootstrap', 'Build bootstrapped version of handroll', ->
     acorn:     allowReserved: true
     external:  external
     plugins:   plugins
-    sourcemap: true
 
   yield bundle.write
     file:      'lib/bootstrap.js'
