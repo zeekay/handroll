@@ -40,8 +40,6 @@ export formatOpts = (opts) ->
   opts.format ?= 'cjs'
 
   switch opts.format
-    when 'app'
-      app opts
     when 'cli', 'bin', 'binary', 'executable'
       cli opts
     when 'cjs', 'commonjs', 'node'
@@ -56,18 +54,6 @@ export formatOpts = (opts) ->
       throw new Error 'Unsupported export format'
 
 # Various pre-configurations we support
-export app = (opts) ->
-  output = opts.output ? opts.pkg?.app ? opts.pkg?.main
-
-  stat = fs.statSync output
-
-  if stat.isDirectory()
-    output = path.join output, 'app.js'
-
-  file:      output
-  format:    'iife'
-  sourcemap: opts.sourcemap
-
 export es = (opts) ->
   output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? 'index.mjs'
 
