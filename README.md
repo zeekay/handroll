@@ -196,10 +196,12 @@ await bundle.write({
 // Write ES module and CommonJS module
 await bundle.write({formats: ['cjs', 'es']})
 
-// If 'main' and 'module' are specified in your package.json, formats can be omitted
+// If you specify 'main' and 'module' in your package.json, both ES module and
+// CommonJS formatted bundles will be generated
 await bundle.write()
 
-// Write bundle for web, using browser modules and ensuring no dependencies are excluded
+// Write self-executing bundle for web using browser-friendly modules, ensuring no
+// dependencies are excluded
 await bundle.write({
   format: 'web',
   // external: false,
