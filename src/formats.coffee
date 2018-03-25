@@ -36,30 +36,30 @@ export detectFormats = (opts) ->
 
 # Convert our formats to Rollup settings
 export formatOpts = (opts) ->
-  # Default to es module
+  # Default to commonjs module
   opts.format ?= 'cjs'
 
   switch opts.format
-    when 'cli', 'bin', 'binary', 'executable'
-      cli opts
+    when 'amd'
+      amd opts
     when 'cjs', 'commonjs', 'node'
       cjs opts
-    when 'es',  'module'
+    when 'es',  'module', 'esmodule'
       es opts
+    when 'iife', 'web'
+      iife opts
     when 'umd'
       umd opts
-    when 'web', 'iife'
-      web opts
+    when 'cli', 'bin', 'binary', 'executable'
+      cli opts
     else
       throw new Error 'Unsupported export format'
 
 # Various pre-configurations we support
-export es = (opts) ->
-  output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? 'index.mjs'
-
-  file:      output
-  format:    'es'
-  sourcemap: opts.sourcemap
+export amd = (opts) ->
+  file:       opts.output
+  format:     'amd'
+  sourcemap:  opts.sourcemap
 
 export cjs = (opts) ->
   output = opts.output ? opts.pkg?.main ? 'index.js'
@@ -68,18 +68,14 @@ export cjs = (opts) ->
   format:     'cjs'
   sourcemap:  opts.sourcemap
 
-export cli = (opts) ->
-  output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (nameFromPkg opts).toLowerCase()
+export es = (opts) ->
+  output = opts.output ? opts.pkg?.module ? opts.pkg?['js:next'] ? 'index.mjs'
 
-  # Sometimes bin is an object, use the first mapping here
-  unless isString output
-    output = output[(Object.keys output)[0]]
+  file:      output
+  format:    'es'
+  sourcemap: opts.sourcemap
 
-  file:       output
-  format:     'cjs'
-  sourcemap:  opts.sourcemap
-
-export web = (opts) ->
+export iife = (opts) ->
   name   = opts.name   ? nameFromPkg opts
   output = opts.output ? "#{name}.js".toLowerCase()
 
@@ -93,4 +89,16 @@ export web = (opts) ->
 export umd = (opts) ->
   file:       opts.output
   format:     'umd'
+  sourcemap:  opts.sourcemap
+
+export cli = (opts) ->
+  output = opts.output ? opts.pkg?.bin ? path.join 'bin/', (nameFromPkg opts).toLowerCase()
+
+  # Sometimes bin is an object, use the first mapping here
+  unless isString output
+    output = output[(Object.keys output)[0]]
+
+  executable: true
+  file:       output
+  format:     'cjs'
   sourcemap:  opts.sourcemap
