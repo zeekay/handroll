@@ -4,6 +4,8 @@ import {detectFormats, formatOpts} from './formats'
 
 # Helper to write bundle
 export write = (bundle, opts) ->
+  opts = Object.assign {}, opts
+  delete opts.executable # Don't pass our specialized options to rollup
   bundle.write formatOpts opts
 
 # Helper to write multiple formats
