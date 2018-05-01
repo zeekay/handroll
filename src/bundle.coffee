@@ -29,7 +29,7 @@ class Bundle
     opts.compilers  ?= null
     opts.es3        ?= false
     opts.executable ?= false
-    opts.extensions ?= ['.js', '.coffee', '.pug', '.styl']
+    opts.extensions ?= ['.js', '.json', '.coffee', '.pug', '.styl']
     opts.sourcemap  ?= true
 
     opts.external   ?= null
