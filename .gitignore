@@ -4,4 +4,3 @@ node_modules/
 phantomjsdriver.log
 npm-debug.log
 bin/handroll
-.sake
