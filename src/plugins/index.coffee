@@ -52,10 +52,13 @@ export autoPlugins = (opts) ->
       catch err
     plugins.push legacy opts.legacy
 
-  # Enable node modules in browser
-  if opts.browser or opts.node
-    plugins.push globals()
-    plugins.push builtins()
+  # Enable node globals in browser
+  if opts.globals or opts.browser and opts.globals != false
+      plugins.push globals()
+
+  # Enable node builtins in browser
+  if opts.builtins or opts.browser and opts.builtins != false
+      plugins.push builtins()
 
   # Automatically resolve node modules
   plugins.push nodeResolve
