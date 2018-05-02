@@ -70,9 +70,8 @@ export autoPlugins = (opts) ->
     skip:           opts.skip         ? opts.external
 
   # Slightly more ES3 compatible output
-  if opts.browser or opts.es3
-    unless opts.es3 == false
-      plugins.push es3()
+  if opts.es3 or opts.browser and opts.es3 != false
+    plugins.push es3()
 
   # Enable CommonJS
   if opts.commonjs
@@ -97,7 +96,7 @@ export autoPlugins = (opts) ->
       functions: ['console.log', 'assert.*', 'debug', 'alert']
       sourcemap: opts.sourcemap
 
-  if opts.minify? and not opts.minify == false
+  if opts.minify? and opts.minify != false
     plugins.push minify Object.assign {}, (source ap: opts.sourcemap), opts.minify
 
   # Extra logging + details
