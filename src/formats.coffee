@@ -81,7 +81,7 @@ export iife = (opts) ->
 
   file:       output
   format:     'iife'
-  browser:    opts.browser != false
+  browser:    opts.browser ?= true
   external:   false
   name:       name
   sourcemap:  opts.sourcemap
