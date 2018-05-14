@@ -37,10 +37,10 @@ class Handroll
         .then -> resolve bundle
 
   generate: merge (opts) ->
-    (new Bundle opts).generate()
+    (new Bundle opts).generate opts
 
   write: merge (opts) ->
-    (new Bundle opts).write()
+    (new Bundle opts).write opts
 
 
 export default Handroll
