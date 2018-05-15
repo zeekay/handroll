@@ -100,6 +100,8 @@ while opt = args.shift()
     when '--minify'
       opts.minify = true
 
+    when '--help',    '-u', 'help'
+      usage()
     when '--version', '-v', 'version'
       version()
     else
