@@ -1,4 +1,4 @@
-import builtins from 'rollup-plugin-node-builtins'
+import builtins from '@zeekay/rollup-plugin-node-builtins'
 
 export default (opts = {}) ->
   plugin = builtins opts
