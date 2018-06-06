@@ -32,7 +32,7 @@ export default (opts) ->
       compileDebug:           false
       inlineRuntimeFunctions: false
       pretty:                 if opts.minify then false else true
-      sourcemap:              opts.sourcemap
+      sourceMap:              opts.sourcemap
       staticPattern:          /\S/
   , opts.compilers?.pug
 
