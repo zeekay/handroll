@@ -77,7 +77,7 @@ export autoPlugins = (opts) ->
   if opts.commonjs
     plugins.push commonjs Object.assign
       extensions: opts.extensions
-      sourcemap:  opts.sourcemap
+      sourceMap:  opts.sourcemap
     , opts.commonjs
 
   # Inject imports
