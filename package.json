@@ -15,7 +15,7 @@
   ],
   "bin": "bin/handroll",
   "main": "lib/handroll.js",
-  "module": "lib/handroll.mjs",
+  "module": "lib/handroll.es.js",
   "files": [
     "bin/handroll",
     "lib/",

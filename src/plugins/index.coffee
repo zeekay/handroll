@@ -52,10 +52,6 @@ export autoPlugins = (opts) ->
       catch err
     plugins.push legacy opts.legacy
 
-  # Enable node globals in browser
-  if opts.globals or opts.browser and opts.globals != false
-      plugins.push globals()
-
   # Enable node builtins in browser
   if opts.builtins or opts.browser and opts.builtins != false
       plugins.push builtins()
@@ -68,6 +64,10 @@ export autoPlugins = (opts) ->
     preferBuiltins: opts.preferBuiltins
     external:       opts.autoExternal ? true
     skip:           opts.skip         ? opts.external
+
+  # Enable node globals in browser
+  if opts.globals or opts.browser and opts.globals != false
+      plugins.push globals()
 
   # Slightly more ES3 compatible output
   if opts.es3 or opts.browser and opts.es3 != false
