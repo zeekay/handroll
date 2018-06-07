@@ -74,6 +74,7 @@
     "sake-outdated": "^0.3.0",
     "sake-publish": "^0.1.17",
     "sake-version": "^0.1.19",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "@zeekay/web3": "^0.20.6"
   }
 }
