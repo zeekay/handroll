@@ -1,10 +1,10 @@
 # import buble  from 'rollup-plugin-buble'
-import coffee2      from 'rollup-plugin-coffee2'
+import coffee       from '@zeekay/rollup-plugin-coffee'
+import stylus       from '@zeekay/rollup-plugin-stylus'
 import typescript   from 'rollup-plugin-typescript'
 import json         from 'rollup-plugin-json'
 import pug          from 'rollup-plugin-pug'
 import string       from 'rollup-plugin-string'
-import stylup       from 'rollup-plugin-stylup'
 
 import autoprefixer from 'autoprefixer'
 import cssnano      from 'cssnano'
@@ -50,12 +50,12 @@ export default (opts) ->
     # js:     buble   jsOpts
 
     # Simple string compilers for .css and .html
-    coffee:     coffee2    coffeeOpts
+    coffee:     coffee     coffeeOpts
     css:        string     include: '**/*.css'
     html:       string     include: '**/*.html'
     json:       json       jsonOpts
     pug:        pug        pugOpts
-    stylus:     stylup     stylusOpts
+    stylus:     stylus     stylusOpts
     typescript: typescript typescriptOpts
 
   compilers.css.name        = 'string-css'

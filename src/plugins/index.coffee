@@ -5,18 +5,19 @@ import es3          from 'rollup-plugin-es3'
 import executable   from 'rollup-plugin-executable'
 import inject       from 'rollup-plugin-inject'
 import legacy       from 'rollup-plugin-legacy'
-import nodeResolve  from 'rollup-plugin-node-resolve-magic'
 import sizes        from 'rollup-plugin-sizes'
 import sourcemaps   from 'rollup-plugin-sourcemaps'
+import shebang      from 'rollup-plugin-shebang'
+import nodeResolve  from '@zeekay/rollup-plugin-node-resolve'
 
 import autoCompilers from '../compilers'
 import log           from '../log'
+
 import annotate      from './annotate'
 import builtins      from './builtins'
 import filesize      from './filesize'
 import globals       from './globals'
 import minify        from './minify'
-import shebang       from './shebang'
 
 
 resolveId = (id, opts = {}) ->

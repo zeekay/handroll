@@ -6,16 +6,16 @@ task 'clean', 'clean project', ->
   exec 'rm -rf lib && rm -rf bin/handroll'
 
 task 'bootstrap', 'Build bootstrapped version of handroll', ->
-  rollup      = require 'rollup'
-  coffee2     = require 'rollup-plugin-coffee2'
+  coffee      = require '@zeekay/rollup-plugin-coffee'
+  nodeResolve = require '@zeekay/rollup-plugin-node-resolve'
   json        = require 'rollup-plugin-json'
-  nodeResolve = require 'rollup-plugin-node-resolve-magic'
+  rollup      = require 'rollup'
 
   pkg      = require './package.json'
   external = (Object.keys pkg.dependencies).concat Object.keys pkg.devDependencies
 
   plugins  = [
-    coffee2()
+    coffee()
     json()
     nodeResolve()
   ]
@@ -49,7 +49,6 @@ task 'build', 'build project', ['bootstrap'], ->
     entry:      'src/cli.coffee'
     format:     'cli'
     executable: true
-    sourcemap:  false
 
 task 'watch', 'watch project and build on changes', ->
   build = (filename) ->
