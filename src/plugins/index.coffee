@@ -98,7 +98,7 @@ export autoPlugins = (opts) ->
       sourcemap: opts.sourcemap
 
   if opts.minify? and opts.minify != false
-    plugins.push minify Object.assign {}, (source ap: opts.sourcemap), opts.minify
+    plugins.push minify Object.assign {}, { sourceMap: opts.sourcemap }, opts.minify
 
   # Extra logging + details
   unless opts.quiet
